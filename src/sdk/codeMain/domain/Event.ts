@@ -42,7 +42,7 @@ export class Event extends AbstractGenerate {
         this.config.events.forEach(event => {
             const className = `${this.config.entity}${event.className}DomainEvent`;
             const file = `${this.folder}/${className}.java`;
-            const fileTemplate = `/project/templates/main/domain/event`;
+            const fileTemplate = `main/domain/event`;
             const data = {
                 className,
                 package: this.package,

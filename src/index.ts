@@ -26,32 +26,31 @@ const entityResponse = new EntityResponse(_data);
 
 
 logTemplate(valueObject.template);
-generateFile(valueObject.template);
+generateFile(valueObject.template, "", "");
 
 logTemplate(valueObjectMother.template);
-generateFile(valueObjectMother.template);
+generateFile(valueObjectMother.template, "", "");
 
 logTemplate(events.template);
-generateFile(events.template);
+generateFile(events.template, "", "");
 
 logTemplate(aggregate.template);
-generateFile(aggregate.template);
+generateFile(aggregate.template, "", "");
 
 logTemplate(repository.template);
-generateFile(repository.template);
+generateFile(repository.template, "", "");
 
 logTemplate(dao.template);
-generateFile(dao.template);
+generateFile(dao.template, "", "");
 
 logTemplate(jpaRepository.template);
-generateFile(jpaRepository.template);
+generateFile(jpaRepository.template, "", "");
 
 logTemplate(sqlRepository.template);
-generateFile(sqlRepository.template);
+generateFile(sqlRepository.template, "", "");
 
 logTemplate(entityResponse.template);
-generateFile(entityResponse.template);
-
+generateFile(entityResponse.template, "", "");
 
 
 const commandCreate = new CommnadService(_data, "create", null, "create");
@@ -59,20 +58,20 @@ const commandUpdate = new CommnadService(_data, "update", null, "update");
 const commandDelete = new CommnadService(_data, "delete", ["id"], "delete");
 
 logTemplate(commandCreate.template);
-generateFile(commandCreate.template);
+generateFile(commandCreate.template, "", "");
 
 logTemplate(commandUpdate.template);
-generateFile(commandUpdate.template);
+generateFile(commandUpdate.template, "", "");
 
 logTemplate(commandDelete.template);
-generateFile(commandDelete.template);
+generateFile(commandDelete.template, "", "");
 
 
 const queryFindById = new QueryService(_data, "findById", "entity", ["id"], "findById");
 const querySearchCriteria = new QueryService(_data, "searchCriteria", "list", null, "searchCriteria");
 
 logTemplate(queryFindById.template);
-generateFile(queryFindById.template);
+generateFile(queryFindById.template, "", "");
 
 logTemplate(querySearchCriteria.template);
-generateFile(querySearchCriteria.template);
+generateFile(querySearchCriteria.template, "", "");

@@ -1,7 +1,7 @@
 import "jest";
-import {Event} from "@sdk/codeMain/domain/Event";
+import {Event} from "../../../src/sdk/codeMain/domain/Event";
 import {complete} from "../../config/data/data";
-import {Template} from "@sdk/AbstractGenerate";
+import {Template} from "../../../src/sdk/AbstractGenerate";
 
 let event: Event;
 describe("Event one aggregate", () => {
@@ -10,7 +10,7 @@ describe("Event one aggregate", () => {
     });
 
     test("event folder", () => {
-        expect(event.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain");
+        expect(event.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain");
     });
     test("event package", () => {
         expect(event.package).toEqual("pe.lacafetalab.pao.communication.user.domain");
@@ -25,9 +25,9 @@ describe("Event one aggregate", () => {
     });
 
     test("event template id", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain/UserCreatedDomainEvent.java");
-        expect(templates[0].template).toEqual("/project/templates/main/domain/event");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain/UserCreatedDomainEvent.java");
+        expect(templates[0].template).toEqual("main/domain/event");
         expect(templates[0].dataTemplate).toEqual({
             "className": "UserCreatedDomainEvent",
             "package": "pe.lacafetalab.pao.communication.user.domain",
@@ -44,9 +44,9 @@ describe("Event one aggregate", () => {
 
 /*
 {
-  folder: '/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain',
-  file: '/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain/UserCreatedDomainEvent.java',
-  template: '/project/templates/main/domain/event',
+  folder: 'src/communication/main/pe/lacafetalab/pao/communication/user/domain',
+  file: 'src/communication/main/pe/lacafetalab/pao/communication/user/domain/UserCreatedDomainEvent.java',
+  template: 'main/domain/event',
   dataTemplate: {
     className: 'UserCreatedDomainEvent',
     package: 'pe.lacafetalab.pao.communication.user.domain',

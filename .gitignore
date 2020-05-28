@@ -2,3 +2,15 @@ node_modules
 coverage
 dist
 .idea
+src/lclcli
+lclcli
+lclcli/*
+src/.tem
+src/.tem/*
+src/.tem/
+.tem
+.tem/*
+.tem/
+generatedemo
+generatedemo/
+generatedemo/*

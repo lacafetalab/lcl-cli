@@ -1,7 +1,7 @@
 import "jest";
-import {Template} from "@sdk/AbstractGenerate";
+import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
-import {QueryService} from "@sdk/codeMain/application/QueryService";
+import {QueryService} from "../../../src/sdk/codeMain/application/QueryService";
 
 
 describe("queryService parametos por defecto", () => {
@@ -10,7 +10,7 @@ describe("queryService parametos por defecto", () => {
         queryService = new QueryService(complete(), "findById", "entity");
     });
     test("queryService folder", () => {
-        expect(queryService.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
+        expect(queryService.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
     });
     test("queryService package", () => {
         expect(queryService.package).toEqual("pe.lacafetalab.pao.communication.user.application.find_by_id");
@@ -71,7 +71,7 @@ describe("queryService parametos por defecto, servicio en mayuscula", () => {
         queryService = new QueryService(complete(), "FindById", "entity");
     });
     test("queryService folder", () => {
-        expect(queryService.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
+        expect(queryService.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
     });
     test("queryService package", () => {
         expect(queryService.package).toEqual("pe.lacafetalab.pao.communication.user.application.find_by_id");
@@ -89,9 +89,9 @@ describe("config value obeject one queryService", () => {
 
     });
     test("queryService template service", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id/FindByIdUser.java");
-        expect(templates[0].template).toEqual("/project/templates/main/application/query/service");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id/FindByIdUser.java");
+        expect(templates[0].template).toEqual("main/application/query/service");
         expect(templates[0].dataTemplate).toEqual({
             "className": "FindByIdUser",
             "entityRepositoryClass": "UserRepository",
@@ -113,9 +113,9 @@ describe("config value obeject one queryService", () => {
     });
 
     test("queryService template service query", () => {
-        expect(templates[1].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
-        expect(templates[1].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id/FindByIdUserQuery.java");
-        expect(templates[1].template).toEqual("/project/templates/main/application/query/query");
+        expect(templates[1].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
+        expect(templates[1].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id/FindByIdUserQuery.java");
+        expect(templates[1].template).toEqual("main/application/query/query");
         expect(templates[1].dataTemplate).toEqual({
             "package": "pe.lacafetalab.pao.communication.user.application.find_by_id",
             "className": "FindByIdUserQuery",
@@ -127,9 +127,9 @@ describe("config value obeject one queryService", () => {
     });
 
     test("queryService template service queryHandler", () => {
-        expect(templates[2].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
-        expect(templates[2].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id/FindByIdUserQueryHandler.java");
-        expect(templates[2].template).toEqual("/project/templates/main/application/query/queryHandler");
+        expect(templates[2].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
+        expect(templates[2].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id/FindByIdUserQueryHandler.java");
+        expect(templates[2].template).toEqual("main/application/query/queryHandler");
         expect(templates[2].dataTemplate).toEqual({
             "package": "pe.lacafetalab.pao.communication.user.application.find_by_id",
             "className": "FindByIdUserQueryHandler",

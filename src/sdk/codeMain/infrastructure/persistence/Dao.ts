@@ -36,7 +36,7 @@ export class Dao extends AbstractGenerate {
         const template: Template[] = [];
         const className = `${this.config.entity}Dao`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/infrastructure/persistence/dao`;
+        const fileTemplate = `main/infrastructure/persistence/dao`;
         const voProperties = this.config.valueObjectProperties(this.config.properties)
         const data = {
             className,

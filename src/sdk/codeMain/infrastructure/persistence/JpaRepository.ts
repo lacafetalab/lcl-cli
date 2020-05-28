@@ -22,7 +22,7 @@ export class JpaRepository extends AbstractGenerate {
         const className = `${this.config.entity}JpaRepository`;
         const entityDaoClass = `${this.config.entity}Dao`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/infrastructure/persistence/jpaRepository`;
+        const fileTemplate = `main/infrastructure/persistence/jpaRepository`;
 
         const data = {
             className,

@@ -1,7 +1,7 @@
 import "jest";
-import {Template} from "@sdk/AbstractGenerate";
+import {Template} from "../../../../src/sdk/AbstractGenerate";
 import {complete} from "../../../config/data/data";
-import {SqlRepository} from "@sdk/codeMain/infrastructure/persistence/SqlRepository";
+import {SqlRepository} from "../../../../src/sdk/codeMain/infrastructure/persistence/SqlRepository";
 
 let sqlRepository: SqlRepository;
 describe("config sqlRepository one sqlRepository", () => {
@@ -10,7 +10,7 @@ describe("config sqlRepository one sqlRepository", () => {
     });
 
     test("sqlRepository folder", () => {
-        expect(sqlRepository.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(sqlRepository.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
     });
     test("sqlRepository package", () => {
         expect(sqlRepository.package).toEqual("pe.lacafetalab.pao.communication.user.infrastructure.persistence");
@@ -28,9 +28,9 @@ describe("config sqlRepository one sqlRepository", () => {
 
     });
     test("sqlRepository template id", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserSqlRepository.java");
-        expect(templates[0].template).toEqual("/project/templates/main/infrastructure/persistence/sqlRepository");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserSqlRepository.java");
+        expect(templates[0].template).toEqual("main/infrastructure/persistence/sqlRepository");
         expect(templates[0].dataTemplate).toEqual({
             "className": "UserSqlRepository",
             "package": "pe.lacafetalab.pao.communication.user.infrastructure.persistence",
@@ -45,9 +45,9 @@ describe("config sqlRepository one sqlRepository", () => {
 });
 /*
 {
-  folder: '/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain',
-  file: '/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain/UserRepository.java',
-  template: '/project/templates/main/domain/sqlRepository',
+  folder: 'src/communication/main/pe/lacafetalab/pao/communication/user/domain',
+  file: 'src/communication/main/pe/lacafetalab/pao/communication/user/domain/UserRepository.java',
+  template: 'main/domain/sqlRepository',
   dataTemplate: {
     className: 'UserRepository',
     entityClass: 'User',

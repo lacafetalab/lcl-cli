@@ -1,4 +1,4 @@
-import {Config} from "@sdk/config/Config";
+import {Config} from "../../src/sdk/config/Config";
 import "jest";
 import {complete} from "./data/data"
 
@@ -37,7 +37,7 @@ describe("config base one aggregate", () => {
     });
 
     test("path", () => {
-        expect(config.path).toEqual("/application/src/communication");
+        expect(config.path).toEqual("src/communication");
     });
 
     test("package", () => {

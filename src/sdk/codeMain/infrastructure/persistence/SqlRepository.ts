@@ -21,7 +21,7 @@ export class SqlRepository extends AbstractGenerate {
         const template: Template[] = [];
         const className = `${this.config.entity}SqlRepository`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/infrastructure/persistence/sqlRepository`;
+        const fileTemplate = `main/infrastructure/persistence/sqlRepository`;
         const data = {
             className,
             entityClass: this.config.entityClass,

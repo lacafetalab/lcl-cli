@@ -21,7 +21,7 @@ export class Aggregate extends AbstractGenerate {
         const template: Template[] = [];
         const className = this.config.entity;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/domain/aggregate`;
+        const fileTemplate = `main/domain/aggregate`;
         const voProperties = this.config.valueObjectProperties(this.config.properties)
         const data = {
             className,

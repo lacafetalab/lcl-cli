@@ -25,7 +25,7 @@ export class ValueObject extends AbstractGenerate {
 
             const className = this.config.valueObject(propertie);
             const file = `${this.folder}/${className}.java`;
-            const fileTemplate = `/project/templates/main/domain/vo/${type.type}`;
+            const fileTemplate = `main/domain/vo/${type.type}`;
             const data = {
                 className,
                 package: this.package,

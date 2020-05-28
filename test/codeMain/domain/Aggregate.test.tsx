@@ -1,6 +1,6 @@
 import "jest";
-import {Aggregate} from "@sdk/codeMain/domain/Aggregate";
-import {Template} from "@sdk/AbstractGenerate";
+import {Aggregate} from "../../../src/sdk/codeMain/domain/Aggregate";
+import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
 
 let aggregate: Aggregate;
@@ -10,7 +10,7 @@ describe("config value obeject one aggregate", () => {
     });
 
     test("aggregate folder", () => {
-        expect(aggregate.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain");
+        expect(aggregate.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain");
     });
     test("aggregate package", () => {
         expect(aggregate.package).toEqual("pe.lacafetalab.pao.communication.user.domain");
@@ -28,9 +28,9 @@ describe("config value obeject one aggregate", () => {
 
     });
     test("aggregate template id", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/domain/User.java");
-        expect(templates[0].template).toEqual("/project/templates/main/domain/aggregate");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain/User.java");
+        expect(templates[0].template).toEqual("main/domain/aggregate");
         expect(templates[0].dataTemplate).toEqual({
             "className": "User",
             "voProperties": [

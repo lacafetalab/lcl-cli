@@ -1,18 +1,23 @@
-import {itemsFolder} from "./Util";
-import * as path from "path";
-import {CliDdd} from "./CliDdd";
+#!/usr/bin/env node
 
+import 'module-alias/register';
+import {CliDdd} from "./cli/CliDdd";
+import * as path from "path";
+import {cleantempFolder} from "./Util";
 
 async function main() {
-    const pathFolder = path.join(__dirname, 'config');
-    const files = itemsFolder(pathFolder);
-    const objectCli = new CliDdd();
+    const pathTemplates = path.join(__dirname, '../', '/templates');
+    const relativePath = "./";
+    cleantempFolder(relativePath);
+    const objectCli = new CliDdd(relativePath, pathTemplates);
+
+    const files = await objectCli.itemsFolderConfig();
 
     while (objectCli.loop) {
-        await objectCli.selectFile(files, pathFolder);
+        await objectCli.selectFile(files);
         await objectCli.menu();
     }
-
+    cleantempFolder(relativePath);
 }
 
 main();

@@ -1,7 +1,7 @@
 import "jest";
-import {Template} from "@sdk/AbstractGenerate";
+import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
-import {CommnadService} from "@sdk/codeMain/application/CommandService";
+import {CommnadService} from "../../../src/sdk/codeMain/application/CommandService";
 
 
 describe("commandService parametos por defecto", () => {
@@ -10,7 +10,7 @@ describe("commandService parametos por defecto", () => {
         commandService = new CommnadService(complete(), "create");
     });
     test("commandService folder", () => {
-        expect(commandService.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
+        expect(commandService.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
     });
     test("commandService package", () => {
         expect(commandService.package).toEqual("pe.lacafetalab.pao.communication.user.application.create");
@@ -68,7 +68,7 @@ describe("commandService parametos por defecto, servicio en mayuscula", () => {
         commandService = new CommnadService(complete(), "Create");
     });
     test("commandService folder", () => {
-        expect(commandService.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
+        expect(commandService.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
     });
     test("commandService package", () => {
         expect(commandService.package).toEqual("pe.lacafetalab.pao.communication.user.application.create");
@@ -86,9 +86,9 @@ describe("config value obeject one commandService", () => {
 
     });
     test("commandService template service", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create/CreateUser.java");
-        expect(templates[0].template).toEqual("/project/templates/main/application/command/service");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create/CreateUser.java");
+        expect(templates[0].template).toEqual("main/application/command/service");
         expect(templates[0].dataTemplate).toEqual({
             "className": "CreateUser",
             "entityRepositoryClass": "UserRepository",
@@ -107,9 +107,9 @@ describe("config value obeject one commandService", () => {
     });
 
     test("commandService template service command", () => {
-        expect(templates[1].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
-        expect(templates[1].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create/CreateUserCommand.java");
-        expect(templates[1].template).toEqual("/project/templates/main/application/command/command");
+        expect(templates[1].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
+        expect(templates[1].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create/CreateUserCommand.java");
+        expect(templates[1].template).toEqual("main/application/command/command");
         expect(templates[1].dataTemplate).toEqual({
             "package": "pe.lacafetalab.pao.communication.user.application.create",
             "className": "CreateUserCommand",
@@ -122,9 +122,9 @@ describe("config value obeject one commandService", () => {
     });
 
     test("commandService template service commandHandler", () => {
-        expect(templates[2].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
-        expect(templates[2].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/create/CreateUserCommandHandler.java");
-        expect(templates[2].template).toEqual("/project/templates/main/application/command/commandHandler");
+        expect(templates[2].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create");
+        expect(templates[2].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/create/CreateUserCommandHandler.java");
+        expect(templates[2].template).toEqual("main/application/command/commandHandler");
         expect(templates[2].dataTemplate).toEqual({
             "package": "pe.lacafetalab.pao.communication.user.application.create",
             "className": "CreateUserCommandHandler",

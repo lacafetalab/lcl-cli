@@ -1,7 +1,7 @@
-import {Config} from "@sdk/config/Config";
+import {Config} from "../../src/sdk/config/Config";
 import "jest";
 import {complete} from "./data/data"
-import {ConfigValueObject} from "@sdk/config/ConfigValueObject";
+import {ConfigValueObject} from "../../src/sdk/config/ConfigValueObject";
 
 let config: ConfigValueObject;
 describe("config value obeject one aggregate", () => {

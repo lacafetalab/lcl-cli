@@ -66,7 +66,7 @@ export class QueryService extends AbstractGenerate {
     private getTemplateService(): Template {
         const className = this.prefixClassName;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/query/service`;
+        const fileTemplate = `main/application/query/service`;
         const voProperties = this.config.valueObjectProperties(this._properties);
         const data = {
             className,
@@ -90,7 +90,7 @@ export class QueryService extends AbstractGenerate {
     private getTemplateQuery(): Template {
         const className = `${this.prefixClassName}Query`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/query/query`;
+        const fileTemplate = `main/application/query/query`;
         const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,
@@ -104,7 +104,7 @@ export class QueryService extends AbstractGenerate {
     private getTemplateQueryHandler(): Template {
         const className = `${this.prefixClassName}QueryHandler`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/query/queryHandler`;
+        const fileTemplate = `main/application/query/queryHandler`;
         const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,

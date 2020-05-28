@@ -1,6 +1,6 @@
 import "jest";
-import {JpaRepository} from "@sdk/codeMain/infrastructure/persistence/JpaRepository";
-import {Template} from "@sdk/AbstractGenerate";
+import {JpaRepository} from "../../../../src/sdk/codeMain/infrastructure/persistence/JpaRepository";
+import {Template} from "../../../../src/sdk/AbstractGenerate";
 import {complete} from "../../../config/data/data";
 
 let jpaRepository: JpaRepository;
@@ -10,7 +10,7 @@ describe("config jpaRepository one jpaRepository", () => {
     });
 
     test("jpaRepository folder", () => {
-        expect(jpaRepository.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(jpaRepository.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
     });
     test("jpaRepository package", () => {
         expect(jpaRepository.package).toEqual("pe.lacafetalab.pao.communication.user.infrastructure.persistence");
@@ -28,9 +28,9 @@ describe("config jpaRepository one jpaRepository", () => {
 
     });
     test("jpaRepository template id", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserJpaRepository.java");
-        expect(templates[0].template).toEqual("/project/templates/main/infrastructure/persistence/jpaRepository");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserJpaRepository.java");
+        expect(templates[0].template).toEqual("main/infrastructure/persistence/jpaRepository");
         expect(templates[0].dataTemplate).toEqual({
             "className": "UserJpaRepository",
             "package": "pe.lacafetalab.pao.communication.user.infrastructure.persistence",
@@ -40,9 +40,9 @@ describe("config jpaRepository one jpaRepository", () => {
 });
 /*
 {
-  folder: '/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence',
-  file: '/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserJpaRepository.java',
-  template: '/project/templates/main/infrastructure/persistence/jpaRepository',
+  folder: 'src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence',
+  file: 'src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserJpaRepository.java',
+  template: 'main/infrastructure/persistence/jpaRepository',
   dataTemplate: {
     className: 'UserJpaRepository',
     entityDaoClass: 'UserDao',

@@ -1,0 +1,28 @@
+path: src/user
+package: pe.lacafetalab.pao.auth.user
+name: User
+properties:
+  aggregate:
+    id: id
+    name: string
+    lastname: text
+    description:
+      type: text
+      required: false
+    birthdate: datetime
+message:
+  validate:
+    valueObject:
+      name:
+        required: "El nombre es requerido"
+        valid: "El nombre no es un valor válido"
+      lastname:
+        required: "El apellido es requerido"
+        valid: "El apellido no es un valor válido"
+events:
+  created: comunication.user.created
+repository:
+  pk: id
+  table: users
+  columnName:
+    birthdate: birth_date

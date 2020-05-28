@@ -21,7 +21,7 @@ export class Repository extends AbstractGenerate {
         const template: Template[] = [];
         const className = `${this.config.entity}Repository`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/domain/repository`;
+        const fileTemplate = `main/domain/repository`;
         const data = {
             className,
             entityClass: this.config.entityClass,

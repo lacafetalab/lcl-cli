@@ -48,7 +48,7 @@ export class CommnadService extends AbstractGenerate {
     private getTemplateService(): Template {
         const className = this.prefixClassName;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/command/service`;
+        const fileTemplate = `main/application/command/service`;
         const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,
@@ -68,7 +68,7 @@ export class CommnadService extends AbstractGenerate {
     private getTemplateCommand(): Template {
         const className = `${this.prefixClassName}Command`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/command/command`;
+        const fileTemplate = `main/application/command/command`;
         const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,
@@ -82,7 +82,7 @@ export class CommnadService extends AbstractGenerate {
     private getTemplateCommandHandler(): Template {
         const className = `${this.prefixClassName}CommandHandler`;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/command/commandHandler`;
+        const fileTemplate = `main/application/command/commandHandler`;
         const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,

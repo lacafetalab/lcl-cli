@@ -1,6 +1,6 @@
 import "jest";
-import {Template} from "@sdk/AbstractGenerate";
-import {Dao} from "@sdk/codeMain/infrastructure/persistence/Dao";
+import {Template} from "../../../../src/sdk/AbstractGenerate";
+import {Dao} from "../../../../src/sdk/codeMain/infrastructure/persistence/Dao";
 import {complete} from "../../../config/data/data";
 
 let dao: Dao;
@@ -10,7 +10,7 @@ describe("config value obeject one dao", () => {
     });
 
     test("dao folder", () => {
-        expect(dao.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(dao.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
     });
     test("dao package", () => {
         expect(dao.package).toEqual("pe.lacafetalab.pao.communication.user.infrastructure.persistence");
@@ -28,9 +28,9 @@ describe("config value obeject one dao", () => {
 
     });
     test("dao template id", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserDao.java");
-        expect(templates[0].template).toEqual("/project/templates/main/infrastructure/persistence/dao");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserDao.java");
+        expect(templates[0].template).toEqual("main/infrastructure/persistence/dao");
         expect(templates[0].dataTemplate).toEqual({
             "className": "UserDao",
             "tableName": "users",

@@ -1,6 +1,6 @@
 import "jest";
-import {EntityResponse} from "@sdk/codeMain/application/EntityResponse";
-import {Template} from "@sdk/AbstractGenerate";
+import {EntityResponse} from "../../../src/sdk/codeMain/application/EntityResponse";
+import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
 
 
@@ -11,7 +11,7 @@ describe("config value obeject one entityResponse", () => {
     });
 
     test("entityResponse folder", () => {
-        expect(entityResponse.folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application");
+        expect(entityResponse.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application");
     });
     test("entityResponse package", () => {
         expect(entityResponse.package).toEqual("pe.lacafetalab.pao.communication.user.application");
@@ -30,9 +30,9 @@ describe("config value obeject one entityResponse", () => {
 
     });
     test("entityResponse entity", () => {
-        expect(templates[0].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application");
-        expect(templates[0].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/UserResponse.java");
-        expect(templates[0].template).toEqual("/project/templates/main/application/response");
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/UserResponse.java");
+        expect(templates[0].template).toEqual("main/application/response");
         expect(templates[0].dataTemplate).toEqual({
             "package": "pe.lacafetalab.pao.communication.user.application",
             "className": "UserResponse",
@@ -54,9 +54,9 @@ describe("config value obeject one entityResponse", () => {
     });
 
     test("entityResponse list entity", () => {
-        expect(templates[1].folder).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application");
-        expect(templates[1].file).toEqual("/application/src/communication/main/pe/lacafetalab/pao/communication/user/application/ListUserResponse.java");
-        expect(templates[1].template).toEqual("/project/templates/main/application/listResponse");
+        expect(templates[1].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application");
+        expect(templates[1].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/ListUserResponse.java");
+        expect(templates[1].template).toEqual("main/application/listResponse");
         expect(templates[1].dataTemplate).toEqual({
             "package": "pe.lacafetalab.pao.communication.user.application",
             "className": "ListUserResponse",

@@ -1,6 +1,8 @@
 import "jest";
-import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
-import {ConfigUtil} from "@sdk/config/ConfigUtil";
+
+
+import {ConfigUtil} from "../src/sdk/config/ConfigUtil";
+import {AbstractGenerate, Template} from "../src/sdk/AbstractGenerate";
 
 class GenerateImplement extends AbstractGenerate {
     get template(): Template[] {
@@ -24,10 +26,10 @@ describe("AbstractGenerate str", () => {
     });
 
     test("AbstractGenerate str properties prefix", () => {
-        expect(generateImplement.strProperties(['id', 'name', 'lastname'],"String")).toEqual("String id, String name, String lastname");
+        expect(generateImplement.strProperties(['id', 'name', 'lastname'], "String")).toEqual("String id, String name, String lastname");
     });
     test("AbstractGenerate str one propertie prefix", () => {
-        expect(generateImplement.strProperties(['id'],"String")).toEqual("String id");
+        expect(generateImplement.strProperties(['id'], "String")).toEqual("String id");
     });
 });
 
@@ -67,15 +69,15 @@ describe("AbstractGenerate str vo properties", () => {
         generateImplement = new GenerateImplement();
     });
     test("AbstractGenerate str properties", () => {
-        const voProperties = ConfigUtil.valueObjectProperties(['id', 'name', 'lastname'],"User");
+        const voProperties = ConfigUtil.valueObjectProperties(['id', 'name', 'lastname'], "User");
         expect(generateImplement.strVoProperties(voProperties)).toEqual("UserId id, UserName name, UserLastname lastname");
     });
     test("AbstractGenerate str one propertie", () => {
-        const voProperties = ConfigUtil.valueObjectProperties(['id'],"User");
+        const voProperties = ConfigUtil.valueObjectProperties(['id'], "User");
         expect(generateImplement.strVoProperties(voProperties)).toEqual("UserId id");
     });
     test("AbstractGenerate str one empty", () => {
-        const voProperties = ConfigUtil.valueObjectProperties([],"User");
+        const voProperties = ConfigUtil.valueObjectProperties([], "User");
         expect(generateImplement.strVoProperties(voProperties)).toEqual("");
     });
 

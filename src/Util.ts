@@ -1,9 +1,33 @@
 import {Template} from "@sdk/AbstractGenerate";
+import path from "path";
 
 const fs = require("fs");
 const YAML = require("yaml");
 const ejs = require("ejs");
 
+const Git = require("nodegit");
+const copydir = require('copy-dir');
+const rimraf = require("rimraf");
+
+
+const tempToolFolder = ".tem";
+
+export function cleantempFolder(relativePath: string) {
+    rimraf.sync(path.join(relativePath, tempToolFolder));
+}
+
+export async function downloadConfigFolder(relativePath: string) {
+    console.log("config folder downloading...");
+    cleantempFolder(relativePath);
+    await Git.Clone("https://github.com/lacafetalab/lcl-cli.git", path.join(relativePath, tempToolFolder, 'gitrep'));
+    copydir.sync(path.join(relativePath, tempToolFolder, 'gitrep', 'templates', 'config', 'lclcli'), path.join(relativePath, 'lclcli'), {
+        utimes: true,  // keep add time and modify time
+        mode: true,    // keep file mode
+        cover: true    // cover file when exists, default is true
+    });
+    cleantempFolder(relativePath);
+    console.log("config folder download");
+}
 
 export function itemsFolder(folder: string): string[] {
     const listFile: string[] = [];
@@ -42,35 +66,38 @@ export function logTemplate(templates: Template[], show: boolean = false) {
 
 }
 
-
-export function generateFile(list: Template[]) {
+export function generateFile(list: Template[], relativePath: string, pathTemplates: string) {
     list.forEach((param) => {
-        if (fs.existsSync(param.file)) {
-            console.error(`exist : ${param.file}`);
-            // se copia el archjvo original y se genera un render para luego sacar la comparacion con GIT
-            // copia el archivo original a /compare/....
-            cppyOriginalFileToCompare(param, "/compare")
-            // genera el archivo renderizado en la carpeta /render/....
-            generateRender(param, "/render");
+        const fileGenerate = path.join(relativePath, param.file);
+        if (fs.existsSync(fileGenerate)) {
+            console.error(`exist : ${path.join(relativePath, param.file)}`);
+            // se genera render y copare para hacer un git diff con docker
+            generateRenderAndCompare(param, relativePath, pathTemplates);
         } else {
-            generateRender(param);
+            generateRenderSync(param, relativePath, pathTemplates, true);
         }
     });
 }
 
-function generateRender(param: Template, renderFolder: string = "") {
-    fs.mkdir(`${renderFolder}${param.folder}`, {recursive: true}, (errmk: any) => {
-        if (errmk) throw errmk;
-        ejs.renderFile(param.template, param.dataTemplate, {}, function (errtemp: any, str: any) {
-            if (errtemp) throw errtemp;
-            fs.writeFile(`${renderFolder}${param.file}`, str, (err: any) => {
-                if (err) throw err;
-                if (renderFolder === "") {
-                    console.log(`generated : ${renderFolder}${param.file}`);
-                }
-            });
-        });
-    });
+function generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, showLogGenerate: boolean = false) {
+
+    fs.mkdirSync(path.join(renderFolder, param.folder), {recursive: true});
+    const str = ejs.render(fs.readFileSync(path.join(pathTemplates, param.template), 'utf-8'), param.dataTemplate);
+    fs.writeFileSync(path.join(renderFolder, param.file), str, 'utf-8');
+    if (showLogGenerate) {
+        console.log(`generated : ${path.join(renderFolder, param.file)}`);
+    }
+}
+
+function generateRenderAndCompare(param: Template, relativePath: string, pathTemplates: string,) {
+    const fileGenerate = path.join(relativePath, param.file);
+    // copia el archivo original a la carpeta .tem/diff/compare
+    const pathCompare = path.join(relativePath, tempToolFolder, "diff/compare");
+    fs.mkdirSync(path.join(pathCompare, param.folder), {recursive: true});
+    fs.copyFileSync(fileGenerate, path.join(pathCompare, param.file));
+
+    // genera el archivo renderizado en la carpeta .tem/diff/render
+    generateRenderSync(param, path.join(relativePath, tempToolFolder, "diff/render"), pathTemplates);
 }
 
 function cppyOriginalFileToCompare(param: Template, compareFolder: string) {
@@ -78,6 +105,22 @@ function cppyOriginalFileToCompare(param: Template, compareFolder: string) {
         if (err) throw err;
         fs.copyFile(param.file, `${compareFolder}${param.file}`, (errcp: any) => {
             if (errcp) throw errcp;
+        });
+    });
+}
+
+
+function generateRender(param: Template, renderFolder: string, pathTemplates: string, showLogGenerate: boolean = false) {
+    fs.mkdir(path.join(renderFolder, param.folder), {recursive: true}, (errmk: any) => {
+        if (errmk) throw errmk;
+        ejs.renderFile(path.join(pathTemplates, param.template), param.dataTemplate, {}, function (errtemp: any, str: any) {
+            if (errtemp) throw errtemp;
+            fs.writeFile(path.join(renderFolder, param.file), str, (err: any) => {
+                if (err) throw err;
+                if (showLogGenerate) {
+                    console.log(`generated : ${path.join(renderFolder, param.file)}`);
+                }
+            });
         });
     });
 }

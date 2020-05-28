@@ -25,7 +25,7 @@ export class ValueObjectMother extends AbstractGenerate {
             const classEntity = this.config.valueObject(propertie);
             const className = `${classEntity}Mother`;
             const file = `${this.folder}/${className}.java`;
-            const fileTemplate = `/project/templates/test/domain/vo_mother/${type.type}`;
+            const fileTemplate = `test/domain/vo_mother/${type.type}`;
             const data = {
                 className,
                 package: this.package,

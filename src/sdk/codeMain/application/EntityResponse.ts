@@ -45,7 +45,7 @@ export class EntityResponse extends AbstractGenerate {
     private getTemplateEntity(): Template {
         const className = this.entityResponseClass;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/response`;
+        const fileTemplate = `main/application/response`;
         const voProperties = this.config.valueObjectProperties(this.config.properties)
         const data = {
             className,
@@ -65,7 +65,7 @@ export class EntityResponse extends AbstractGenerate {
     private getListTemplateEntity(): Template {
         const className = this.listEntityResponseClass;
         const file = `${this.folder}/${className}.java`;
-        const fileTemplate = `/project/templates/main/application/listResponse`;
+        const fileTemplate = `main/application/listResponse`;
         const data = {
             className,
             package: this.package,
