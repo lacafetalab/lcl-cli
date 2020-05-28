@@ -1,0 +1,33 @@
+package <%= package %>;
+
+import org.springframework.stereotype.Service;
+import <%= packageDomain %>.*;
+import pe.lacafetalab.pao.shared.domain.bus.event.EventBus;
+import pe.lacafetalab.pao.shared.exceptions.BadRequestException;
+
+@Service
+public final class <%= className %> {
+    private final <%= entityRepositoryClass %> repository;
+    private final EventBus eventBus;
+
+    public <%= className %>(<%= entityRepositoryClass %> repository, EventBus eventBus) {
+        this.repository = repository;
+        this.eventBus = eventBus;
+    }
+
+    public void execute(<%= strVoProperties %>) {
+        <%_ if (serviceTemplate == "create") { _%>
+        <%= entityClass %> <%= entityClassPropertie %> = <%= entityClass %>.create(<%= strProperties %>);
+        repository.save(<%= entityClassPropertie %>);
+        <%_ } _%>
+        <%_ if (serviceTemplate == "update") { _%>
+        <%= entityClass %> <%= entityClassPropertie %> = repository.findById(id).orElseThrow(()-> new BadRequestException("404","<%= entityClass %> not found"));
+        repository.save(<%= entityClassPropertie %>);
+        <%_ } _%>
+        <%_ if (serviceTemplate == "delete") { _%>
+        <%= entityClass %> <%= entityClassPropertie %> = repository.findById(id).orElseThrow(()-> new BadRequestException("404","<%= entityClass %> not found"));
+        repository.deleteById(<%= entityClassPropertie %>.id());
+        <%_ } _%>
+        eventBus.publish(<%= entityClassPropertie %>.pullDomainEvents());
+    }
+}

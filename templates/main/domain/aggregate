@@ -1,0 +1,42 @@
+package <%= package %>;
+
+import pe.lacafetalab.pao.shared.domain.AggregateRoot;
+
+import java.util.Objects;
+
+public final class <%= className %> extends AggregateRoot {
+    <%_ voProperties.forEach(function(voPropertie){ _%>
+    private final <%= voPropertie.className %> <%= voPropertie.propertie %>;
+    <%_ }); _%>
+
+    public <%= className %>(<%= strVoProperties %>) {
+        <%_ voProperties.forEach(function(voPropertie){ _%>
+        this.<%= voPropertie.propertie %> = <%= voPropertie.propertie %>;
+        <%_ }); _%>
+    }
+
+    public static <%= className %> create(<%= strVoProperties %>) {
+        <%= className %> entity = new <%= className %>(<%= strProperties %>);
+        entity.record(new <%= className %>CreatedDomainEvent(<%= strPropertiesToString %>));
+        return entity;
+    }
+    <%_ voProperties.forEach(function(voPropertie){ _%>
+
+    public <%= voPropertie.className %> <%= voPropertie.propertie %>() {
+        return <%= voPropertie.propertie %>;
+    }
+    <%_ }); _%>
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof <%= className %>)) return false;
+        <%= className %> that = (<%= className %>) o;
+        return <%- strPropertiesEquals %>;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(<%= strProperties %>);
+    }
+}

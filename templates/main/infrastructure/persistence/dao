@@ -1,0 +1,53 @@
+package <%= package %>;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import <%= packageDomain %>.*;
+import pe.lacafetalab.pao.shared.infrastructure.dao.GeneralEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
+
+@Getter
+@NoArgsConstructor
+@Entity(name = "<%= entityClass %>")
+@Table(name = "<%= tableName %>")
+public class <%= className %> extends GeneralEntity<<%= entityClass %>> {
+
+    private static final long serialVersionUID = 1L;
+    public static String SEPARATOR = "|";
+    <%_ tableProperties.forEach(function(tablePropertie){ _%>
+
+    <%_ if (tablePropertie.isPk) { _%>
+    @Id
+    <%_ } _%>
+    <%_ if (tablePropertie.type=="id") { _%>
+    @Column(name = "<%= tablePropertie.columnName %>", length = 36)
+    <%_ } _%>
+    <%_ if (tablePropertie.type=="text") { _%>
+    @Column(name = "<%= tablePropertie.columnName %>", columnDefinition = "text")
+    <%_ } _%>
+    <%_ if (tablePropertie.type=="string") { _%>
+    @Column(name = "<%= tablePropertie.columnName %>")
+    <%_ } _%>
+    <%_ if (tablePropertie.type=="datetime") { _%>
+    @Column(name = "<%= tablePropertie.columnName %>")
+    <%_ } _%>
+    private <%= tablePropertie.primitive %> <%= tablePropertie.propertie %>;
+    <%_ }); _%>
+
+    public <%= className %>(<%= entityClass %> entity) {
+        super();
+        <%_ tableProperties.forEach(function(tablePropertie){ _%>
+        this.<%= tablePropertie.propertie %> = entity.<%= tablePropertie.propertie %>().value();
+        <%_ }); _%>
+    }
+
+    @Override
+    public <%= entityClass %> toDomain() {
+        return new <%= entityClass %>(<%= strPropertiesToDomain %>);
+    }
+}

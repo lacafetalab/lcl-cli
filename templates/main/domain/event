@@ -1,0 +1,71 @@
+package <%= package %>;
+
+import pe.lacafetalab.pao.shared.domain.bus.event.DomainEvent;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Objects;
+
+public final class <%= className %> extends DomainEvent {
+    <%_ properties.forEach(function(propertie){ _%>
+    private final String <%= propertie %>;
+    <%_ }); _%>
+
+    public <%= className %>() {
+        super(null);
+        <%_ properties.forEach(function(propertie){ _%>
+        this.<%= propertie %> = null;
+        <%_ }); _%>
+    }
+
+    public <%= className %>(String aggregateId, <%= strStringProperties %>) {
+        super(aggregateId);
+        <%_ properties.forEach(function(propertie){ _%>
+        this.<%= propertie %> = <%= propertie %>;
+        <%_ }); _%>
+    }
+
+    public <%= className %>(String aggregateId, String eventId, String occurredOn, <%= strStringProperties %>) {
+        super(aggregateId, eventId, occurredOn);
+        <%_ properties.forEach(function(propertie){ _%>
+        this.<%= propertie %> = <%= propertie %>;
+        <%_ }); _%>
+    }
+
+    @Override
+    public String eventName() {
+        return "<%= eventName %>";
+    }
+
+    @Override
+    public HashMap<String, Serializable> toPrimitives() {
+        return new HashMap<String, Serializable>() {{
+            <%_ properties.forEach(function(propertie){ _%>
+            put("<%= propertie %>", <%= propertie %>);
+            <%_ }); _%>
+        }};
+    }
+
+    @Override
+    public <%= className %> fromPrimitives(String aggregateId, HashMap<String, Serializable> body, String eventId, String occurredOn) {
+        return new <%= className %>(aggregateId, eventId, occurredOn, <%- strPropertiesMap %>);
+    }
+    <%_ properties.forEach(function(propertie){ _%>
+
+    public String <%= propertie %>() {
+        return <%= propertie %>;
+    }
+    <%_ }); _%>
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof <%= className %>)) return false;
+        <%= className %> that = (<%= className %>) o;
+        return <%- strPropertiesEquals %>;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(<%= strProperties %>);
+    }
+}
