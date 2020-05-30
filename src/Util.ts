@@ -8,7 +8,11 @@ const ejs = require("ejs");
 const Git = require("nodegit");
 const copydir = require('copy-dir');
 const rimraf = require("rimraf");
-const {exec} = require("child_process");
+
+const Diff2html = require('diff2html');
+require('colors');
+const Diff = require('diff');
+const s = require("underscore.string");
 
 
 const tempToolFolder = ".tem";
@@ -91,14 +95,9 @@ function generateRenderSync(param: Template, renderFolder: string, pathTemplates
 }
 
 function generateRenderAndCompare(param: Template, relativePath: string, pathTemplates: string,) {
-    const fileGenerate = path.join(relativePath, param.file);
-    // copia el archivo original a la carpeta .tem/diff/compare
-    const pathCompare = path.join(relativePath, tempToolFolder, "diff/compare");
-    fs.mkdirSync(path.join(pathCompare, param.folder), {recursive: true});
-    fs.copyFileSync(fileGenerate, path.join(pathCompare, param.file));
-
-    // genera el archivo renderizado en la carpeta .tem/diff/render
-    generateRenderSync(param, path.join(relativePath, tempToolFolder, "diff/render"), pathTemplates);
+    const strClass = fs.readFileSync(path.join(relativePath, param.file), 'utf-8');
+    const strRender = ejs.render(fs.readFileSync(path.join(pathTemplates, param.template), 'utf-8'), param.dataTemplate);
+    runDiff(strClass, strRender);
 }
 
 function cppyOriginalFileToCompare(param: Template, compareFolder: string) {
@@ -126,18 +125,37 @@ function generateRender(param: Template, renderFolder: string, pathTemplates: st
     });
 }
 
-export function runDiff(relativePath: string) {
-    exec("docker run hello-world", (error: any, stdout: any, stderr: any) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        cleantempFolder(relativePath);
+function runDiff(one: string, other: string) {
+    const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
+    const diffJson = Diff2html.parse(diff);
+    if (diffJson[0].blocks.length === 0) {
+        return;
+    }
+    let original = "";
+    let render = "";
+    diffJson[0].blocks.forEach((t: any) => {
+        render = render + t.header + "\n\n";
+        original = original + t.header + "\n\n";
+        t.lines.forEach((l: any) => {
+            const content = `${l.content}\n`;
+            if (l.type === "insert") {
+                const addLineInsert = (s.isBlank(s.ltrim(l.content, '+'))) ? content : s.ltrim(content, '+');
+                render = render + addLineInsert;
+            } else {
+                if (l.type === "delete") {
+                    const addLineDelete = (s.isBlank(s.ltrim(l.content, '-'))) ? content : s.ltrim(content, '-');
+                    original = original + addLineDelete;
+                } else {
+                    render = render + content;
+                    original = original + content;
+                }
+            }
+        })
     });
-
+    const diffProcess = Diff.diffChars(original, render);
+    diffProcess.forEach(function (part: any) {
+        const color = part.added ? 'green' :
+            part.removed ? 'red' : 'grey';
+        process.stderr.write(part.value[color]);
+    });
 }

@@ -3,7 +3,7 @@
 import 'module-alias/register';
 import {CliDdd} from "./cli/CliDdd";
 import * as path from "path";
-import {cleantempFolder, runDiff} from "./Util";
+import {cleantempFolder} from "./Util";
 
 
 async function main() {
@@ -18,9 +18,8 @@ async function main() {
         await objectCli.selectFile(files);
         await objectCli.menu();
     }
-    runDiff(relativePath);
-}
 
+}
 main();
 
 
