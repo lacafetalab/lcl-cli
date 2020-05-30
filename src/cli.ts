@@ -3,7 +3,8 @@
 import 'module-alias/register';
 import {CliDdd} from "./cli/CliDdd";
 import * as path from "path";
-import {cleantempFolder} from "./Util";
+import {cleantempFolder, runDiff} from "./Util";
+
 
 async function main() {
     const pathTemplates = path.join(__dirname, '../', '/templates');
@@ -17,8 +18,9 @@ async function main() {
         await objectCli.selectFile(files);
         await objectCli.menu();
     }
-    cleantempFolder(relativePath);
+    runDiff(relativePath);
 }
 
 main();
+
 

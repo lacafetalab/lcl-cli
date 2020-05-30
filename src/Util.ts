@@ -8,6 +8,7 @@ const ejs = require("ejs");
 const Git = require("nodegit");
 const copydir = require('copy-dir');
 const rimraf = require("rimraf");
+const {exec} = require("child_process");
 
 
 const tempToolFolder = ".tem";
@@ -123,4 +124,20 @@ function generateRender(param: Template, renderFolder: string, pathTemplates: st
             });
         });
     });
+}
+
+export function runDiff(relativePath: string) {
+    exec("docker run hello-world", (error: any, stdout: any, stderr: any) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        cleantempFolder(relativePath);
+    });
+
 }
