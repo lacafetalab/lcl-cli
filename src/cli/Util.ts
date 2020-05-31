@@ -18,12 +18,16 @@ const s = require("underscore.string");
 const tempToolFolder = ".tem";
 
 export function cleantempFolder(relativePath: string) {
-    rimraf.sync(path.join(relativePath, tempToolFolder));
+    const pathtemp = path.join(relativePath, tempToolFolder);
+    if (fs.existsSync(pathtemp)) {
+        rimraf.sync(pathtemp);
+    }
 }
 
 export async function downloadConfigFolder(relativePath: string) {
     console.log("config folder downloading...");
     cleantempFolder(relativePath);
+    fs.mkdirSync(path.join(relativePath, tempToolFolder, 'gitrep'), {recursive: true});
     await Git.Clone("https://github.com/lacafetalab/lcl-cli.git", path.join(relativePath, tempToolFolder, 'gitrep'));
     copydir.sync(path.join(relativePath, tempToolFolder, 'gitrep', 'templates', 'config', 'lclcli'), path.join(relativePath, 'lclcli'), {
         utimes: true,  // keep add time and modify time

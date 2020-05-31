@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 import {Config} from "@sdk/config/Config";
-import {downloadConfigFolder, generateFile, itemsFolder, logTemplate, readYaml} from "../Util";
+import {downloadConfigFolder, generateFile, itemsFolder, logTemplate, readYaml} from "./Util";
 import path from "path";
 import {CommnadService} from "@sdk/codeMain/application/CommandService";
 import * as fs from "fs";
