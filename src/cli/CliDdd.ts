@@ -1,6 +1,13 @@
 import * as inquirer from 'inquirer';
 
-import {downloadConfigFolder, generateFile, itemsFolder, logTemplate, readYaml} from "./Util";
+import {
+    downloadConfigFolder,
+    generateFile,
+    generateFileAddRempveProperties,
+    itemsFolder,
+    logTemplate,
+    readYaml
+} from "./Util";
 import path from "path";
 import {CommnadService} from "../sdk/codeMain/application/CommandService";
 import * as fs from "fs";
@@ -327,9 +334,9 @@ export class CliDdd {
         console.log('originalProperties', originalProperties);
         console.log('newProperties', newProperties);
 
-        // const aggregateAllProperties = new Aggregate(this.data);
-        // const aggregateCustomProperties = new Aggregate(this.data);
-        //generateFile(aggregate.template, this._relativePath, this._pathTemplates);
+        const aggregateOriginal = new Aggregate(this.data, originalProperties);
+        const aggregateNew = new Aggregate(this.data, newProperties);
+        generateFileAddRempveProperties(aggregateOriginal.template, aggregateNew.template, this._relativePath, this._pathTemplates);
         //
         // // por defecto se agrega un evento de create al agregate con todas las propiedades
         // const event = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`);

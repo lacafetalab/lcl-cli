@@ -82,6 +82,33 @@ export function logTemplate(templates: Template[], show: boolean = false) {
 
 }
 
+export function generateFileAddRempveProperties(listOriginal: Template[], listNew: Template[], relativePath: string, pathTemplates: string) {
+    listOriginal.forEach((templateOriginal, index) => {
+        const templateNew: Template = listNew[index];
+        if (templateOriginal.file !== templateNew.file) {
+            throw new Error("no es la misma plantilla");
+        }
+        const fileGenerate = path.join(relativePath, templateOriginal.file);
+        if (fs.existsSync(fileGenerate)) {
+            const isEquals = isFileEqualsToOriginal(templateOriginal, fileGenerate, pathTemplates);
+            // si el archivo existente es igual al parametro que se genero por el cli
+            if (isEquals) {
+                // se borra el archivo original y se genera un archivo nuevo con los nuevos cmapos
+                fs.unlinkSync(fileGenerate);
+                generateRenderSync(templateNew, relativePath, pathTemplates, true);
+            } else {
+                renderTwoTemplatesAndCompare(templateOriginal, templateNew, pathTemplates);
+            }
+
+
+        } else {
+            generateRenderSync(templateNew, relativePath, pathTemplates, true);
+        }
+    });
+
+}
+
+
 export function generateFile(list: Template[], relativePath: string, pathTemplates: string) {
     list.forEach((param) => {
         const fileGenerate = path.join(relativePath, param.file);
@@ -105,11 +132,32 @@ function generateRenderSync(param: Template, renderFolder: string, pathTemplates
     }
 }
 
+function renderTwoTemplatesAndCompare(templateOriginal: Template, templateNew: Template, pathTemplates: string,) {
+
+    const strRenderOriginal = ejs.render(fs.readFileSync(path.join(pathTemplates, templateOriginal.template), 'utf-8'), templateOriginal.dataTemplate);
+    const strRenderNew = ejs.render(fs.readFileSync(path.join(pathTemplates, templateNew.template), 'utf-8'), templateNew.dataTemplate);
+    runDiff(strRenderOriginal, strRenderNew);
+}
+
 function generateRenderAndCompare(param: Template, relativePath: string, pathTemplates: string,) {
     const strClass = fs.readFileSync(path.join(relativePath, param.file), 'utf-8');
     const strRender = ejs.render(fs.readFileSync(path.join(pathTemplates, param.template), 'utf-8'), param.dataTemplate);
     runDiff(strClass, strRender);
 }
+
+function isFileEqualsToOriginal(paramOriginal: Template, pathFileOriginal: string, pathTemplates: string,): boolean {
+    const strClass = fs.readFileSync(pathFileOriginal, 'utf-8');
+    const strRender = ejs.render(fs.readFileSync(path.join(pathTemplates, paramOriginal.template), 'utf-8'), paramOriginal.dataTemplate);
+
+    return isEqualsFiles(strClass, strRender);
+}
+
+function isEqualsFiles(one: string, other: string): boolean {
+    const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
+    const diffJson = Diff2html.parse(diff);
+    return diffJson[0].blocks.length === 0;
+}
+
 
 function cppyOriginalFileToCompare(param: Template, compareFolder: string) {
     fs.mkdir(`${compareFolder}${param.folder}`, {recursive: true}, (err: any) => {
@@ -145,8 +193,8 @@ function runDiff(one: string, other: string) {
     diffJson[0].blocks.forEach((t: any) => {
         t.lines.forEach((l: any) => {
             const content = `${l.content}\n`;
-            const color = (l.type === "insert")  ? 'green' :
-                (l.type === "delete")? 'red' : 'grey';
+            const color = (l.type === "insert") ? 'green' :
+                (l.type === "delete") ? 'red' : 'grey';
             // @ts-ignore
             process.stderr.write(content[color]);
         })
