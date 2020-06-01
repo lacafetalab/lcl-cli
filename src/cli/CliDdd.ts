@@ -66,10 +66,7 @@ export class CliDdd {
                 await this.createServiceQuery()
                 break;
             case 'Create Event':
-                const events = new Event(this.data);
-                logTemplate(events.template);
-                generateFile(events.template, this._relativePath, this._pathTemplates);
-                this.exit();
+                await this.createEvent();
                 break;
             case 'Generate Core':
                 await this.generateCore();
@@ -141,6 +138,36 @@ export class CliDdd {
         this.exit();
     }
 
+    private async createEvent() {
+
+        const answersAction = await inquirer.prompt<{ eventAction: string }>([
+            {
+                type: 'input',
+                name: 'eventAction',
+                message: `Nombre del evento, ejm: created, updated, deleted`
+            }
+        ]);
+
+        const answers = await inquirer.prompt<{ eventName: string, properties: string[] }>([
+            {
+                type: 'input',
+                name: 'eventName',
+                message: `Nombre para enviar a los demas ms`,
+                default: `${this._config.entityClassPropertie}.${answersAction.eventAction}`
+            }, {
+                type: 'checkbox',
+                name: 'properties',
+                message: `Properties`,
+                choices: this._config.properties.filter(propertie => propertie !== 'id')
+            }
+        ]);
+
+        const event = new Event(this.data, answersAction.eventAction, answers.eventName, answers.properties);
+        logTemplate(event.template, true);
+        generateFile(event.template, this._relativePath, this._pathTemplates);
+        this.exit();
+    }
+
     private async generateCore() {
 
         const answers = await inquirer.prompt<{ core: string[] }>([
@@ -148,7 +175,7 @@ export class CliDdd {
                 type: 'checkbox',
                 name: 'core',
                 message: `Selecciona que modelos CORE se va a generar`,
-                choices: ['Aggregate', 'ValueObject', 'Events', 'Repository', 'QueryResponse']
+                choices: ['Aggregate', 'ValueObject', 'Repository', 'QueryResponse']
             }
         ]);
 
@@ -156,6 +183,10 @@ export class CliDdd {
             const aggregate = new Aggregate(this.data);
             logTemplate(aggregate.template);
             generateFile(aggregate.template, this._relativePath, this._pathTemplates);
+
+            // por defecto se agrega un evento de create al agregate con todas las propiedades
+            const event = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`);
+            generateFile(event.template, this._relativePath, this._pathTemplates);
         }
         if (answers.core.includes('ValueObject')) {
             const valueObject = new ValueObject(this.data);
@@ -166,11 +197,8 @@ export class CliDdd {
             logTemplate(valueObjectMother.template);
             generateFile(valueObjectMother.template, this._relativePath, this._pathTemplates);
         }
-        if (answers.core.includes('Events')) {
-            const events = new Event(this.data);
-            logTemplate(events.template);
-            generateFile(events.template, this._relativePath, this._pathTemplates);
-        }
+
+
         if (answers.core.includes('Repository')) {
             const repository = new Repository(this.data);
             const dao = new Dao(this.data);
