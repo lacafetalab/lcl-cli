@@ -234,8 +234,7 @@ export class CliDdd {
             this.exit();
             return [];
         }
-        console.log("pathConfig", this.pathConfig);
-        await downloadConfigFolder(this._relativePath);
+        await downloadConfigFolder(this._relativePath, this._pathTemplates);
         return itemsFolder(this.pathConfig);
     }
 

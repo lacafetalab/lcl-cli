@@ -24,18 +24,25 @@ export function cleantempFolder(relativePath: string) {
     }
 }
 
-export async function downloadConfigFolder(relativePath: string) {
-    console.log("config folder downloading...");
-    cleantempFolder(relativePath);
-    fs.mkdirSync(path.join(relativePath, tempToolFolder, 'gitrep'), {recursive: true});
-    await Git.Clone("https://github.com/lacafetalab/lcl-cli.git", path.join(relativePath, tempToolFolder, 'gitrep'));
-    copydir.sync(path.join(relativePath, tempToolFolder, 'gitrep', 'templates', 'config', 'lclcli'), path.join(relativePath, 'lclcli'), {
+async function dowloadrepogit(url: string, folder: string) {
+
+    fs.mkdirSync(folder, {recursive: true});
+    await Git.Clone(url, folder);
+    copydir.sync(path.join(folder, tempToolFolder), path.join(folder, 'lclcli'), {
         utimes: true,  // keep add time and modify time
         mode: true,    // keep file mode
         cover: true    // cover file when exists, default is true
     });
-    cleantempFolder(relativePath);
-    console.log("config folder download");
+}
+
+
+export function downloadConfigFolder(relativePath: string, pathTemplates: string) {
+
+    copydir.sync(path.join(pathTemplates, 'config', 'lclcli'), path.join(relativePath, 'lclcli'), {
+        utimes: true,  // keep add time and modify time
+        mode: true,    // keep file mode
+        cover: true    // cover file when exists, default is true
+    });
 }
 
 export function itemsFolder(folder: string): string[] {
