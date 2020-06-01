@@ -51,9 +51,11 @@ export class CliDdd {
                     'Create Service Query',
                     'Create Event',
                     'Generate Core',
+                    'Add or Remove Propertie',
                     'Select file',
                     'Exit'
-                ]
+                ],
+                pageSize: 8
             }
         ]);
         await this.factoryService(answers.menu);
@@ -72,6 +74,9 @@ export class CliDdd {
                 break;
             case 'Generate Core':
                 await this.generateCore();
+                break;
+            case 'Add or Remove Propertie':
+                await this.addOrRemovePropertie();
                 break;
             case 'Select file':
                 this._pathFile = "";
@@ -94,7 +99,7 @@ export class CliDdd {
                         return 'COMMAND name must be at least 3 letters.';
                     }
                     const regex = /^[a-zA-Z]{2,}$/g;
-                    if(!regex.test(input)){
+                    if (!regex.test(input)) {
                         return "solo carsteres de a la a-z A-Z"
                     }
                     return true;
@@ -131,7 +136,7 @@ export class CliDdd {
                         return 'QUERY name must be at least 3 letters.';
                     }
                     const regex = /^[a-zA-Z]{2,}$/g;
-                    if(!regex.test(input)){
+                    if (!regex.test(input)) {
                         return "solo carsteres de a la a-z A-Z"
                     }
                     return true;
@@ -174,7 +179,7 @@ export class CliDdd {
                         return 'EVENT name must be at least 3 letters.';
                     }
                     const regex = /^[a-zA-Z]{2,}$/g;
-                    if(!regex.test(input)){
+                    if (!regex.test(input)) {
                         return "solo carsteres de a la a-z A-Z"
                     }
                     return true;
@@ -193,7 +198,7 @@ export class CliDdd {
                         return 'Nombre name must be at least 3 letters.';
                     }
                     const regex = /^[a-zA-Z]{1,}[a-zA-Z.]{2,}$/g;
-                    if(!regex.test(input)){
+                    if (!regex.test(input)) {
                         return "solo carsteres de a la a-z A-Z y ."
                     }
                     return true;
@@ -279,6 +284,63 @@ export class CliDdd {
             logTemplate(entityResponse.template);
             generateFile(entityResponse.template, this._relativePath, this._pathTemplates);
         }
+
+        this.exit();
+    }
+
+    private async addOrRemovePropertie() {
+        const answers = await inquirer.prompt<{ type: string, properties: string[] }>([
+            {
+                type: 'list',
+                name: 'type',
+                message: `agregar o quitar propiedades?`,
+                choices: ['Add', 'Remove'],
+                validate(input: any): boolean | string | Promise<boolean | string> {
+                    if ((input === 'Add') || (input === 'Remove')) {
+                        return true;
+                    }
+                    return "selecione una opción";
+                }
+            }, {
+                type: 'checkbox',
+                name: 'properties',
+                message: `Selecione las propiedades a modificar`,
+                choices: this._config.properties,
+                validate(input: string[]): boolean | string | Promise<boolean | string> {
+                    if (input.length === 0) {
+                        return "selecione al menos una propiedad";
+                    }
+                    return true;
+                }
+            }
+        ]);
+        let originalProperties: string[] = [];
+        let newProperties: string[] = [];
+        if (answers.type === 'Add') {
+            originalProperties = this._config.properties.filter(t => !answers.properties.includes(t));
+            newProperties = this._config.properties;
+        } else {
+            originalProperties = this._config.properties;
+            newProperties = this._config.properties.filter(t => !answers.properties.includes(t));
+        }
+
+        console.log('originalProperties', originalProperties);
+        console.log('newProperties', newProperties);
+
+        // const aggregateAllProperties = new Aggregate(this.data);
+        // const aggregateCustomProperties = new Aggregate(this.data);
+        //generateFile(aggregate.template, this._relativePath, this._pathTemplates);
+        //
+        // // por defecto se agrega un evento de create al agregate con todas las propiedades
+        // const event = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`);
+        // generateFile(event.template, this._relativePath, this._pathTemplates);
+        //
+        // const dao = new Dao(this.data);
+        // generateFile(dao.template, this._relativePath, this._pathTemplates);
+        //
+        // const entityResponse = new EntityResponse(this.data);
+        // generateFile(entityResponse.template, this._relativePath, this._pathTemplates);
+
 
         this.exit();
     }
