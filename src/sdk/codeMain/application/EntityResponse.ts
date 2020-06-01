@@ -5,10 +5,12 @@ const s = require("underscore.string");
 
 export class EntityResponse extends AbstractGenerate {
     private config: Config;
+    protected _properties: string[];
 
-    constructor(_data: any) {
+    constructor(_data: any, properties: string[] | null = null,) {
         super();
         this.config = new Config(_data);
+        this._properties = properties ?? this.config.properties;
     }
 
     get folder(): string {
@@ -46,14 +48,14 @@ export class EntityResponse extends AbstractGenerate {
         const className = this.entityResponseClass;
         const file = `${this.folder}/${className}.java`;
         const fileTemplate = `main/application/response`;
-        const voProperties = this.config.valueObjectProperties(this.config.properties)
+        const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,
             package: this.package,
-            strProperties: this.strProperties(this.config.properties),
-            strPropertiesEntityToString: this.strPropertiesEntityToString(this.config.properties, this.config.entityClassPropertie),
-            strStringProperties: this.strProperties(this.config.properties, "String"),
-            strPropertiesEquals: this.strPropertiesEquals(this.config.properties),
+            strProperties: this.strProperties(this._properties),
+            strPropertiesEntityToString: this.strPropertiesEntityToString(this._properties, this.config.entityClassPropertie),
+            strStringProperties: this.strProperties(this._properties, "String"),
+            strPropertiesEquals: this.strPropertiesEquals(this._properties),
             packageDomain: this.config.packageDomain,
             entityClass: this.config.entityClass,
             entityClassPropertie: this.config.entityClassPropertie,

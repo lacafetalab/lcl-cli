@@ -331,22 +331,22 @@ export class CliDdd {
             newProperties = this._config.properties.filter(t => !answers.properties.includes(t));
         }
 
-        console.log('originalProperties', originalProperties);
-        console.log('newProperties', newProperties);
-
         const aggregateOriginal = new Aggregate(this.data, originalProperties);
         const aggregateNew = new Aggregate(this.data, newProperties);
         generateFileAddRempveProperties(aggregateOriginal.template, aggregateNew.template, this._relativePath, this._pathTemplates);
-        //
-        // // por defecto se agrega un evento de create al agregate con todas las propiedades
-        // const event = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`);
-        // generateFile(event.template, this._relativePath, this._pathTemplates);
-        //
-        // const dao = new Dao(this.data);
-        // generateFile(dao.template, this._relativePath, this._pathTemplates);
-        //
-        // const entityResponse = new EntityResponse(this.data);
-        // generateFile(entityResponse.template, this._relativePath, this._pathTemplates);
+
+        // por defecto se agrega un evento de create al agregate con todas las propiedades
+        const eventOriginal = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`, originalProperties);
+        const eventNew = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`, newProperties);
+        generateFileAddRempveProperties(eventOriginal.template, eventNew.template, this._relativePath, this._pathTemplates);
+
+        const daoOriginal = new Dao(this.data, originalProperties);
+        const daoNew = new Dao(this.data, newProperties);
+        generateFileAddRempveProperties(daoOriginal.template, daoNew.template, this._relativePath, this._pathTemplates);
+
+        const entityOriginal = new EntityResponse(this.data, originalProperties);
+        const entityNew = new EntityResponse(this.data, newProperties);
+        generateFileAddRempveProperties(entityOriginal.template, entityNew.template, this._relativePath, this._pathTemplates);
 
 
         this.exit();
