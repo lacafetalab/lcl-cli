@@ -1,9 +1,10 @@
 import {Config} from "../../src/sdk/config/Config";
 import "jest";
-import {complete} from "./data/data"
+import {complete, withoutEvent} from "./data/data"
 
-let config: Config;
+
 describe("config base one aggregate", () => {
+    let config: Config;
     beforeEach(() => {
         config = new Config(complete());
     });
@@ -44,6 +45,10 @@ describe("config base one aggregate", () => {
         expect(config.package).toEqual("pe.lacafetalab.pao.communication.user");
     });
 
+    test("event prefix", () => {
+        expect(config.eventPrefixEntity).toEqual("comunication.user.");
+    });
+
     test("value object", () => {
         expect(config.valueObjectProperties(["id", "name", "lastname", "description", "birthdate"])).toEqual([
             {"className": 'UserId', "propertie": 'id'},
@@ -52,6 +57,19 @@ describe("config base one aggregate", () => {
             {"className": 'UserDescription', "propertie": 'description'},
             {"className": 'UserBirthdate', "propertie": 'birthdate'}
         ]);
+    });
+
+});
+
+
+describe("config base one aggregate", () => {
+    let config: Config;
+    beforeEach(() => {
+        config = new Config(withoutEvent());
+    });
+
+    test("event prefix", () => {
+        expect(config.eventPrefixEntity).toEqual("user.");
     });
 
 });

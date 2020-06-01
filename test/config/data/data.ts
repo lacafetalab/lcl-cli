@@ -9,6 +9,7 @@ export function complete() {
     return YAML.parse(file);
 }
 
+
 export function twoCompletedComfig() {
     const dataOne = YAML.parse(file);
     const dataTwo = YAML.parse(file);
@@ -16,3 +17,13 @@ export function twoCompletedComfig() {
     dataTwo.name = "UserTwo";
     return [dataOne, dataTwo];
 }
+
+
+export function withoutEvent(){
+    // tslint:disable-next-line:no-shadowed-variable
+    const configPath = path.join(__dirname, 'withoutEventUser.yml');
+    // tslint:disable-next-line:no-shadowed-variable
+    const file = fs.readFileSync(configPath, "utf8");
+    return YAML.parse(file);
+}
+

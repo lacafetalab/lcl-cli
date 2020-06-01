@@ -31,6 +31,12 @@ export class Config {
         }
     }
 
+    get eventPrefixEntity(): string {
+        const prefix: string = (this._data.events && this._data.events.namePrefix) ? this._data.events.namePrefix : '';
+        const eventName = `${prefix}.${this.entityClassPropertie}.`
+        return s.ltrim(eventName, '.')
+    }
+
     get entity(): string {
         return s.capitalize(this._data.name);
     }

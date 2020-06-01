@@ -199,7 +199,7 @@ export class CliDdd {
                 type: 'input',
                 name: 'eventName',
                 message: `Nombre para enviar a los demas ms`,
-                default: `${this._config.entityClassPropertie}.${answersAction.eventAction}`,
+                default: `${this._config.eventPrefixEntity}${answersAction.eventAction}`,
                 validate(input: any): boolean | string | Promise<boolean | string> {
                     if (s.trim(input).length < 3) {
                         return 'Nombre name must be at least 3 letters.';
@@ -254,7 +254,7 @@ export class CliDdd {
             generateFile(aggregate.template, this._relativePath, this._pathTemplates);
 
             // por defecto se agrega un evento de create al agregate con todas las propiedades
-            const event = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`);
+            const event = new Event(this.data, 'created', `${this._config.eventPrefixEntity}created`);
             generateFile(event.template, this._relativePath, this._pathTemplates);
         }
         if (answers.core.includes('ValueObject')) {
@@ -336,8 +336,8 @@ export class CliDdd {
         generateFileAddRempveProperties(aggregateOriginal.template, aggregateNew.template, this._relativePath, this._pathTemplates);
 
         // por defecto se agrega un evento de create al agregate con todas las propiedades
-        const eventOriginal = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`, originalProperties);
-        const eventNew = new Event(this.data, 'created', `${this._config.entityClassPropertie}.created`, newProperties);
+        const eventOriginal = new Event(this.data, 'created', `${this._config.eventPrefixEntity}created`, originalProperties);
+        const eventNew = new Event(this.data, 'created', `${this._config.eventPrefixEntity}created`, newProperties);
         generateFileAddRempveProperties(eventOriginal.template, eventNew.template, this._relativePath, this._pathTemplates);
 
         const daoOriginal = new Dao(this.data, originalProperties);

@@ -20,7 +20,7 @@ message:
         required: "El apellido es requerido"
         valid: "El apellido no es un valor válido"
 events:
-  created: comunication.user.created
+  namePrefix: comunication
 repository:
   pk: id
   table: users

@@ -1,6 +1,6 @@
 {
   "name": "@cafeta/cli",
-  "version": "1.0.0-alpha.salay.11",
+  "version": "1.0.0-alpha.salay.12",
   "description": "cli ddd java",
   "main": "./dist/cli.js",
   "bin": {
