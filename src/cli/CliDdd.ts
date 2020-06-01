@@ -16,6 +16,7 @@ import {SqlRepository} from "../sdk/codeMain/infrastructure/persistence/SqlRepos
 import {EntityResponse} from "../sdk/codeMain/application/EntityResponse";
 import {Config} from "../sdk/config/Config";
 
+const s = require("underscore.string");
 
 export class CliDdd {
     // @ts-ignore
@@ -87,12 +88,23 @@ export class CliDdd {
             {
                 type: 'input',
                 name: 'serviceName',
-                message: `Nombre del servicio de applicacion COMMAND`
+                message: `Nombre del servicio de applicacion COMMAND`,
+                validate(input: any): boolean | string | Promise<boolean | string> {
+                    if (s.trim(input).length < 3) {
+                        return 'COMMAND name must be at least 3 letters.';
+                    }
+                    const regex = /^[a-zA-Z]{2,}$/g;
+                    if(!regex.test(input)){
+                        return "solo carsteres de a la a-z A-Z"
+                    }
+                    return true;
+                }
             }, {
                 type: 'checkbox',
                 name: 'properties',
                 message: `Properties`,
-                choices: this._config.properties
+                choices: this._config.properties,
+                default: this._config.properties,
             }, {
                 type: 'list',
                 name: 'templateService',
@@ -113,12 +125,23 @@ export class CliDdd {
             {
                 type: 'input',
                 name: 'serviceName',
-                message: `Nombre del servicio de applicacion QUERY`
+                message: `Nombre del servicio de applicacion QUERY`,
+                validate(input: any): boolean | string | Promise<boolean | string> {
+                    if (s.trim(input).length < 3) {
+                        return 'QUERY name must be at least 3 letters.';
+                    }
+                    const regex = /^[a-zA-Z]{2,}$/g;
+                    if(!regex.test(input)){
+                        return "solo carsteres de a la a-z A-Z"
+                    }
+                    return true;
+                }
             }, {
                 type: 'checkbox',
                 name: 'properties',
                 message: `Properties`,
-                choices: this._config.properties
+                choices: this._config.properties,
+                default: ['id']
             }, {
                 type: 'list',
                 name: 'returnType',
@@ -145,7 +168,17 @@ export class CliDdd {
             {
                 type: 'input',
                 name: 'eventAction',
-                message: `Nombre del evento, ejm: created, updated, deleted`
+                message: 'Nombre del evento, ejm: created, updated, deleted',
+                validate(input: any): boolean | string | Promise<boolean | string> {
+                    if (s.trim(input).length < 3) {
+                        return 'EVENT name must be at least 3 letters.';
+                    }
+                    const regex = /^[a-zA-Z]{2,}$/g;
+                    if(!regex.test(input)){
+                        return "solo carsteres de a la a-z A-Z"
+                    }
+                    return true;
+                }
             }
         ]);
 
@@ -154,17 +187,28 @@ export class CliDdd {
                 type: 'input',
                 name: 'eventName',
                 message: `Nombre para enviar a los demas ms`,
-                default: `${this._config.entityClassPropertie}.${answersAction.eventAction}`
+                default: `${this._config.entityClassPropertie}.${answersAction.eventAction}`,
+                validate(input: any): boolean | string | Promise<boolean | string> {
+                    if (s.trim(input).length < 3) {
+                        return 'Nombre name must be at least 3 letters.';
+                    }
+                    const regex = /^[a-zA-Z]{1,}[a-zA-Z.]{2,}$/g;
+                    if(!regex.test(input)){
+                        return "solo carsteres de a la a-z A-Z y ."
+                    }
+                    return true;
+                }
             }, {
                 type: 'checkbox',
                 name: 'properties',
                 message: `Properties`,
-                choices: this._config.properties.filter(propertie => propertie !== 'id')
+                choices: this._config.properties.filter(propertie => propertie !== 'id'),
+                default: this._config.properties.filter(propertie => propertie !== 'id')
             }
         ]);
 
         const event = new Event(this.data, answersAction.eventAction, answers.eventName, answers.properties);
-        logTemplate(event.template, true);
+        logTemplate(event.template);
         generateFile(event.template, this._relativePath, this._pathTemplates);
         this.exit();
     }
