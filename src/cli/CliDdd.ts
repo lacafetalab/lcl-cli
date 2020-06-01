@@ -202,16 +202,22 @@ export class CliDdd {
         if (this._pathFile !== "") {
             return;
         }
-        const answers = await inquirer.prompt<{ file: string }>([
-            {
-                type: 'list',
-                name: 'file',
-                message: `Selecciona el archivo de configuración`,
-                choices: listFile
-            },
-        ]);
-
-        this._pathFile = path.join(this.pathConfig, answers.file);
+        if (listFile.length === 0) {
+            throw new Error("No existen archivos de configuracion");
+        }
+        if (listFile.length === 1) {
+            this._pathFile = path.join(this.pathConfig, listFile[0]);
+        } else {
+            const answers = await inquirer.prompt<{ file: string }>([
+                {
+                    type: 'list',
+                    name: 'file',
+                    message: `Selecciona el archivo de configuración`,
+                    choices: listFile
+                },
+            ]);
+            this._pathFile = path.join(this.pathConfig, answers.file);
+        }
 
         this._config = new Config(this.data);
     }
