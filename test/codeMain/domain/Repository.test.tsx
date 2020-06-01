@@ -3,8 +3,9 @@ import {Repository} from "../../../src/sdk/codeMain/domain/Repository";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
 
-let repository: Repository;
+
 describe("config repository one repository", () => {
+    let repository: Repository;
     beforeEach(() => {
         repository = new Repository(complete());
     });
@@ -17,8 +18,9 @@ describe("config repository one repository", () => {
     });
 
 });
-let templates: Template[] = [];
+
 describe("config repository one repository", () => {
+    let templates: Template[] = [];
     beforeEach(() => {
         const repositoryb = new Repository(complete());
         templates = repositoryb.template;

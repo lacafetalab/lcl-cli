@@ -1,3 +1,5 @@
+import {Config} from "@sdk/config/Config";
+
 const s = require("underscore.string");
 
 import {ConfigValueObject} from "@sdk/config/ConfigValueObject";
@@ -14,10 +16,12 @@ export interface TablePropertie {
 
 export class Dao extends AbstractGenerate {
     private config: ConfigValueObject;
+    private _properties: string[];
 
-    constructor(_data: any) {
+    constructor(_data: any, properties: string[] | null = null) {
         super();
         this.config = new ConfigValueObject(_data);
+        this._properties = properties ?? this.config.properties
     }
 
     get folder(): string {
@@ -37,7 +41,7 @@ export class Dao extends AbstractGenerate {
         const className = `${this.config.entity}Dao`;
         const file = `${this.folder}/${className}.java`;
         const fileTemplate = `main/infrastructure/persistence/dao`;
-        const voProperties = this.config.valueObjectProperties(this.config.properties)
+        const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,
             tableName: this.config.repository.table,
@@ -45,7 +49,7 @@ export class Dao extends AbstractGenerate {
             entityClass: this.config.entity,
             packageDomain: this.packageDomain,
             strPropertiesToDomain: this.strPropertiesToDomain(voProperties),
-            tableProperties: this.tableProperties(this.config.properties)
+            tableProperties: this.tableProperties(this._properties)
         };
         template.push(new Template(this.folder, file, fileTemplate, data));
         return template;

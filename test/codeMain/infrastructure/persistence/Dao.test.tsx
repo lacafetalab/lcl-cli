@@ -3,8 +3,9 @@ import {Template} from "../../../../src/sdk/AbstractGenerate";
 import {Dao} from "../../../../src/sdk/codeMain/infrastructure/persistence/Dao";
 import {complete} from "../../../config/data/data";
 
-let dao: Dao;
+
 describe("config value obeject one dao", () => {
+    let dao: Dao;
     beforeEach(() => {
         dao = new Dao(complete());
     });
@@ -17,8 +18,9 @@ describe("config value obeject one dao", () => {
     });
 
 });
-let templates: Template[] = [];
+
 describe("config value obeject one dao", () => {
+    let templates: Template[] = [];
     beforeEach(() => {
         const daob = new Dao(complete());
         templates = daob.template;
@@ -73,6 +75,48 @@ describe("config value obeject one dao", () => {
                     type: 'datetime',
                     primitive: 'Date',
                     columnName: 'birth_date'
+                }
+            ]
+        });
+    });
+});
+
+
+describe("config value obeject one dao properties id, name", () => {
+    let templates: Template[] = [];
+    beforeEach(() => {
+        const daob = new Dao(complete(), ['id', 'name']);
+        templates = daob.template;
+    });
+    test("dao template id", () => {
+        expect(templates.length).toEqual(1);
+
+    });
+    test("dao template id", () => {
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/infrastructure/persistence/UserDao.java");
+        expect(templates[0].template).toEqual("main/infrastructure/persistence/dao");
+        expect(templates[0].dataTemplate).toEqual({
+            "className": "UserDao",
+            "tableName": "users",
+            "package": "pe.lacafetalab.pao.communication.user.infrastructure.persistence",
+            "packageDomain": "pe.lacafetalab.pao.communication.user.domain",
+            "entityClass": "User",
+            "strPropertiesToDomain": 'new UserId(this.id), new UserName(this.name)',
+            "tableProperties": [
+                {
+                    propertie: 'id',
+                    isPk: true,
+                    type: 'id',
+                    primitive: 'String',
+                    columnName: 'id'
+                },
+                {
+                    propertie: 'name',
+                    isPk: false,
+                    type: 'string',
+                    primitive: 'String',
+                    columnName: 'name'
                 }
             ]
         });

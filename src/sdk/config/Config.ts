@@ -3,11 +3,6 @@ import {ConfigUtil, ValueObjectPropertie} from "@sdk/config/ConfigUtil";
 
 const s = require("underscore.string");
 
-interface Event {
-    name: string,
-    className: string
-}
-
 interface RepositoryDao {
     pk: string,
     table: string,
@@ -23,17 +18,6 @@ export class Config {
         const data: string[] = [];
         for (const propertie of Object.keys(this._data.properties.aggregate)) {
             data.push(propertie);
-        }
-        return data
-    }
-
-    get events(): Event[] {
-        const data: Event[] = [];
-        for (const eventName of Object.keys(this._data.events)) {
-            data.push({
-                className: s.capitalize(eventName),
-                name: this._data.events[eventName]
-            });
         }
         return data
     }

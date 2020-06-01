@@ -5,10 +5,16 @@ import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
 
 export class Event extends AbstractGenerate {
     private config: Config;
+    private _properties: string[];
+    private _eventAction: string;
+    private _eventName: string;
 
-    constructor(_data: any) {
+    constructor(_data: any, eventAction: string, eventName: string, properties: string[] | null = null) {
         super();
         this.config = new Config(_data);
+        this._eventAction = s.capitalize(eventAction);
+        this._eventName = eventName;
+        this._properties = properties ?? this.config.properties
     }
 
     get folder(): string {
@@ -29,7 +35,7 @@ export class Event extends AbstractGenerate {
 
     private get properties(): string[] {
         const properties: string[] = []
-        this.config.properties.forEach(propertie => {
+        this._properties.forEach(propertie => {
             if (propertie !== 'id') {
                 properties.push(propertie);
             }
@@ -39,22 +45,22 @@ export class Event extends AbstractGenerate {
 
     get template(): Template[] {
         const template: Template[] = [];
-        this.config.events.forEach(event => {
-            const className = `${this.config.entity}${event.className}DomainEvent`;
-            const file = `${this.folder}/${className}.java`;
-            const fileTemplate = `main/domain/event`;
-            const data = {
-                className,
-                package: this.package,
-                eventName: event.name,
-                properties: this.properties,
-                strProperties: this.strProperties(this.properties),
-                strStringProperties: this.strProperties(this.properties, "String"),
-                strPropertiesEquals: this.strPropertiesEquals(this.properties),
-                strPropertiesMap: this.strPropertiesMap(this.properties)
-            };
-            template.push(new Template(this.folder, file, fileTemplate, data));
-        });
+
+        const className = `${this.config.entity}${this._eventAction}DomainEvent`;
+        const file = `${this.folder}/${className}.java`;
+        const fileTemplate = `main/domain/event`;
+        const data = {
+            className,
+            package: this.package,
+            eventName: this._eventName,
+            properties: this.properties,
+            strProperties: this.strProperties(this.properties),
+            strStringProperties: this.strProperties(this.properties, "String"),
+            strPropertiesEquals: this.strPropertiesEquals(this.properties),
+            strPropertiesMap: this.strPropertiesMap(this.properties)
+        };
+        template.push(new Template(this.folder, file, fileTemplate, data));
+
         return template;
     }
 
