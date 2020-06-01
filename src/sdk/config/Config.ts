@@ -1,5 +1,4 @@
-// tslint:disable-next-line:no-var-requires
-import {ConfigUtil, ValueObjectPropertie} from "@sdk/config/ConfigUtil";
+import {ConfigUtil, ValueObjectPropertie} from "./ConfigUtil";
 
 const s = require("underscore.string");
 

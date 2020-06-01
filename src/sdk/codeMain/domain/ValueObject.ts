@@ -1,5 +1,5 @@
-import {ConfigValueObject} from "@sdk/config/ConfigValueObject";
-import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
+import {AbstractGenerate, Template} from "../../AbstractGenerate";
+import {ConfigValueObject} from "../../config/ConfigValueObject";
 
 export class ValueObject extends AbstractGenerate {
     private config: ConfigValueObject;

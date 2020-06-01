@@ -1,7 +1,9 @@
+import {AbstractGenerate, Template} from "../../AbstractGenerate";
+import {Config} from "../../config/Config";
+
 const s = require("underscore.string");
 
-import {Config} from "@sdk/config/Config";
-import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
+
 
 export class Event extends AbstractGenerate {
     private config: Config;

@@ -1,10 +1,8 @@
-import {Config} from "@sdk/config/Config";
+import {AbstractGenerate, Template} from "../../../AbstractGenerate";
+import {ConfigValueObject} from "../../../config/ConfigValueObject";
+import {ValueObjectPropertie} from "../../../config/ConfigUtil";
 
 const s = require("underscore.string");
-
-import {ConfigValueObject} from "@sdk/config/ConfigValueObject";
-import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
-import {ValueObjectPropertie} from "@sdk/config/ConfigUtil";
 
 export interface TablePropertie {
     propertie: string,

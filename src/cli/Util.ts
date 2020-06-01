@@ -1,5 +1,5 @@
-import {Template} from "@sdk/AbstractGenerate";
 import path from "path";
+import {Template} from "../sdk/AbstractGenerate";
 
 const fs = require("fs");
 const YAML = require("yaml");
@@ -137,6 +137,23 @@ function generateRender(param: Template, renderFolder: string, pathTemplates: st
 }
 
 function runDiff(one: string, other: string) {
+    const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
+    const diffJson = Diff2html.parse(diff);
+    if (diffJson[0].blocks.length === 0) {
+        return;
+    }
+    diffJson[0].blocks.forEach((t: any) => {
+        t.lines.forEach((l: any) => {
+            const content = `${l.content}\n`;
+            const color = (l.type === "insert")  ? 'green' :
+                (l.type === "delete")? 'red' : 'grey';
+            // @ts-ignore
+            process.stderr.write(content[color]);
+        })
+    });
+}
+
+function runDiffbug(one: string, other: string) {
     const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
     const diffJson = Diff2html.parse(diff);
     if (diffJson[0].blocks.length === 0) {

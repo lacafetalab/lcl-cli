@@ -1,19 +1,20 @@
 import * as inquirer from 'inquirer';
-import {Config} from "@sdk/config/Config";
+
 import {downloadConfigFolder, generateFile, itemsFolder, logTemplate, readYaml} from "./Util";
 import path from "path";
-import {CommnadService} from "@sdk/codeMain/application/CommandService";
+import {CommnadService} from "../sdk/codeMain/application/CommandService";
 import * as fs from "fs";
-import {QueryService} from "@sdk/codeMain/application/QueryService";
-import {Aggregate} from "@sdk/codeMain/domain/Aggregate";
-import {ValueObject} from "@sdk/codeMain/domain/ValueObject";
-import {ValueObjectMother} from "@sdk/codeTest/domain/ValueObjectMother";
-import {Event} from "@sdk/codeMain/domain/Event";
-import {Repository} from "@sdk/codeMain/domain/Repository";
-import {Dao} from "@sdk/codeMain/infrastructure/persistence/Dao";
-import {JpaRepository} from "@sdk/codeMain/infrastructure/persistence/JpaRepository";
-import {SqlRepository} from "@sdk/codeMain/infrastructure/persistence/SqlRepository";
-import {EntityResponse} from "@sdk/codeMain/application/EntityResponse";
+import {QueryService} from "../sdk/codeMain/application/QueryService";
+import {Aggregate} from "../sdk/codeMain/domain/Aggregate";
+import {ValueObject} from "../sdk/codeMain/domain/ValueObject";
+import {ValueObjectMother} from "../sdk/codeTest/domain/ValueObjectMother";
+import {Event} from "../sdk/codeMain/domain/Event";
+import {Repository} from "../sdk/codeMain/domain/Repository";
+import {Dao} from "../sdk/codeMain/infrastructure/persistence/Dao";
+import {JpaRepository} from "../sdk/codeMain/infrastructure/persistence/JpaRepository";
+import {SqlRepository} from "../sdk/codeMain/infrastructure/persistence/SqlRepository";
+import {EntityResponse} from "../sdk/codeMain/application/EntityResponse";
+import {Config} from "../sdk/config/Config";
 
 
 export class CliDdd {
@@ -169,15 +170,27 @@ export class CliDdd {
     }
 
     private async generateCore() {
-
-        const answers = await inquirer.prompt<{ core: string[] }>([
+        let answers = {core: ['Aggregate', 'ValueObject', 'Repository', 'QueryResponse']};
+        const answersConfirm = await inquirer.prompt<{ generateAll: boolean }>([
             {
-                type: 'checkbox',
-                name: 'core',
-                message: `Selecciona que modelos CORE se va a generar`,
-                choices: ['Aggregate', 'ValueObject', 'Repository', 'QueryResponse']
-            }
+                type: 'confirm',
+                name: 'generateAll',
+                message: `Desea generar todo?`,
+                default: true
+            },
         ]);
+
+        if (!answersConfirm.generateAll) {
+            answers = await inquirer.prompt<{ core: string[] }>([
+                {
+                    type: 'checkbox',
+                    name: 'core',
+                    message: `Selecciona que modelos CORE se va a generar`,
+                    choices: ['Aggregate', 'ValueObject', 'Repository', 'QueryResponse']
+                }
+            ]);
+        }
+
 
         if (answers.core.includes('Aggregate')) {
             const aggregate = new Aggregate(this.data);

@@ -1,5 +1,5 @@
-import {Config} from "@sdk/config/Config";
-import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
+import {AbstractGenerate, Template} from "../../AbstractGenerate";
+import {Config} from "../../config/Config";
 
 export class Aggregate extends AbstractGenerate {
     private config: Config;

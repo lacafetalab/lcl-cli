@@ -1,4 +1,4 @@
-import {ValueObjectPropertie} from "@sdk/config/ConfigUtil";
+import {ValueObjectPropertie} from "./config/ConfigUtil";
 
 const s = require("underscore.string");
 

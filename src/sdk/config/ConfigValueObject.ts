@@ -1,6 +1,7 @@
-import {Config} from "@sdk/config/Config";
 
 // tslint:disable-next-line:no-var-requires
+import {Config} from "./Config";
+
 const s = require("underscore.string");
 
 interface PropertieMessage {

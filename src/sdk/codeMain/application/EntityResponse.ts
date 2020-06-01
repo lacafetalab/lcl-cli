@@ -1,5 +1,5 @@
-import {Config} from "@sdk/config/Config";
-import {AbstractGenerate, Template} from "@sdk/AbstractGenerate";
+import {AbstractGenerate, Template} from "../../AbstractGenerate";
+import {Config} from "../../config/Config";
 
 const s = require("underscore.string");
 

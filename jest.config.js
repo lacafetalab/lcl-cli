@@ -4,10 +4,6 @@ const collectCoverageFrom = [
     "!node_modules/**"
 ];
 
-const moduleNameMapper={
-    '^@sdk/(.*)$': '<rootDir>/src/sdk/$1'
-  };
-
 module.exports = {
     "roots": [
         "<rootDir>/test"
@@ -32,6 +28,5 @@ module.exports = {
             statements: coverageThreshold
         }
     },
-    collectCoverageFrom,
-    moduleNameMapper
+    collectCoverageFrom
 }
