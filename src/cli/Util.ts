@@ -97,7 +97,7 @@ export function generateFileAddRempveProperties(listOriginal: Template[], listNe
                 fs.unlinkSync(fileGenerate);
                 generateRenderSync(templateNew, relativePath, pathTemplates, true);
             } else {
-                renderTwoTemplatesAndCompare(templateOriginal, templateNew, pathTemplates);
+                renderTwoTemplatesAndCompare(templateOriginal, templateNew, relativePath, pathTemplates);
             }
 
 
@@ -132,11 +132,17 @@ function generateRenderSync(param: Template, renderFolder: string, pathTemplates
     }
 }
 
-function renderTwoTemplatesAndCompare(templateOriginal: Template, templateNew: Template, pathTemplates: string,) {
+function renderTwoTemplatesAndCompare(templateOriginal: Template, templateNew: Template, relativePath: string, pathTemplates: string) {
 
     const strRenderOriginal = ejs.render(fs.readFileSync(path.join(pathTemplates, templateOriginal.template), 'utf-8'), templateOriginal.dataTemplate);
     const strRenderNew = ejs.render(fs.readFileSync(path.join(pathTemplates, templateNew.template), 'utf-8'), templateNew.dataTemplate);
     runDiff(strRenderOriginal, strRenderNew);
+
+    const fileGenerate = path.join(relativePath, 'lclcli', 'diff',templateNew.file.replace(/^.*[\\\/]/, ''));
+    if (fs.existsSync(fileGenerate)) {
+            fs.unlinkSync(fileGenerate);
+    }
+    fs.writeFileSync(fileGenerate, strRenderNew, 'utf-8');
 }
 
 function generateRenderAndCompare(param: Template, relativePath: string, pathTemplates: string,) {
