@@ -22,7 +22,6 @@ import {Config} from "../../sdk/config/Config";
 import * as fs from "fs";
 import {Template} from "../../sdk/AbstractGenerate";
 
-
 const s = require("underscore.string");
 
 export class BackEndCli {
@@ -48,8 +47,16 @@ export class BackEndCli {
     }
 
     async menu() {
-        const answers = await inquirer.prompt<{ menu: string }>(questionMenu(this._config.entity));
-        await this.factoryService(answers.menu);
+        const listMenu = [
+            'Create Service Command',
+            'Create Service Query',
+            'Create Event',
+            'Generate Core',
+            'Select file',
+            'Exit'
+        ];
+        const answers = await inquirer.prompt(questionMenu(this._config.entity, listMenu));
+        await this.factoryService(answers.menuSelected);
     }
 
     private async factoryService(service: string) {
@@ -82,7 +89,7 @@ export class BackEndCli {
 
     private async createServiceCommand() {
 
-        const answers = await inquirer.prompt<{ serviceName: string, properties: string[], templateService: string }>(questionCreateServiceCommand(this._config.properties));
+        const answers = await inquirer.prompt(questionCreateServiceCommand(this._config.properties));
         const command = new CommnadService(this.data, answers.serviceName, answers.properties, answers.templateService);
         this.renderTemplate(command.template);
         this.exit();
@@ -90,7 +97,7 @@ export class BackEndCli {
 
     private async createServiceQuery() {
 
-        const answers = await inquirer.prompt<{ serviceName: string, properties: string[], returnType: string, templateService: string }>(questionCreateServiceQuery(this._config.properties));
+        const answers = await inquirer.prompt(questionCreateServiceQuery(this._config.properties));
         const query = new QueryService(this.data, answers.serviceName, answers.returnType, answers.properties, answers.templateService);
         this.renderTemplate(query.template);
         this.exit();
@@ -98,10 +105,10 @@ export class BackEndCli {
 
     private async createEvent() {
 
-        const answersAction = await inquirer.prompt<{ eventAction: string }>(questionCreateEventPart1());
+        const answersAction = await inquirer.prompt(questionCreateEventPart1());
 
 
-        const answers = await inquirer.prompt<{ eventName: string, properties: string[] }>(questionCreateEventPart2(answersAction.eventAction, this._config.entityClassPropertie, this._config.properties));
+        const answers = await inquirer.prompt(questionCreateEventPart2(answersAction.eventAction, this._config.eventPrefixEntity, this._config.properties));
 
         const event = new EventDdd(this.data, answersAction.eventAction, answers.eventName, answers.properties);
         this.renderTemplate(event.template);
@@ -111,10 +118,10 @@ export class BackEndCli {
     private async generateCore() {
         const listCores = ['Aggregate', 'ValueObject', 'Repository', 'QueryResponse'];
         let answers = {core: listCores};
-        const answersConfirm = await inquirer.prompt<{ generateAll: boolean }>(questionGenerateCorePart1());
+        const answersConfirm = await inquirer.prompt(questionGenerateCorePart1());
 
         if (!answersConfirm.generateAll) {
-            answers = await inquirer.prompt<{ core: string[] }>(questionGenerateCorePart2(listCores));
+            answers = await inquirer.prompt(questionGenerateCorePart2(listCores));
         }
 
 
@@ -164,7 +171,7 @@ export class BackEndCli {
         if (listFile.length === 1) {
             this._pathFile = path.join(this.pathConfig, listFile[0]);
         } else {
-            const answers = await inquirer.prompt<{ file: string }>(questionSelectFile(listFile));
+            const answers = await inquirer.prompt(questionSelectFile(listFile));
             this._pathFile = path.join(this.pathConfig, answers.file);
         }
 
@@ -177,7 +184,7 @@ export class BackEndCli {
             return itemsFolder(this.pathConfig);
         }
 
-        const answers = await inquirer.prompt<{ downloadFolder: boolean }>(questionItemsFolderConfig());
+        const answers = await inquirer.prompt(questionItemsFolderConfig());
         if (!answers.downloadFolder) {
             this.exit();
             return [];

@@ -1,25 +1,21 @@
+import {QuestionCollection} from "inquirer";
+
 const s = require("underscore.string");
 
 
-export function questionMenu(entity: string) {
+export function questionMenu(entity: string, listMenu: string[]): QuestionCollection<{ menuSelected: string }> {
     return [
         {
             type: 'rawlist',
-            name: 'menu',
+            name: 'menuSelected',
             message: `What do you want to do in ${entity}?`,
-            choices: [
-                'Create Service Command',
-                'Create Service Query',
-                'Create Event',
-                'Generate Core',
-                'Select file',
-                'Exit'
-            ]
+            choices: listMenu,
+            pageSize: (listMenu.length + 2)
         }
     ];
 }
 
-export function questionCreateServiceCommand(properties: string[]) {
+export function questionCreateServiceCommand(properties: string[]): QuestionCollection<{ serviceName: string, properties: string[], templateService: string }> {
 
     return [
         {
@@ -52,7 +48,7 @@ export function questionCreateServiceCommand(properties: string[]) {
     ];
 }
 
-export function questionCreateServiceQuery(properties: string[]) {
+export function questionCreateServiceQuery(properties: string[]): QuestionCollection<{ serviceName: string, properties: string[], returnType: string, templateService: string }> {
 
     return [
         {
@@ -91,7 +87,7 @@ export function questionCreateServiceQuery(properties: string[]) {
     ];
 }
 
-export function questionCreateEventPart1() {
+export function questionCreateEventPart1(): QuestionCollection<{ eventAction: string }> {
     return [
         {
             type: 'input',
@@ -111,14 +107,14 @@ export function questionCreateEventPart1() {
     ];
 }
 
-export function questionCreateEventPart2(eventAction: string, entityClassPropertie: string, properties: string[]) {
+export function questionCreateEventPart2(eventAction: string, eventPrefixEntity: string, properties: string[]): QuestionCollection<{ eventName: string, properties: string[] }> {
 
     return [
         {
             type: 'input',
             name: 'eventName',
             message: `Nombre para enviar a los demas ms`,
-            default: `${entityClassPropertie}.${eventAction}`,
+            default: `${eventPrefixEntity}.${eventAction}`,
             validate(input: any): boolean | string | Promise<boolean | string> {
                 if (s.trim(input).length < 3) {
                     return 'Nombre name must be at least 3 letters.';
@@ -139,7 +135,7 @@ export function questionCreateEventPart2(eventAction: string, entityClassPropert
     ];
 }
 
-export function questionGenerateCorePart1() {
+export function questionGenerateCorePart1(): QuestionCollection<{ generateAll: boolean }> {
     return [
         {
             type: 'confirm',
@@ -150,7 +146,7 @@ export function questionGenerateCorePart1() {
     ];
 }
 
-export function questionGenerateCorePart2(listCores: string[]) {
+export function questionGenerateCorePart2(listCores: string[]): QuestionCollection<{ core: string[] }> {
 
     return [
         {
@@ -162,7 +158,7 @@ export function questionGenerateCorePart2(listCores: string[]) {
     ];
 }
 
-export function questionSelectFile(listFile: string[]) {
+export function questionSelectFile(listFile: string[]): QuestionCollection<{ file: string }> {
 
     return [
         {
@@ -176,7 +172,7 @@ export function questionSelectFile(listFile: string[]) {
 
 }
 
-export function questionItemsFolderConfig() {
+export function questionItemsFolderConfig(): QuestionCollection<{ downloadFolder: boolean }> {
     return [
         {
             type: 'confirm',
