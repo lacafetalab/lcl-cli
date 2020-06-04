@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage",
     "build": "rm -rf dist && tsc",
     "start:prod": "node dist/cli.js",
-    "start:dev": "ts-node src/cli.ts",
+    "start:dev": "ts-node src/index.ts",
     "lint": "tslint -c tslint.json 'src/sdk/**/*.ts*'",
     "lint-fix": "tslint -c tslint.json --fix 'src/sdk/**/*.ts*'"
   },
