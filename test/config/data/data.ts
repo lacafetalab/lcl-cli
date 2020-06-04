@@ -8,3 +8,11 @@ const file = fs.readFileSync(configPath, "utf8");
 export function complete() {
     return YAML.parse(file);
 }
+
+export function twoCompletedComfig() {
+    const dataOne = YAML.parse(file);
+    const dataTwo = YAML.parse(file);
+    dataOne.name = "UserOne";
+    dataTwo.name = "UserTwo";
+    return [dataOne, dataTwo];
+}
