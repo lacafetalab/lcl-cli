@@ -1,8 +1,9 @@
-import {generateFile, logTemplate} from "../../Util";
+
 import {Template} from "../../../sdk/AbstractGenerate";
 import {DataManagement} from "../../../sdk/config/DataManagement";
 import {Config} from "../../../sdk/config/Config";
 import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
+import {generateFile, logTemplate} from "../../util/utilgenerator";
 
 
 export abstract class AbstractBackEndGenerator {

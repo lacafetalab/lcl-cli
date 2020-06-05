@@ -2,8 +2,8 @@ import * as inquirer from 'inquirer';
 import * as path from "path";
 import {questionItemsFolderConfig} from "./questions";
 import * as fs from "fs";
-import {readYaml} from "../Util";
 import {DataManagement} from "../../sdk/config/DataManagement";
+import {readYaml} from "../util";
 
 const copydir = require('copy-dir');
 

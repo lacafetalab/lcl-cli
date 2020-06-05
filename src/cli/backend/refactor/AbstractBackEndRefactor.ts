@@ -1,7 +1,8 @@
-import {generateFileAddRempveProperties} from "../../Util";
+
 import {Template} from "../../../sdk/AbstractGenerate";
 import {Config} from "../../../sdk/config/Config";
 import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
+import {generateFileAddRempveProperties} from "../../util/utilrefactor";
 
 
 export abstract class AbstractBackEndRefactor {
@@ -30,7 +31,7 @@ export abstract class AbstractBackEndRefactor {
         }
     }
 
-    protected generateFileAddRemoveProperties(templateOriginal: Template, templateNew: Template,) {
+    protected async generateFileAddRemoveProperties(templateOriginal: Template, templateNew: Template,) {
         generateFileAddRempveProperties(templateOriginal, templateNew, this._params.relativePath, this._params.pathTemplates);
     }
 
