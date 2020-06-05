@@ -22,11 +22,11 @@ export abstract class BackEndAbstractGenerator {
     protected _relativePath: string;
     protected _pathTemplates: string;
 
-    constructor(params: BackEndGeneratorConstructor) {
-        this._dataManagement = params.dataManagement;
-        this._entityCurrent = params.entityCurrent;
-        this._relativePath = params.relativePath;
-        this._pathTemplates = params.pathTemplates;
+    constructor(protected _params: BackEndGeneratorConstructor) {
+        this._dataManagement = _params.dataManagement;
+        this._entityCurrent = _params.entityCurrent;
+        this._relativePath = _params.relativePath;
+        this._pathTemplates = _params.pathTemplates;
     }
 
     protected get data() {

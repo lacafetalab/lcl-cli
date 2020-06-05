@@ -3,7 +3,6 @@ import {questionCreateServiceCommand} from "../questions";
 import {CommnadService} from "../../../sdk/codeMain/application/CommandService";
 import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
 
-const s = require("underscore.string");
 
 export class ServiceCommandGenerator extends BackEndAbstractGenerator {
     constructor(params: BackEndGeneratorConstructor) {

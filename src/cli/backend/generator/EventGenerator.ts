@@ -3,7 +3,6 @@ import {questionCreateEventPart1, questionCreateEventPart2} from "../questions";
 import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
 import {Event as EventDdd} from "../../../sdk/codeMain/domain/Event";
 
-const s = require("underscore.string");
 
 export class EventGenerator extends BackEndAbstractGenerator {
     constructor(params: BackEndGeneratorConstructor) {

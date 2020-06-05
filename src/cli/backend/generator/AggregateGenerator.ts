@@ -1,0 +1,22 @@
+import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {Event as EventDdd} from "../../../sdk/codeMain/domain/Event";
+import {Aggregate} from "../../../sdk/codeMain/domain/Aggregate";
+
+
+export class AggregateGenerator extends BackEndAbstractGenerator {
+    constructor(params: BackEndGeneratorConstructor) {
+        super(params);
+    }
+
+    async generate(): Promise<void> {
+        const aggregate = new Aggregate(this.data);
+        this.renderTemplate(aggregate.template);
+
+        // por defecto se agrega un evento de create al agregate con todas las propiedades
+        const event = new EventDdd(this.data, 'created', `${this.config.entityClassPropertie}.created`);
+        this.renderTemplate(event.template);
+
+    }
+}
+
+

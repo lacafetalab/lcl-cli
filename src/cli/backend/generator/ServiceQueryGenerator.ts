@@ -3,8 +3,6 @@ import {questionCreateServiceQuery} from "../questions";
 import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
 import {QueryService} from "../../../sdk/codeMain/application/QueryService";
 
-const s = require("underscore.string");
-
 export class ServiceQueryGenerator extends BackEndAbstractGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);

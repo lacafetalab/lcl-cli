@@ -2,7 +2,7 @@
 
 
 import * as path from "path";
-import {BackEndMenu} from "./cli/backend/BackEndMenu";
+import {BackEndMenu} from "./cli/backend/menu/BackEndMenu";
 import {BackEndConfigFile} from "./cli/backend/BackEndConfigFile";
 
 

@@ -1,12 +1,12 @@
 import * as inquirer from 'inquirer';
-import {questionMenu, questionSelectFile} from "./questions";
-import {DataManagement} from "../../sdk/config/DataManagement";
-import {ServiceCommandGenerator} from "./generator/ServiceCommandGenerator";
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "./BackEndAbstractGenerator";
-import {ServiceQueryGenerator} from "./generator/ServiceQueryGenerator";
-import {EventGenerator} from "./generator/EventGenerator";
-import {CoreMenuGenerator} from "./generator/CoreMenuGenerator";
-import {AddOrRemoveMenuGenerator} from "./generator/AddOrRemoveMenuGenerator";
+import {questionMenu, questionSelectFile} from "../questions";
+import {DataManagement} from "../../../sdk/config/DataManagement";
+import {ServiceCommandGenerator} from "../generator/ServiceCommandGenerator";
+import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {ServiceQueryGenerator} from "../generator/ServiceQueryGenerator";
+import {EventGenerator} from "../generator/EventGenerator";
+import {CoreMenuGenerator} from "./CoreMenuGenerator";
+import {AddOrRemoveMenuGenerator} from "./AddOrRemoveMenuGenerator";
 
 const s = require("underscore.string");
 
