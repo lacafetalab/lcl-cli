@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 import {questionGenerateCore} from "../questions";
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "../generator/AbstractBackEndGenerator";
 import {Aggregate} from "../../../sdk/codeMain/domain/Aggregate";
 import {ValueObject} from "../../../sdk/codeMain/domain/ValueObject";
 import {Repository} from "../../../sdk/codeMain/domain/Repository";
@@ -9,7 +9,7 @@ import {ValueObjectGenerator} from "../generator/ValueObjectGenerator";
 import {RepositoryGenerator} from "../generator/RepositoryGenerator";
 import {QueryResponseGenerator} from "../generator/QueryResponseGenerator";
 
-export class CoreMenuGenerator extends BackEndAbstractGenerator {
+export class CoreMenuGenerator extends AbstractBackEndGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);
     }

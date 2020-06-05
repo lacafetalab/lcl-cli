@@ -1,11 +1,11 @@
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
 import {Repository} from "../../../sdk/codeMain/domain/Repository";
 import {Dao} from "../../../sdk/codeMain/infrastructure/persistence/Dao";
 import {JpaRepository} from "../../../sdk/codeMain/infrastructure/persistence/JpaRepository";
 import {SqlRepository} from "../../../sdk/codeMain/infrastructure/persistence/SqlRepository";
 
 
-export class RepositoryGenerator extends BackEndAbstractGenerator {
+export class RepositoryGenerator extends AbstractBackEndGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);
     }

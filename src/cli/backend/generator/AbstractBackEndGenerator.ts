@@ -1,10 +1,10 @@
 import * as inquirer from 'inquirer';
-import {generateFile, logTemplate} from "../Util";
-import {Template} from "../../sdk/AbstractGenerate";
-import {DataManagement} from "../../sdk/config/DataManagement";
-import {questionCreateServiceCommand} from "./questions";
-import {CommnadService} from "../../sdk/codeMain/application/CommandService";
-import {Config} from "../../sdk/config/Config";
+import {generateFile, logTemplate} from "../../Util";
+import {Template} from "../../../sdk/AbstractGenerate";
+import {DataManagement} from "../../../sdk/config/DataManagement";
+import {questionCreateServiceCommand} from "../questions";
+import {CommnadService} from "../../../sdk/codeMain/application/CommandService";
+import {Config} from "../../../sdk/config/Config";
 
 
 const s = require("underscore.string");
@@ -16,7 +16,7 @@ export interface BackEndGeneratorConstructor {
     pathTemplates: string;
 }
 
-export abstract class BackEndAbstractGenerator {
+export abstract class AbstractBackEndGenerator {
     protected _dataManagement: DataManagement;
     protected _entityCurrent: string;
     protected _relativePath: string;

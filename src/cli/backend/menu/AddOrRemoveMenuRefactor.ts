@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 import {questionAddOrRemovePropertie} from "../questions";
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "../generator/AbstractBackEndGenerator";
 import {Event} from "../../../sdk/codeMain/domain/Event";
 import {Aggregate} from "../../../sdk/codeMain/domain/Aggregate";
 import {Dao} from "../../../sdk/codeMain/infrastructure/persistence/Dao";
@@ -9,7 +9,7 @@ import {generateFileAddRempveProperties} from "../../Util";
 
 const s = require("underscore.string");
 
-export class AddOrRemoveMenuGenerator extends BackEndAbstractGenerator {
+export class AddOrRemoveMenuRefactor extends AbstractBackEndGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);
     }

@@ -2,11 +2,11 @@ import * as inquirer from 'inquirer';
 import {questionMenu, questionSelectFile} from "../questions";
 import {DataManagement} from "../../../sdk/config/DataManagement";
 import {ServiceCommandGenerator} from "../generator/ServiceCommandGenerator";
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "../generator/AbstractBackEndGenerator";
 import {ServiceQueryGenerator} from "../generator/ServiceQueryGenerator";
 import {EventGenerator} from "../generator/EventGenerator";
 import {CoreMenuGenerator} from "./CoreMenuGenerator";
-import {AddOrRemoveMenuGenerator} from "./AddOrRemoveMenuGenerator";
+import {AddOrRemoveMenuRefactor} from "./AddOrRemoveMenuRefactor";
 
 const s = require("underscore.string");
 
@@ -62,7 +62,7 @@ export class BackEndMenu {
             relativePath: this._relativePath,
             pathTemplates: this._pathTemplates
         }
-        let generator: BackEndAbstractGenerator | null = null;
+        let generator: AbstractBackEndGenerator | null = null;
         switch (service) {
             case 'Create Service Command':
                 generator = new ServiceCommandGenerator(params);
@@ -77,7 +77,7 @@ export class BackEndMenu {
                 generator = new CoreMenuGenerator(params);
                 break;
             case 'Add or Remove Propertie':
-                generator = new AddOrRemoveMenuGenerator(params);
+                generator = new AddOrRemoveMenuRefactor(params);
                 break;
             case 'Select Entity':
                 this._entityCurrent = "";

@@ -1,8 +1,8 @@
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
 import {EntityResponse} from "../../../sdk/codeMain/application/EntityResponse";
 
 
-export class QueryResponseGenerator extends BackEndAbstractGenerator {
+export class QueryResponseGenerator extends AbstractBackEndGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);
     }

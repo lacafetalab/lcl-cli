@@ -1,10 +1,10 @@
 import * as inquirer from 'inquirer';
 import {questionCreateServiceCommand} from "../questions";
 import {CommnadService} from "../../../sdk/codeMain/application/CommandService";
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
 
 
-export class ServiceCommandGenerator extends BackEndAbstractGenerator {
+export class ServiceCommandGenerator extends AbstractBackEndGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);
     }

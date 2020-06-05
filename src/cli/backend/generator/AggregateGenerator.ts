@@ -1,9 +1,9 @@
-import {BackEndAbstractGenerator, BackEndGeneratorConstructor} from "../BackEndAbstractGenerator";
+import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
 import {Event as EventDdd} from "../../../sdk/codeMain/domain/Event";
 import {Aggregate} from "../../../sdk/codeMain/domain/Aggregate";
 
 
-export class AggregateGenerator extends BackEndAbstractGenerator {
+export class AggregateGenerator extends AbstractBackEndGenerator {
     constructor(params: BackEndGeneratorConstructor) {
         super(params);
     }
