@@ -1,10 +1,11 @@
-import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
+import {AbstractBackEndGenerator} from "./AbstractBackEndGenerator";
 import {ValueObject} from "../../../sdk/codeMain/domain/ValueObject";
 import {ValueObjectMother} from "../../../sdk/codeTest/domain/ValueObjectMother";
+import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 
 
 export class ValueObjectGenerator extends AbstractBackEndGenerator {
-    constructor(params: BackEndGeneratorConstructor) {
+    constructor(params: InterfaceBackEndConstructor) {
         super(params);
     }
 

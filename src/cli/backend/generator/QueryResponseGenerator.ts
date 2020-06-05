@@ -1,9 +1,10 @@
-import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
+import {AbstractBackEndGenerator} from "./AbstractBackEndGenerator";
 import {EntityResponse} from "../../../sdk/codeMain/application/EntityResponse";
+import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 
 
 export class QueryResponseGenerator extends AbstractBackEndGenerator {
-    constructor(params: BackEndGeneratorConstructor) {
+    constructor(params: InterfaceBackEndConstructor) {
         super(params);
     }
 

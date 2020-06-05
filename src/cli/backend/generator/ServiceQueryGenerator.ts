@@ -1,10 +1,11 @@
 import * as inquirer from 'inquirer';
 import {questionCreateServiceQuery} from "../questions";
-import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
+import {AbstractBackEndGenerator} from "./AbstractBackEndGenerator";
 import {QueryService} from "../../../sdk/codeMain/application/QueryService";
+import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 
 export class ServiceQueryGenerator extends AbstractBackEndGenerator {
-    constructor(params: BackEndGeneratorConstructor) {
+    constructor(params: InterfaceBackEndConstructor) {
         super(params);
     }
 

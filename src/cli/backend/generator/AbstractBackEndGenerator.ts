@@ -1,20 +1,9 @@
-import * as inquirer from 'inquirer';
 import {generateFile, logTemplate} from "../../Util";
 import {Template} from "../../../sdk/AbstractGenerate";
 import {DataManagement} from "../../../sdk/config/DataManagement";
-import {questionCreateServiceCommand} from "../questions";
-import {CommnadService} from "../../../sdk/codeMain/application/CommandService";
 import {Config} from "../../../sdk/config/Config";
+import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 
-
-const s = require("underscore.string");
-
-export interface BackEndGeneratorConstructor {
-    dataManagement: DataManagement;
-    entityCurrent: string;
-    relativePath: string;
-    pathTemplates: string;
-}
 
 export abstract class AbstractBackEndGenerator {
     protected _dataManagement: DataManagement;
@@ -22,7 +11,7 @@ export abstract class AbstractBackEndGenerator {
     protected _relativePath: string;
     protected _pathTemplates: string;
 
-    constructor(protected _params: BackEndGeneratorConstructor) {
+    protected constructor(protected _params: InterfaceBackEndConstructor) {
         this._dataManagement = _params.dataManagement;
         this._entityCurrent = _params.entityCurrent;
         this._relativePath = _params.relativePath;

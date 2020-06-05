@@ -2,11 +2,12 @@ import * as inquirer from 'inquirer';
 import {questionMenu, questionSelectFile} from "../questions";
 import {DataManagement} from "../../../sdk/config/DataManagement";
 import {ServiceCommandGenerator} from "../generator/ServiceCommandGenerator";
-import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "../generator/AbstractBackEndGenerator";
+import {AbstractBackEndGenerator} from "../generator/AbstractBackEndGenerator";
 import {ServiceQueryGenerator} from "../generator/ServiceQueryGenerator";
 import {EventGenerator} from "../generator/EventGenerator";
 import {CoreMenuGenerator} from "./CoreMenuGenerator";
 import {AddOrRemoveMenuRefactor} from "./AddOrRemoveMenuRefactor";
+import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 
 const s = require("underscore.string");
 
@@ -56,7 +57,7 @@ export class BackEndMenu {
     }
 
     private async factoryService(service: string) {
-        const params: BackEndGeneratorConstructor = {
+        const params: InterfaceBackEndConstructor = {
             dataManagement: this._dataManagement,
             entityCurrent: this._entityCurrent,
             relativePath: this._relativePath,

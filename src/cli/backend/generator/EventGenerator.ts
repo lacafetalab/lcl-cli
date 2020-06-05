@@ -1,11 +1,12 @@
 import * as inquirer from 'inquirer';
 import {questionCreateEventPart1, questionCreateEventPart2} from "../questions";
-import {AbstractBackEndGenerator, BackEndGeneratorConstructor} from "./AbstractBackEndGenerator";
+import {AbstractBackEndGenerator} from "./AbstractBackEndGenerator";
 import {Event as EventDdd} from "../../../sdk/codeMain/domain/Event";
+import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 
 
 export class EventGenerator extends AbstractBackEndGenerator {
-    constructor(params: BackEndGeneratorConstructor) {
+    constructor(params: InterfaceBackEndConstructor) {
         super(params);
     }
 
