@@ -14,7 +14,7 @@ export class AggregateGenerator extends AbstractBackEndGenerator {
         this.renderTemplate(aggregate.template);
 
         // por defecto se agrega un evento de create al agregate con todas las propiedades
-        const event = new EventDdd(this.data, 'created', `${this.config.entityClassPropertie}.created`);
+        const event = new EventDdd(this.data, 'created', `${this.config.eventPrefixEntity}created`);
         this.renderTemplate(event.template);
 
     }

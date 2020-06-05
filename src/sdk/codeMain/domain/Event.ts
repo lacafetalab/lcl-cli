@@ -16,7 +16,7 @@ export class Event extends AbstractGenerate {
         this.config = new Config(_data);
         this._eventAction = s.capitalize(eventAction);
         this._eventName = eventName;
-        this._properties = properties ?? this.config.properties
+        this._properties = properties ?? this.config.properties;
     }
 
     get folder(): string {
