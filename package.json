@@ -2,9 +2,9 @@
   "name": "@cafeta/cli",
   "version": "1.0.0-alpha.salay.13",
   "description": "cli ddd java",
-  "main": "./dist/cli.js",
+  "main": "./dist/index.js",
   "bin": {
-    "lcl": "./dist/cli.js"
+    "lcl": "./dist/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -13,7 +13,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "build": "rm -rf dist && tsc",
-    "start:prod": "node dist/cli.js",
+    "start:prod": "node dist/index.js",
     "start:dev": "ts-node src/index.ts",
     "lint": "tslint -c tslint.json 'src/sdk/**/*.ts*'",
     "lint-fix": "tslint -c tslint.json --fix 'src/sdk/**/*.ts*'"

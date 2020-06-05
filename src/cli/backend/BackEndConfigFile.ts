@@ -29,7 +29,7 @@ export class BackEndConfigFile {
             return this.itemsFolder();
         }
         const answers = await inquirer.prompt(questionItemsFolderConfig());
-        if (!answers.downloadFolder) {
+        if (answers.downloadFolder) {
             await this.downloadConfigFolder();
             return this.itemsFolder();
 
@@ -38,8 +38,7 @@ export class BackEndConfigFile {
     }
 
     private downloadConfigFolder() {
-
-        copydir.sync(path.join(this._relativePath, 'config', 'lclcli'), path.join(this._pathTemplates, 'lclcli'), {
+        copydir.sync(path.join(this._pathTemplates, 'config', 'lclcli'), path.join(this._relativePath, 'lclcli'), {
             utimes: true,  // keep add time and modify time
             mode: true,    // keep file mode
             cover: true    // cover file when exists, default is true

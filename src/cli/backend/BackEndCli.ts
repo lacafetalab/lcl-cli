@@ -49,7 +49,7 @@ export class BackEndCli {
     }
 
     async menu() {
-        const listMenu = [
+        let listMenu = [
             'Create Service Command',
             'Create Service Query',
             'Create Event',
@@ -57,6 +57,9 @@ export class BackEndCli {
             'Select Entity',
             'Exit'
         ];
+        if(this._dataManagement.length===1){
+            listMenu = listMenu.filter(t=>{return t !== 'Select Entity'});
+        }
         const answers = await inquirer.prompt(questionMenu(this._config.entity, listMenu));
         await this.factoryService(answers.menuSelected);
     }
