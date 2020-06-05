@@ -1,9 +1,9 @@
-
 import {Template} from "../../../sdk/AbstractGenerate";
 import {Config} from "../../../sdk/config/Config";
 import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
 import {generateFileAddRempveProperties} from "../../util/utilrefactor";
 
+//const clipboardy = require('clipboardy');
 
 export abstract class AbstractBackEndRefactor {
     protected _originalProperties: string[] = [];
@@ -31,7 +31,9 @@ export abstract class AbstractBackEndRefactor {
         }
     }
 
-    protected async generateFileAddRemoveProperties(templateOriginal: Template, templateNew: Template,) {
+    protected async generateFileAddRemoveProperties(templateOriginal: Template, templateNew: Template, showQuestion: boolean = false) {
+
+        //clipboardy.writeSync("aws");
         generateFileAddRempveProperties(templateOriginal, templateNew, this._params.relativePath, this._params.pathTemplates);
     }
 

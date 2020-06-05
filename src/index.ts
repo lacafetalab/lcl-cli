@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-
 import * as path from "path";
 import {BackEndMenu} from "./cli/backend/menu/BackEndMenu";
 import {BackEndConfigFile} from "./cli/backend/BackEndConfigFile";
@@ -17,7 +16,7 @@ async function main() {
         return;
     }
 
-    const backEndMenu = new BackEndMenu(dataManagement,relativePath, pathTemplates);
+    const backEndMenu = new BackEndMenu(dataManagement, relativePath, pathTemplates);
 
     while (backEndMenu.continueMenu) {
         await backEndMenu.selectEntity();

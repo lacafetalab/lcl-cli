@@ -1,7 +1,13 @@
 {
   "name": "@cafeta/cli",
   "version": "1.0.0-alpha.salay.13",
-  "description": "cli ddd java",
+  "description": "Software Development Kit for JAVA DDD",
+  "license": "MIT",
+  "repository": "lacafetalab/lcl-cli",
+  "author": "Jose Guillermo",
+  "engines": {
+    "node": ">=10"
+  },
   "main": "./dist/index.js",
   "bin": {
     "lcl": "./dist/index.js"
@@ -18,13 +24,12 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts*'",
     "lint-fix": "tslint -c tslint.json --fix 'src/**/*.ts*'"
   },
-  "author": "Jose Guillermo",
-  "license": "MIT",
   "files": [
     "dist/",
     "templates/"
   ],
   "dependencies": {
+    "clipboardy": "^2.3.0",
     "colors": "^1.4.0",
     "copy-dir": "^1.3.0",
     "diff": "^4.0.2",
@@ -45,5 +50,11 @@
     "tslint": "^6.1.2",
     "typescript": "^3.9.3"
   },
-  "keywords": []
+  "keywords": [
+    "java CLI",
+    "java DDD",
+    "DDD",
+    "devkit",
+    "DDD DevKit"
+  ]
 }
