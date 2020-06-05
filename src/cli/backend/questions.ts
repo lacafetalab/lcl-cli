@@ -135,25 +135,16 @@ export function questionCreateEventPart2(eventAction: string, eventPrefixEntity:
     ];
 }
 
-export function questionGenerateCorePart1(): QuestionCollection<{ generateAll: boolean }> {
-    return [
-        {
-            type: 'confirm',
-            name: 'generateAll',
-            message: `Desea generar todo?`,
-            default: true
-        },
-    ];
-}
 
-export function questionGenerateCorePart2(listCores: string[]): QuestionCollection<{ core: string[] }> {
+export function questionGenerateCore(listCores: string[]): QuestionCollection<{ core: string[] }> {
 
     return [
         {
             type: 'checkbox',
             name: 'core',
             message: `Selecciona que modelos CORE se va a generar`,
-            choices: listCores
+            choices: listCores,
+            default: listCores
         }
     ];
 }

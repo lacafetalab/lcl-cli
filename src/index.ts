@@ -2,7 +2,7 @@
 
 
 import * as path from "path";
-import {BackEndCli} from "./cli/backend/BackEndCli";
+import {BackEndMenu} from "./cli/backend/BackEndMenu";
 import {BackEndConfigFile} from "./cli/backend/BackEndConfigFile";
 
 
@@ -17,11 +17,11 @@ async function main() {
         return;
     }
 
-    const objectCli = new BackEndCli(dataManagement,relativePath, pathTemplates);
+    const backEndMenu = new BackEndMenu(dataManagement,relativePath, pathTemplates);
 
-    while (objectCli.loop) {
-        await objectCli.selectEntity();
-        await objectCli.menu();
+    while (backEndMenu.continueMenu) {
+        await backEndMenu.selectEntity();
+        await backEndMenu.menu();
     }
 
 }
