@@ -184,4 +184,32 @@ export function questionItemsFolderConfig(): QuestionCollection<{ downloadFolder
 }
 
 
+export function questionAddOrRemovePropertie(properties: string[]): QuestionCollection<{ type: string, properties: string[] }> {
+    return [
+        {
+            type: 'list',
+            name: 'type',
+            message: `agregar o quitar propiedades?`,
+            choices: ['Add', 'Remove'],
+            validate(input: any): boolean | string | Promise<boolean | string> {
+                if ((input === 'Add') || (input === 'Remove')) {
+                    return true;
+                }
+                return "selecione una opción";
+            }
+        }, {
+            type: 'checkbox',
+            name: 'properties',
+            message: `Selecione las propiedades a modificar`,
+            choices: properties,
+            validate(input: string[]): boolean | string | Promise<boolean | string> {
+                if (input.length === 0) {
+                    return "selecione al menos una propiedad";
+                }
+                return true;
+            }
+        }
+    ];
+}
+
 

@@ -1,7 +1,8 @@
 import * as inquirer from 'inquirer';
 import * as path from "path";
-import {generateFile, logTemplate} from "../Util";
+import {generateFile, generateFileAddRempveProperties, logTemplate} from "../Util";
 import {
+    questionAddOrRemovePropertie,
     questionCreateEventPart1, questionCreateEventPart2,
     questionCreateServiceCommand,
     questionCreateServiceQuery, questionGenerateCorePart1, questionGenerateCorePart2, questionItemsFolderConfig,
@@ -9,7 +10,7 @@ import {
 } from "./questions";
 import {CommnadService} from "../../sdk/codeMain/application/CommandService";
 import {QueryService} from "../../sdk/codeMain/application/QueryService";
-import {Event as EventDdd} from "../../sdk/codeMain/domain/Event";
+import {Event, Event as EventDdd} from "../../sdk/codeMain/domain/Event";
 import {Aggregate} from "../../sdk/codeMain/domain/Aggregate";
 import {ValueObject} from "../../sdk/codeMain/domain/ValueObject";
 import {ValueObjectMother} from "../../sdk/codeTest/domain/ValueObjectMother";
@@ -54,11 +55,14 @@ export class BackEndCli {
             'Create Service Query',
             'Create Event',
             'Generate Core',
+            'Add or Remove Propertie',
             'Select Entity',
             'Exit'
         ];
-        if(this._dataManagement.length===1){
-            listMenu = listMenu.filter(t=>{return t !== 'Select Entity'});
+        if (this._dataManagement.length === 1) {
+            listMenu = listMenu.filter(t => {
+                return t !== 'Select Entity'
+            });
         }
         const answers = await inquirer.prompt(questionMenu(this._config.entity, listMenu));
         await this.factoryService(answers.menuSelected);
@@ -77,6 +81,9 @@ export class BackEndCli {
                 break;
             case 'Generate Core':
                 await this.generateCore();
+                break;
+            case 'Add or Remove Propertie':
+                await this.addOrRemovePropertie();
                 break;
             case 'Select Entity':
                 this._entityCurrent = "";
@@ -162,6 +169,39 @@ export class BackEndCli {
             const entityResponse = new EntityResponse(this.data);
             this.renderTemplate(entityResponse.template);
         }
+
+        this.exit();
+    }
+
+    private async addOrRemovePropertie() {
+
+        const answers = await inquirer.prompt(questionAddOrRemovePropertie(this._config.properties));
+        let originalProperties: string[];
+        let newProperties: string[];
+        if (answers.type === 'Add') {
+            originalProperties = this._config.properties.filter(t => !answers.properties.includes(t));
+            newProperties = this._config.properties;
+        } else {
+            originalProperties = this._config.properties;
+            newProperties = this._config.properties.filter(t => !answers.properties.includes(t));
+        }
+
+        const aggregateOriginal = new Aggregate(this.data, originalProperties);
+        const aggregateNew = new Aggregate(this.data, newProperties);
+        generateFileAddRempveProperties(aggregateOriginal.template[0], aggregateNew.template[0], this._relativePath, this._pathTemplates);
+
+        // por defecto se agrega un evento de create al agregate con todas las propiedades
+        const eventOriginal = new Event(this.data, 'created', `${this._config.eventPrefixEntity}created`, originalProperties);
+        const eventNew = new Event(this.data, 'created', `${this._config.eventPrefixEntity}created`, newProperties);
+        generateFileAddRempveProperties(eventOriginal.template[0], eventNew.template[0], this._relativePath, this._pathTemplates);
+
+        const daoOriginal = new Dao(this.data, originalProperties);
+        const daoNew = new Dao(this.data, newProperties);
+        generateFileAddRempveProperties(daoOriginal.template[0], daoNew.template[0], this._relativePath, this._pathTemplates);
+
+        const entityOriginal = new EntityResponse(this.data, originalProperties);
+        const entityNew = new EntityResponse(this.data, newProperties);
+        generateFileAddRempveProperties(entityOriginal.template[0], entityNew.template[0], this._relativePath, this._pathTemplates);
 
         this.exit();
     }

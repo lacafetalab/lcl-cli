@@ -82,30 +82,26 @@ export function logTemplate(templates: Template[], show: boolean = false) {
 
 }
 
-export function generateFileAddRempveProperties(listOriginal: Template[], listNew: Template[], relativePath: string, pathTemplates: string) {
-    listOriginal.forEach((templateOriginal, index) => {
-        const templateNew: Template = listNew[index];
-        if (templateOriginal.file !== templateNew.file) {
-            throw new Error("no es la misma plantilla");
-        }
-        const fileGenerate = path.join(relativePath, templateOriginal.file);
-        if (fs.existsSync(fileGenerate)) {
-            const isEquals = isFileEqualsToOriginal(templateOriginal, fileGenerate, pathTemplates);
-            // si el archivo existente es igual al parametro que se genero por el cli
-            if (isEquals) {
-                // se borra el archivo original y se genera un archivo nuevo con los nuevos cmapos
-                fs.unlinkSync(fileGenerate);
-                generateRenderSync(templateNew, relativePath, pathTemplates, true);
-            } else {
-                renderTwoTemplatesAndCompare(templateOriginal, templateNew, relativePath, pathTemplates);
-            }
-
-
-        } else {
+export function generateFileAddRempveProperties(templateOriginal: Template, templateNew: Template, relativePath: string, pathTemplates: string) {
+    if (templateOriginal.file !== templateNew.file) {
+        throw new Error("no es la misma plantilla");
+    }
+    const fileGenerate = path.join(relativePath, templateOriginal.file);
+    if (fs.existsSync(fileGenerate)) {
+        const isEquals = isFileEqualsToOriginal(templateOriginal, fileGenerate, pathTemplates);
+        // si el archivo existente es igual al parametro que se genero por el cli
+        if (isEquals) {
+            // se borra el archivo original y se genera un archivo nuevo con los nuevos cmapos
+            fs.unlinkSync(fileGenerate);
             generateRenderSync(templateNew, relativePath, pathTemplates, true);
+        } else {
+            renderTwoTemplatesAndCompare(templateOriginal, templateNew, relativePath, pathTemplates);
         }
-    });
 
+
+    } else {
+        generateRenderSync(templateNew, relativePath, pathTemplates, true);
+    }
 }
 
 
@@ -138,9 +134,9 @@ function renderTwoTemplatesAndCompare(templateOriginal: Template, templateNew: T
     const strRenderNew = ejs.render(fs.readFileSync(path.join(pathTemplates, templateNew.template), 'utf-8'), templateNew.dataTemplate);
     runDiff(strRenderOriginal, strRenderNew);
 
-    const fileGenerate = path.join(relativePath, 'lclcli', 'diff',templateNew.file.replace(/^.*[\\\/]/, ''));
+    const fileGenerate = path.join(relativePath, 'lclcli', 'diff', templateNew.file.replace(/^.*[\\\/]/, ''));
     if (fs.existsSync(fileGenerate)) {
-            fs.unlinkSync(fileGenerate);
+        fs.unlinkSync(fileGenerate);
     }
     fs.writeFileSync(fileGenerate, strRenderNew, 'utf-8');
 }
@@ -165,30 +161,30 @@ function isEqualsFiles(one: string, other: string): boolean {
 }
 
 
-function cppyOriginalFileToCompare(param: Template, compareFolder: string) {
-    fs.mkdir(`${compareFolder}${param.folder}`, {recursive: true}, (err: any) => {
-        if (err) throw err;
-        fs.copyFile(param.file, `${compareFolder}${param.file}`, (errcp: any) => {
-            if (errcp) throw errcp;
-        });
-    });
-}
-
-
-function generateRender(param: Template, renderFolder: string, pathTemplates: string, showLogGenerate: boolean = false) {
-    fs.mkdir(path.join(renderFolder, param.folder), {recursive: true}, (errmk: any) => {
-        if (errmk) throw errmk;
-        ejs.renderFile(path.join(pathTemplates, param.template), param.dataTemplate, {}, function (errtemp: any, str: any) {
-            if (errtemp) throw errtemp;
-            fs.writeFile(path.join(renderFolder, param.file), str, (err: any) => {
-                if (err) throw err;
-                if (showLogGenerate) {
-                    console.log(`generated : ${path.join(renderFolder, param.file)}`);
-                }
-            });
-        });
-    });
-}
+// function cppyOriginalFileToCompare(param: Template, compareFolder: string) {
+//     fs.mkdir(`${compareFolder}${param.folder}`, {recursive: true}, (err: any) => {
+//         if (err) throw err;
+//         fs.copyFile(param.file, `${compareFolder}${param.file}`, (errcp: any) => {
+//             if (errcp) throw errcp;
+//         });
+//     });
+// }
+//
+//
+// function generateRender(param: Template, renderFolder: string, pathTemplates: string, showLogGenerate: boolean = false) {
+//     fs.mkdir(path.join(renderFolder, param.folder), {recursive: true}, (errmk: any) => {
+//         if (errmk) throw errmk;
+//         ejs.renderFile(path.join(pathTemplates, param.template), param.dataTemplate, {}, function (errtemp: any, str: any) {
+//             if (errtemp) throw errtemp;
+//             fs.writeFile(path.join(renderFolder, param.file), str, (err: any) => {
+//                 if (err) throw err;
+//                 if (showLogGenerate) {
+//                     console.log(`generated : ${path.join(renderFolder, param.file)}`);
+//                 }
+//             });
+//         });
+//     });
+// }
 
 function runDiff(one: string, other: string) {
     const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
@@ -207,37 +203,37 @@ function runDiff(one: string, other: string) {
     });
 }
 
-function runDiffbug(one: string, other: string) {
-    const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
-    const diffJson = Diff2html.parse(diff);
-    if (diffJson[0].blocks.length === 0) {
-        return;
-    }
-    let original = "";
-    let render = "";
-    diffJson[0].blocks.forEach((t: any) => {
-        render = render + t.header + "\n\n";
-        original = original + t.header + "\n\n";
-        t.lines.forEach((l: any) => {
-            const content = `${l.content}\n`;
-            if (l.type === "insert") {
-                const addLineInsert = (s.isBlank(s.ltrim(l.content, '+'))) ? content : s.ltrim(content, '+');
-                render = render + addLineInsert;
-            } else {
-                if (l.type === "delete") {
-                    const addLineDelete = (s.isBlank(s.ltrim(l.content, '-'))) ? content : s.ltrim(content, '-');
-                    original = original + addLineDelete;
-                } else {
-                    render = render + content;
-                    original = original + content;
-                }
-            }
-        })
-    });
-    const diffProcess = Diff.diffChars(original, render);
-    diffProcess.forEach(function (part: any) {
-        const color = part.added ? 'green' :
-            part.removed ? 'red' : 'grey';
-        process.stderr.write(part.value[color]);
-    });
-}
+// function runDiffbug(one: string, other: string) {
+//     const diff = Diff.createTwoFilesPatch("Original", "Render", one, other);
+//     const diffJson = Diff2html.parse(diff);
+//     if (diffJson[0].blocks.length === 0) {
+//         return;
+//     }
+//     let original = "";
+//     let render = "";
+//     diffJson[0].blocks.forEach((t: any) => {
+//         render = render + t.header + "\n\n";
+//         original = original + t.header + "\n\n";
+//         t.lines.forEach((l: any) => {
+//             const content = `${l.content}\n`;
+//             if (l.type === "insert") {
+//                 const addLineInsert = (s.isBlank(s.ltrim(l.content, '+'))) ? content : s.ltrim(content, '+');
+//                 render = render + addLineInsert;
+//             } else {
+//                 if (l.type === "delete") {
+//                     const addLineDelete = (s.isBlank(s.ltrim(l.content, '-'))) ? content : s.ltrim(content, '-');
+//                     original = original + addLineDelete;
+//                 } else {
+//                     render = render + content;
+//                     original = original + content;
+//                 }
+//             }
+//         })
+//     });
+//     const diffProcess = Diff.diffChars(original, render);
+//     diffProcess.forEach(function (part: any) {
+//         const color = part.added ? 'green' :
+//             part.removed ? 'red' : 'grey';
+//         process.stderr.write(part.value[color]);
+//     });
+// }
