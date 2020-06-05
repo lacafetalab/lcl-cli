@@ -15,44 +15,44 @@ const Diff = require('diff');
 const s = require("underscore.string");
 
 
-const tempToolFolder = ".tem";
+// const tempToolFolder = ".tem";
 
-export function cleantempFolder(relativePath: string) {
-    const pathtemp = path.join(relativePath, tempToolFolder);
-    if (fs.existsSync(pathtemp)) {
-        rimraf.sync(pathtemp);
-    }
-}
+// export function cleantempFolder(relativePath: string) {
+//     const pathtemp = path.join(relativePath, tempToolFolder);
+//     if (fs.existsSync(pathtemp)) {
+//         rimraf.sync(pathtemp);
+//     }
+// }
+//
+// async function dowloadrepogit(url: string, folder: string) {
+//
+//     fs.mkdirSync(folder, {recursive: true});
+//     await Git.Clone(url, folder);
+//     copydir.sync(path.join(folder, tempToolFolder), path.join(folder, 'lclcli'), {
+//         utimes: true,  // keep add time and modify time
+//         mode: true,    // keep file mode
+//         cover: true    // cover file when exists, default is true
+//     });
+// }
 
-async function dowloadrepogit(url: string, folder: string) {
 
-    fs.mkdirSync(folder, {recursive: true});
-    await Git.Clone(url, folder);
-    copydir.sync(path.join(folder, tempToolFolder), path.join(folder, 'lclcli'), {
-        utimes: true,  // keep add time and modify time
-        mode: true,    // keep file mode
-        cover: true    // cover file when exists, default is true
-    });
-}
+// export function downloadConfigFolder(relativePath: string, pathTemplates: string) {
+//
+//     copydir.sync(path.join(pathTemplates, 'config', 'lclcli'), path.join(relativePath, 'lclcli'), {
+//         utimes: true,  // keep add time and modify time
+//         mode: true,    // keep file mode
+//         cover: true    // cover file when exists, default is true
+//     });
+// }
 
-
-export function downloadConfigFolder(relativePath: string, pathTemplates: string) {
-
-    copydir.sync(path.join(pathTemplates, 'config', 'lclcli'), path.join(relativePath, 'lclcli'), {
-        utimes: true,  // keep add time and modify time
-        mode: true,    // keep file mode
-        cover: true    // cover file when exists, default is true
-    });
-}
-
-export function itemsFolder(folder: string): string[] {
-    const listFile: string[] = [];
-    // tslint:disable-next-line:only-arrow-functions
-    fs.readdirSync(folder).forEach(function (file: string) {
-        listFile.push(file);
-    });
-    return listFile;
-}
+// export function itemsFolder(folder: string): string[] {
+//     const listFile: string[] = [];
+//     // tslint:disable-next-line:only-arrow-functions
+//     fs.readdirSync(folder).forEach(function (file: string) {
+//         listFile.push(file);
+//     });
+//     return listFile;
+// }
 
 export function readYaml(fileName: string) {
     const file = fs.readFileSync(fileName, "utf8");

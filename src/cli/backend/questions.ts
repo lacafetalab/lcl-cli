@@ -158,14 +158,14 @@ export function questionGenerateCorePart2(listCores: string[]): QuestionCollecti
     ];
 }
 
-export function questionSelectFile(listFile: string[]): QuestionCollection<{ file: string }> {
+export function questionSelectFile(listEntities: string[]): QuestionCollection<{ entity: string }> {
 
     return [
         {
             type: 'list',
-            name: 'file',
+            name: 'entity',
             message: `Selecciona el archivo de configuración`,
-            choices: listFile
+            choices: listEntities
         },
     ];
 
@@ -177,7 +177,7 @@ export function questionItemsFolderConfig(): QuestionCollection<{ downloadFolder
         {
             type: 'confirm',
             name: 'downloadFolder',
-            message: `Desea descargar el archivo de configuracion?`,
+            message: `No se encontro la carpeta de configuración, desea descargar una plantilla?`,
             default: true
         },
     ];

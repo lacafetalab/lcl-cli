@@ -21,6 +21,7 @@ import {SqlRepository} from "../../sdk/codeMain/infrastructure/persistence/SqlRe
 import {Config} from "../../sdk/config/Config";
 import * as fs from "fs";
 import {Template} from "../../sdk/AbstractGenerate";
+import {DataManagement} from "../../sdk/config/DataManagement";
 
 const s = require("underscore.string");
 
@@ -28,9 +29,10 @@ export class BackEndCli {
     // @ts-ignore
     private _config: Config;
     private _pathFile: string = "";
+    private _entityCurrent: string = "";
     public loop: boolean = true;
 
-    constructor(private _relativePath: string, private _pathTemplates: string) {
+    constructor(private _dataManagement: DataManagement, private _relativePath: string, private _pathTemplates: string) {
 
     }
 
@@ -39,7 +41,7 @@ export class BackEndCli {
     }
 
     private get data() {
-        return readYaml(this._pathFile);
+        return this._dataManagement.getData(this._entityCurrent)
     }
 
     private exit() {
@@ -74,7 +76,7 @@ export class BackEndCli {
                 await this.generateCore();
                 break;
             case 'Select file':
-                this._pathFile = "";
+                this._entityCurrent = "";
                 break;
             case 'Exit':
                 this.exit();
@@ -161,37 +163,20 @@ export class BackEndCli {
         this.exit();
     }
 
-    async selectFile(listFile: string[]) {
-        if (this._pathFile !== "") {
+    async selectEntity() {
+        if (this._entityCurrent !== "") {
             return;
         }
-        if (listFile.length === 0) {
-            throw new Error("No existen archivos de configuracion");
-        }
-        if (listFile.length === 1) {
-            this._pathFile = path.join(this.pathConfig, listFile[0]);
+        if (this._dataManagement.length === 1) {
+            this._entityCurrent = this._dataManagement.entities[0];
         } else {
-            const answers = await inquirer.prompt(questionSelectFile(listFile));
-            this._pathFile = path.join(this.pathConfig, answers.file);
+            const answers = await inquirer.prompt(questionSelectFile(this._dataManagement.entities));
+            this._entityCurrent = answers.entity;
         }
 
-        this._config = new Config(this.data);
+        this._config = this._dataManagement.getConfig(this._entityCurrent)
     }
 
-    async itemsFolderConfig(): Promise<string[]> {
-
-        if (fs.existsSync(this.pathConfig)) {
-            return itemsFolder(this.pathConfig);
-        }
-
-        const answers = await inquirer.prompt(questionItemsFolderConfig());
-        if (!answers.downloadFolder) {
-            this.exit();
-            return [];
-        }
-        await downloadConfigFolder(this._relativePath, this._pathTemplates);
-        return itemsFolder(this.pathConfig);
-    }
 
 }
 
