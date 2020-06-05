@@ -1,6 +1,6 @@
 import * as inquirer from 'inquirer';
 import * as path from "path";
-import {downloadConfigFolder, generateFile, itemsFolder, logTemplate, readYaml} from "../Util";
+import {generateFile, logTemplate} from "../Util";
 import {
     questionCreateEventPart1, questionCreateEventPart2,
     questionCreateServiceCommand,
@@ -54,7 +54,7 @@ export class BackEndCli {
             'Create Service Query',
             'Create Event',
             'Generate Core',
-            'Select file',
+            'Select Entity',
             'Exit'
         ];
         const answers = await inquirer.prompt(questionMenu(this._config.entity, listMenu));
@@ -75,7 +75,7 @@ export class BackEndCli {
             case 'Generate Core':
                 await this.generateCore();
                 break;
-            case 'Select file':
+            case 'Select Entity':
                 this._entityCurrent = "";
                 break;
             case 'Exit':

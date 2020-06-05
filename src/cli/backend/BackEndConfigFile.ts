@@ -16,7 +16,7 @@ export class BackEndConfigFile {
     }
 
     private getData(file: string) {
-        return readYaml(file);
+        return readYaml(path.join(this.pathConfig, file));
     }
 
     private get pathConfig() {
