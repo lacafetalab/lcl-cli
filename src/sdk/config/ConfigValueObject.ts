@@ -1,6 +1,6 @@
-
 // tslint:disable-next-line:no-var-requires
 import {Config} from "./Config";
+import {DataManagement} from "./DataManagement";
 
 const s = require("underscore.string");
 
@@ -18,8 +18,8 @@ interface PropertieType {
 
 export class ConfigValueObject extends Config {
 
-    constructor(_data: any) {
-        super(_data)
+    constructor(_dataManagement: DataManagement, _currentEntity: string) {
+        super(_dataManagement, _currentEntity);
     }
 
     private propertieDefault(): PropertieType {

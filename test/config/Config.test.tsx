@@ -1,12 +1,13 @@
 import {Config} from "../../src/sdk/config/Config";
 import "jest";
-import {complete, withoutEvent} from "./data/data"
+import {complete, entitiesWithEntityDependencies, twoEntitiesDependents, withoutEvent} from "./data/data"
+import {DataManagement} from "../../src/sdk/config/DataManagement";
 
 
 describe("config base one aggregate", () => {
     let config: Config;
     beforeEach(() => {
-        config = new Config(complete());
+        config = new Config(new DataManagement([complete()]),"User");
     });
 
     test("properties", () => {
@@ -65,7 +66,7 @@ describe("config base one aggregate", () => {
 describe("config base one aggregate", () => {
     let config: Config;
     beforeEach(() => {
-        config = new Config(withoutEvent());
+        config = new Config(new DataManagement([withoutEvent()]),"User");
     });
 
     test("event prefix", () => {
@@ -73,3 +74,30 @@ describe("config base one aggregate", () => {
     });
 
 });
+
+
+// describe("config base one aggregate entidades dependientes", () => {
+//     let config: Config;
+//     beforeEach(() => {
+//         config = new Config(twoEntitiesDependents());
+//     });
+//
+//     test("properties", () => {
+//         expect(config.properties).toEqual(["id", "userId", "name"]);
+//     });
+//
+//     test("value object", () => {
+//         expect(config.valueObject("id")).toEqual("AddressId");
+//         expect(config.valueObject("userId")).toEqual("UserId");
+//         expect(config.valueObject("name")).toEqual("AddressName");
+//     });
+//
+//     test("value object", () => {
+//         expect(config.valueObjectProperties(["id", "userId", "name"])).toEqual([
+//             {"className": 'AddressId', "propertie": 'id'},
+//             {"className": 'UserId', "propertie": 'userId', 'package': 'pe.lacafetalab.pao.communication.user.domain'},
+//             {"className": 'AddressName', "propertie": 'name'}
+//         ]);
+//     });
+//
+// });

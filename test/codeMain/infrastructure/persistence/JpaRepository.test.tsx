@@ -2,11 +2,12 @@ import "jest";
 import {JpaRepository} from "../../../../src/sdk/codeMain/infrastructure/persistence/JpaRepository";
 import {Template} from "../../../../src/sdk/AbstractGenerate";
 import {complete} from "../../../config/data/data";
+import {DataManagement} from "../../../../src/sdk/config/DataManagement";
 
 let jpaRepository: JpaRepository;
 describe("config jpaRepository one jpaRepository", () => {
     beforeEach(() => {
-        jpaRepository = new JpaRepository(complete());
+        jpaRepository = new JpaRepository(new DataManagement([complete()]), "User");
     });
 
     test("jpaRepository folder", () => {
@@ -20,7 +21,7 @@ describe("config jpaRepository one jpaRepository", () => {
 let templates: Template[] = [];
 describe("config jpaRepository one jpaRepository", () => {
     beforeEach(() => {
-        const jpaRepositoryb = new JpaRepository(complete());
+        const jpaRepositoryb = new JpaRepository(new DataManagement([complete()]), "User");
         templates = jpaRepositoryb.template;
     });
     test("jpaRepository template id", () => {
@@ -34,7 +35,7 @@ describe("config jpaRepository one jpaRepository", () => {
         expect(templates[0].dataTemplate).toEqual({
             "className": "UserJpaRepository",
             "package": "pe.lacafetalab.pao.communication.user.infrastructure.persistence",
-            "entityDaoClass":"UserDao"
+            "entityDaoClass": "UserDao"
         });
     });
 });

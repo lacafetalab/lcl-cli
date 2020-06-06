@@ -1,12 +1,13 @@
 import {AbstractGenerate, Template} from "../../../AbstractGenerate";
 import {Config} from "../../../config/Config";
+import {DataManagement} from "../../../config/DataManagement";
 
 export class JpaRepository extends AbstractGenerate {
     private config: Config;
 
-    constructor(_data: any) {
+    constructor(_dataManagement: DataManagement, _currentEntity: string) {
         super();
-        this.config = new Config(_data);
+        this.config = new Config(_dataManagement, _currentEntity);
     }
 
     get folder(): string {

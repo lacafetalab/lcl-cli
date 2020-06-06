@@ -1,12 +1,13 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
 import {ConfigValueObject} from "../../config/ConfigValueObject";
+import {DataManagement} from "../../config/DataManagement";
 
 export class ValueObjectMother extends AbstractGenerate {
     private config: ConfigValueObject;
 
-    constructor(_data: any) {
+    constructor(_dataManagement: DataManagement, _currentEntity: string) {
         super();
-        this.config = new ConfigValueObject(_data);
+        this.config = new ConfigValueObject(_dataManagement, _currentEntity);
     }
 
     get folder(): string {

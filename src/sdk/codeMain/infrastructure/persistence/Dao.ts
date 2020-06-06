@@ -1,6 +1,7 @@
 import {AbstractGenerate, Template} from "../../../AbstractGenerate";
 import {ConfigValueObject} from "../../../config/ConfigValueObject";
 import {ValueObjectPropertie} from "../../../config/ConfigUtil";
+import {DataManagement} from "../../../config/DataManagement";
 
 const s = require("underscore.string");
 
@@ -16,9 +17,9 @@ export class Dao extends AbstractGenerate {
     private config: ConfigValueObject;
     private _properties: string[];
 
-    constructor(_data: any, properties: string[] | null = null) {
+    constructor(_dataManagement: DataManagement, _currentEntity: string, properties: string[] | null = null) {
         super();
-        this.config = new ConfigValueObject(_data);
+        this.config = new ConfigValueObject(_dataManagement, _currentEntity);
         this._properties = properties ?? this.config.properties
     }
 

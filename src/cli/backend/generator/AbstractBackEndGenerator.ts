@@ -29,7 +29,7 @@ export abstract class AbstractBackEndGenerator {
     }
 
     protected get config(): Config {
-        return this._dataManagement.getConfig(this._entityCurrent);
+        return new Config(this._dataManagement, this._entityCurrent);
     }
 
     protected async renderTemplate(templates: Template[], showConfig: boolean = false) {

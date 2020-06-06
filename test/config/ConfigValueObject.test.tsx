@@ -2,11 +2,12 @@ import {Config} from "../../src/sdk/config/Config";
 import "jest";
 import {complete} from "./data/data"
 import {ConfigValueObject} from "../../src/sdk/config/ConfigValueObject";
+import {DataManagement} from "../../src/sdk/config/DataManagement";
 
 let config: ConfigValueObject;
 describe("config value obeject one aggregate", () => {
     beforeEach(() => {
-        config = new ConfigValueObject(complete());
+        config = new ConfigValueObject(new DataManagement([complete()]),"User");
     });
 
     test("type id inline", () => {
@@ -53,7 +54,7 @@ describe("config value obeject one aggregate", () => {
 
 describe("config message one aggregate", () => {
     beforeEach(() => {
-        config = new ConfigValueObject(complete());
+        config = new ConfigValueObject(new DataManagement([complete()]),"User");
     });
 
     test("type id no message", () => {

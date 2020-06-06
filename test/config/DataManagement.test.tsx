@@ -37,13 +37,13 @@ describe("DataManagement two data ok", () => {
     });
 
     test("generate connfig UserOne", () => {
-        const configOne: Config = dataManagement.getConfig("UserOne");
+        const configOne: Config = new Config(dataManagement, "UserOne");
         expect(configOne.entityClassPropertie).toEqual("userOne");
     });
 
     test("generate connfig no existe", () => {
         expect(() => {
-            const userNoExist: Config = dataManagement.getConfig("UserNoExist");
+            const userNoExist: Config = new Config(dataManagement, "UserNoExist");
         }).toThrow();
     });
 

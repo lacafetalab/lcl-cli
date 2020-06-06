@@ -1,8 +1,8 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
 import {Config} from "../../config/Config";
+import {DataManagement} from "../../config/DataManagement";
 
 const s = require("underscore.string");
-
 
 
 export class Event extends AbstractGenerate {
@@ -11,9 +11,9 @@ export class Event extends AbstractGenerate {
     private _eventAction: string;
     private _eventName: string;
 
-    constructor(_data: any, eventAction: string, eventName: string, properties: string[] | null = null) {
+    constructor(_dataManagement: DataManagement, _currentEntity: string, eventAction: string, eventName: string, properties: string[] | null = null) {
         super();
-        this.config = new Config(_data);
+        this.config = new Config(_dataManagement, _currentEntity);
         this._eventAction = s.capitalize(eventAction);
         this._eventName = eventName;
         this._properties = properties ?? this.config.properties;

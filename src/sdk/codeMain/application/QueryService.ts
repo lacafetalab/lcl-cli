@@ -1,5 +1,6 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
 import {Config} from "../../config/Config";
+import {DataManagement} from "../../config/DataManagement";
 
 const s = require("underscore.string");
 
@@ -10,9 +11,9 @@ export class QueryService extends AbstractGenerate {
     protected serviceName: string;
     protected _returnType: string;
 
-    constructor(_data: any, serviceName: string, returnType: string, properties: string[] | null = null, templateService: string = "none") {
+    constructor(_dataManagement: DataManagement, _currentEntity: string, serviceName: string, returnType: string, properties: string[] | null = null, templateService: string = "none") {
         super();
-        this.config = new Config(_data);
+        this.config = new Config(_dataManagement, _currentEntity);
         this.serviceName = s.decapitalize(serviceName);
         this._returnType = returnType;
         this._properties = properties ?? this.config.properties
@@ -78,9 +79,9 @@ export class QueryService extends AbstractGenerate {
             package: this.package,
             strProperties: this.strProperties(this._properties),
             strVoProperties: this.strVoProperties(voProperties),
-            serviceClassResponse:this.serviceClassResponse,
-            entityResponseClass:this.entityResponseClass,
-            listEntityResponseClass:this.listEntityResponseClass,
+            serviceClassResponse: this.serviceClassResponse,
+            entityResponseClass: this.entityResponseClass,
+            listEntityResponseClass: this.listEntityResponseClass,
             packageApplication: this.config.packageApplication,
             voProperties
         };
@@ -113,7 +114,7 @@ export class QueryService extends AbstractGenerate {
             package: this.package,
             packageDomain: this.config.packageDomain,
             strProperties: this.strProperties(this.properties),
-            serviceClassResponse:this.serviceClassResponse,
+            serviceClassResponse: this.serviceClassResponse,
             packageApplication: this.config.packageApplication,
             voProperties
         };

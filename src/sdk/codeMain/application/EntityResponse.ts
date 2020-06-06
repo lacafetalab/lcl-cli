@@ -1,5 +1,6 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
 import {Config} from "../../config/Config";
+import {DataManagement} from "../../config/DataManagement";
 
 const s = require("underscore.string");
 
@@ -7,9 +8,9 @@ export class EntityResponse extends AbstractGenerate {
     private config: Config;
     protected _properties: string[];
 
-    constructor(_data: any, properties: string[] | null = null,) {
+    constructor(_dataManagement: DataManagement, _currentEntity: string, properties: string[] | null = null,) {
         super();
-        this.config = new Config(_data);
+        this.config = new Config(_dataManagement, _currentEntity);
         this._properties = properties ?? this.config.properties;
     }
 

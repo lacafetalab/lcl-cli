@@ -1,0 +1,12 @@
+path: src/communication
+package: pe.lacafetalab.pao.communication.address
+name: Address
+properties:
+  aggregate:
+    id: id
+    userId: User:id
+    name: string
+events:
+  namePrefix: comunication.address
+repository:
+  pk: id

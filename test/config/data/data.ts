@@ -1,29 +1,46 @@
+import {DataManagement} from "../../../src/sdk/config/DataManagement";
+
 const fs = require("fs");
 const YAML = require("yaml");
 const path = require('path');
 
-const configPath = path.join(__dirname, 'user.yml');
-const file = fs.readFileSync(configPath, "utf8");
+
+function readUser() {
+    const configPath = path.join(__dirname, 'user.yml');
+    const file = fs.readFileSync(configPath, "utf8");
+    return YAML.parse(file);
+}
+
+function readAddress() {
+    const configPath = path.join(__dirname, 'address.yml');
+    const file = fs.readFileSync(configPath, "utf8");
+    return YAML.parse(file);
+}
 
 export function complete() {
-    return YAML.parse(file);
+    return readUser();
+}
+
+export function entitiesWithEntityDependencies() {
+    return readAddress();
 }
 
 
 export function twoCompletedComfig() {
-    const dataOne = YAML.parse(file);
-    const dataTwo = YAML.parse(file);
+    const dataOne = readUser();
+    const dataTwo = readUser();
     dataOne.name = "UserOne";
     dataTwo.name = "UserTwo";
     return [dataOne, dataTwo];
 }
 
 
-export function withoutEvent(){
-    // tslint:disable-next-line:no-shadowed-variable
+export function withoutEvent() {
     const configPath = path.join(__dirname, 'withoutEventUser.yml');
-    // tslint:disable-next-line:no-shadowed-variable
     const file = fs.readFileSync(configPath, "utf8");
     return YAML.parse(file);
 }
 
+export function twoEntitiesDependents() {
+    return [readUser(), readAddress()];
+}

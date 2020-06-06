@@ -1,4 +1,5 @@
 import {ConfigUtil, ValueObjectPropertie} from "./ConfigUtil";
+import {DataManagement} from "./DataManagement";
 
 const s = require("underscore.string");
 
@@ -9,8 +10,10 @@ interface RepositoryDao {
 }
 
 export class Config {
+    protected _data: any;
 
-    constructor(protected _data: any) {
+    constructor(protected _dataManagement: DataManagement, protected _currentEntity: string) {
+        this._data = this._dataManagement.getData(this._currentEntity);
     }
 
     get properties(): string[] {

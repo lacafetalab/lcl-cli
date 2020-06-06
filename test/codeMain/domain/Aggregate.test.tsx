@@ -2,12 +2,13 @@ import "jest";
 import {Aggregate} from "../../../src/sdk/codeMain/domain/Aggregate";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
+import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 
 describe("config value obeject one aggregate", () => {
     let aggregate: Aggregate;
     beforeEach(() => {
-        aggregate = new Aggregate(complete());
+        aggregate = new Aggregate(new DataManagement([complete()]), "User");
     });
 
     test("aggregate folder", () => {
@@ -22,7 +23,7 @@ describe("config value obeject one aggregate", () => {
 describe("config value obeject one aggregate", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const aggregateb = new Aggregate(complete());
+        const aggregateb = new Aggregate(new DataManagement([complete()]), "User");
         templates = aggregateb.template;
     });
     test("aggregate template id", () => {
@@ -36,11 +37,11 @@ describe("config value obeject one aggregate", () => {
         expect(templates[0].dataTemplate).toEqual({
             "className": "User",
             "voProperties": [
-                { "className": 'UserId', "propertie": 'id' },
-                { "className": 'UserName', "propertie": 'name' },
-                { "className": 'UserLastname', "propertie": 'lastname' },
-                { "className": 'UserDescription', "propertie": 'description' },
-                { "className": 'UserBirthdate', "propertie": 'birthdate' }
+                {"className": 'UserId', "propertie": 'id'},
+                {"className": 'UserName', "propertie": 'name'},
+                {"className": 'UserLastname', "propertie": 'lastname'},
+                {"className": 'UserDescription', "propertie": 'description'},
+                {"className": 'UserBirthdate', "propertie": 'birthdate'}
             ],
             "package": "pe.lacafetalab.pao.communication.user.domain",
             "strVoProperties": 'UserId id, UserName name, UserLastname lastname, UserDescription description, UserBirthdate birthdate',
@@ -55,7 +56,7 @@ describe("config value obeject one aggregate", () => {
 describe("config value obeject one aggregate any properties", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const aggregateb = new Aggregate(complete(),['id','name']);
+        const aggregateb = new Aggregate(new DataManagement([complete()]), "User", ['id', 'name']);
         templates = aggregateb.template;
     });
     test("aggregate template id", () => {
@@ -69,8 +70,8 @@ describe("config value obeject one aggregate any properties", () => {
         expect(templates[0].dataTemplate).toEqual({
             "className": "User",
             "voProperties": [
-                { "className": 'UserId', "propertie": 'id' },
-                { "className": 'UserName', "propertie": 'name' }
+                {"className": 'UserId', "propertie": 'id'},
+                {"className": 'UserName', "propertie": 'name'}
             ],
             "package": "pe.lacafetalab.pao.communication.user.domain",
             "strVoProperties": 'UserId id, UserName name',

@@ -2,12 +2,13 @@ import "jest";
 import {Repository} from "../../../src/sdk/codeMain/domain/Repository";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
+import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 
 describe("config repository one repository", () => {
     let repository: Repository;
     beforeEach(() => {
-        repository = new Repository(complete());
+        repository = new Repository(new DataManagement([complete()]),"User");
     });
 
     test("repository folder", () => {
@@ -22,7 +23,7 @@ describe("config repository one repository", () => {
 describe("config repository one repository", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const repositoryb = new Repository(complete());
+        const repositoryb = new Repository(new DataManagement([complete()]),"User");
         templates = repositoryb.template;
     });
     test("repository template id", () => {

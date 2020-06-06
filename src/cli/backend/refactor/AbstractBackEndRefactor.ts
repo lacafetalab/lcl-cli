@@ -23,7 +23,7 @@ export abstract class AbstractBackEndRefactor {
     }
 
     protected get config(): Config {
-        return this._params.dataManagement.getConfig(this._params.entityCurrent);
+        return new Config(this._params.dataManagement, this._params.entityCurrent);
     }
 
     generateProperties(type: string, answersProperties: string[]) {

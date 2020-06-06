@@ -2,12 +2,13 @@ import "jest";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {complete} from "../../config/data/data";
 import {QueryService} from "../../../src/sdk/codeMain/application/QueryService";
+import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 
 describe("queryService parametos por defecto", () => {
     let queryService: QueryService;
     beforeEach(() => {
-        queryService = new QueryService(complete(), "findById", "entity");
+        queryService = new QueryService(new DataManagement([complete()]),"User", "findById", "entity");
     });
     test("queryService folder", () => {
         expect(queryService.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
@@ -29,7 +30,7 @@ describe("queryService parametos por defecto", () => {
 describe("queryService parametos propertie id, name", () => {
     let queryService: QueryService;
     beforeEach(() => {
-        queryService = new QueryService(complete(), "findById", "entity", ['id', 'name']);
+        queryService = new QueryService(new DataManagement([complete()]),"User", "findById", "entity", ['id', 'name']);
     });
     test("queryService properties", () => {
         expect(queryService.properties).toEqual(['id', 'name']);
@@ -42,7 +43,7 @@ describe("queryService parametos propertie id, name", () => {
 describe("queryService parametos propertie id, name y templateName", () => {
     let queryService: QueryService;
     beforeEach(() => {
-        queryService = new QueryService(complete(), "findById", "entity", ['id', 'name'], "findById");
+        queryService = new QueryService(new DataManagement([complete()]),"User", "findById", "entity", ['id', 'name'], "findById");
     });
     test("queryService properties", () => {
         expect(queryService.properties).toEqual(['id', 'name']);
@@ -55,7 +56,7 @@ describe("queryService parametos propertie id, name y templateName", () => {
 describe("queryService parametos propertie null y  templateName", () => {
     let queryService: QueryService;
     beforeEach(() => {
-        queryService = new QueryService(complete(), "findById", "entity", null, "findById");
+        queryService = new QueryService(new DataManagement([complete()]),"User", "findById", "entity", null, "findById");
     });
     test("queryService properties", () => {
         expect(queryService.properties).toEqual(['id', 'name', 'lastname', 'description', 'birthdate']);
@@ -68,7 +69,7 @@ describe("queryService parametos propertie null y  templateName", () => {
 describe("queryService parametos por defecto, servicio en mayuscula", () => {
     let queryService: QueryService;
     beforeEach(() => {
-        queryService = new QueryService(complete(), "FindById", "entity");
+        queryService = new QueryService(new DataManagement([complete()]),"User", "FindById", "entity");
     });
     test("queryService folder", () => {
         expect(queryService.folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/application/find_by_id");
@@ -81,7 +82,7 @@ describe("queryService parametos por defecto, servicio en mayuscula", () => {
 describe("config value obeject one queryService", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const queryServiceb = new QueryService(complete(), "findById", "entity", ['id'], "findById");
+        const queryServiceb = new QueryService(new DataManagement([complete()]),"User", "findById", "entity", ['id'], "findById");
         templates = queryServiceb.template;
     });
     test("queryService template id", () => {

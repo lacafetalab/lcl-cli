@@ -1,5 +1,6 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
 import {Config} from "../../config/Config";
+import {DataManagement} from "../../config/DataManagement";
 
 const s = require("underscore.string");
 
@@ -9,9 +10,9 @@ export class CommnadService extends AbstractGenerate {
     private _templateService: string;
     private serviceName: string;
 
-    constructor(_data: any, serviceName: string, properties: string[] | null = null, templateService: string = "none") {
+    constructor(_dataManagement: DataManagement, _currentEntity: string, serviceName: string, properties: string[] | null = null, templateService: string = "none") {
         super();
-        this.config = new Config(_data);
+        this.config = new Config(_dataManagement, _currentEntity);
         this.serviceName = s.decapitalize(serviceName);
         this._properties = properties ?? this.config.properties
         this._templateService = templateService;
@@ -86,8 +87,8 @@ export class CommnadService extends AbstractGenerate {
         const voProperties = this.config.valueObjectProperties(this._properties)
         const data = {
             className,
-            classCommandName:`${this.prefixClassName}Command`,
-            classServiceName:this.prefixClassName,
+            classCommandName: `${this.prefixClassName}Command`,
+            classServiceName: this.prefixClassName,
             package: this.package,
             packageDomain: this.config.packageDomain,
             strProperties: this.strProperties(this.properties),

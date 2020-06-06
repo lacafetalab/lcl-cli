@@ -33,9 +33,4 @@ export class DataManagement {
         // @ts-ignore
         return this._allData[entityName];
     }
-
-    getConfig(entityName: string): Config {
-        return new Config(this.getData(entityName));
-    }
-
 }

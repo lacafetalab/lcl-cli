@@ -2,12 +2,13 @@ import "jest";
 import {Event} from "../../../src/sdk/codeMain/domain/Event";
 import {complete} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
+import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 
 describe("Event one aggregate", () => {
     let event: Event;
     beforeEach(() => {
-        event = new Event(complete(), 'created', "comunication.user.created");
+        event = new Event(new DataManagement([complete()]),"User", 'created', "comunication.user.created");
     });
 
     test("event folder", () => {
@@ -23,7 +24,7 @@ describe("Event one aggregate", () => {
 describe("Event one aggregate", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const eventb = new Event(complete(), 'created', "comunication.user.created");
+        const eventb = new Event(new DataManagement([complete()]),"User", 'created', "comunication.user.created");
         templates = eventb.template;
     });
     test("aggregate template id", () => {
@@ -51,7 +52,7 @@ describe("Event one aggregate", () => {
 describe("Event one aggregate propertie name, lastname", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const eventb = new Event(complete(), 'created', "comunication.user.created", ['name', 'lastname']);
+        const eventb = new Event(new DataManagement([complete()]),"User", 'created', "comunication.user.created", ['name', 'lastname']);
         templates = eventb.template;
     });
     test("aggregate template id", () => {
@@ -79,7 +80,7 @@ describe("Event one aggregate propertie name, lastname", () => {
 describe("Event one aggregate propertie only id", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const eventb = new Event(complete(), 'created', "comunication.user.created", ['id']);
+        const eventb = new Event(new DataManagement([complete()]),"User", 'created', "comunication.user.created", ['id']);
         templates = eventb.template;
     });
     test("aggregate template id", () => {

@@ -2,11 +2,13 @@ import "jest";
 import {ValueObject} from "../../../src/sdk/codeMain/domain/ValueObject";
 import {complete} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
+import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
-let valueObject: ValueObject;
+
 describe("config value obeject one aggregate", () => {
+    let valueObject: ValueObject;
     beforeEach(() => {
-        valueObject = new ValueObject(complete());
+        valueObject = new ValueObject(new DataManagement([complete()]),"User");
     });
 
     test("valueObject folder", () => {
@@ -17,10 +19,11 @@ describe("config value obeject one aggregate", () => {
     });
 
 });
-let templates: Template[] = [];
+
 describe("config value obeject one aggregate", () => {
+    let templates: Template[] = [];
     beforeEach(() => {
-        const valueObjectb = new ValueObject(complete());
+        const valueObjectb = new ValueObject(new DataManagement([complete()]),"User");
         templates = valueObjectb.template;
     });
 

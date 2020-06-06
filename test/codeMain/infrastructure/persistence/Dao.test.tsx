@@ -2,12 +2,13 @@ import "jest";
 import {Template} from "../../../../src/sdk/AbstractGenerate";
 import {Dao} from "../../../../src/sdk/codeMain/infrastructure/persistence/Dao";
 import {complete} from "../../../config/data/data";
+import {DataManagement} from "../../../../src/sdk/config/DataManagement";
 
 
 describe("config value obeject one dao", () => {
     let dao: Dao;
     beforeEach(() => {
-        dao = new Dao(complete());
+        dao = new Dao(new DataManagement([complete()]),"User");
     });
 
     test("dao folder", () => {
@@ -22,7 +23,7 @@ describe("config value obeject one dao", () => {
 describe("config value obeject one dao", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const daob = new Dao(complete());
+        const daob = new Dao(new DataManagement([complete()]),"User");
         templates = daob.template;
     });
     test("dao template id", () => {
@@ -85,7 +86,7 @@ describe("config value obeject one dao", () => {
 describe("config value obeject one dao properties id, name", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const daob = new Dao(complete(), ['id', 'name']);
+        const daob = new Dao(new DataManagement([complete()]),"User", ['id', 'name']);
         templates = daob.template;
     });
     test("dao template id", () => {
