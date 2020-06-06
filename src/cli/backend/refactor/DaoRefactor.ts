@@ -9,8 +9,8 @@ export class DaoRefactor extends AbstractBackEndRefactor {
     }
 
     async generate(): Promise<void> {
-        const daoOriginal = new Dao(this.data, this._originalProperties);
-        const daoNew = new Dao(this.data, this._newProperties);
+        const daoOriginal = new Dao(this._params.dataManagement, this._params.entityCurrent, this._originalProperties);
+        const daoNew = new Dao(this._params.dataManagement, this._params.entityCurrent, this._newProperties);
         this.generateFileAddRemoveProperties(daoOriginal.template[0], daoNew.template[0]);
 
     }

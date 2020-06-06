@@ -9,8 +9,8 @@ export class EntityResponseRefactor extends AbstractBackEndRefactor {
     }
 
     async generate(): Promise<void> {
-        const entityOriginal = new EntityResponse(this.data, this._originalProperties);
-        const entityNew = new EntityResponse(this.data, this._newProperties);
+        const entityOriginal = new EntityResponse(this._params.dataManagement, this._params.entityCurrent, this._originalProperties);
+        const entityNew = new EntityResponse(this._params.dataManagement, this._params.entityCurrent, this._newProperties);
         this.generateFileAddRemoveProperties(entityOriginal.template[0], entityNew.template[0]);
 
     }

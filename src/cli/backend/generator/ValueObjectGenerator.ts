@@ -10,10 +10,10 @@ export class ValueObjectGenerator extends AbstractBackEndGenerator {
     }
 
     async generate(): Promise<void> {
-        const valueObject = new ValueObject(this.data);
+        const valueObject = new ValueObject(this._params.dataManagement, this._params.entityCurrent);
         await this.renderTemplate(valueObject.template);
 
-        const valueObjectMother = new ValueObjectMother(this.data);
+        const valueObjectMother = new ValueObjectMother(this._params.dataManagement, this._params.entityCurrent);
         await this.renderTemplate(valueObjectMother.template);
 
     }

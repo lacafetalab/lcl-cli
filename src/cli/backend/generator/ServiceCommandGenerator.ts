@@ -12,7 +12,7 @@ export class ServiceCommandGenerator extends AbstractBackEndGenerator {
 
     async generate(): Promise<void> {
         const answers = await inquirer.prompt(questionCreateServiceCommand(this.config.properties));
-        const command = new CommnadService(this.data, answers.serviceName, answers.properties, answers.templateService);
+        const command = new CommnadService(this._params.dataManagement, this._params.entityCurrent, answers.serviceName, answers.properties, answers.templateService);
         await this.renderTemplate(command.template);
     }
 }

@@ -84,13 +84,14 @@ export class BackEndMenu {
                 this._entityCurrent = "";
                 break;
             case 'Exit':
+                this.exit();
                 break;
         }
         if (generator !== null) {
             await generator.generate();
         }
 
-        this.exit();
+
     }
 }
 

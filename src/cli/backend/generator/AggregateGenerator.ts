@@ -10,11 +10,11 @@ export class AggregateGenerator extends AbstractBackEndGenerator {
     }
 
     async generate(): Promise<void> {
-        const aggregate = new Aggregate(this.data);
+        const aggregate = new Aggregate(this._params.dataManagement, this._params.entityCurrent);
         await this.renderTemplate(aggregate.template);
 
         // por defecto se agrega un evento de create al agregate con todas las propiedades
-        const event = new EventDdd(this.data, 'created', `${this.config.eventPrefixEntity}created`);
+        const event = new EventDdd(this._params.dataManagement, this._params.entityCurrent, 'created', `${this.config.eventPrefixEntity}created`);
         await this.renderTemplate(event.template);
 
     }
