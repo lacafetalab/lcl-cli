@@ -1,6 +1,6 @@
 import "jest";
 import {ValueObject} from "../../../src/sdk/codeMain/domain/ValueObject";
-import {complete} from "../../config/data/data";
+import {dataUser} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
@@ -8,7 +8,7 @@ import {DataManagement} from "../../../src/sdk/config/DataManagement";
 describe("config value obeject one aggregate", () => {
     let valueObject: ValueObject;
     beforeEach(() => {
-        valueObject = new ValueObject(new DataManagement([complete()]),"User");
+        valueObject = new ValueObject(new DataManagement([dataUser()]),"User");
     });
 
     test("valueObject folder", () => {
@@ -23,7 +23,7 @@ describe("config value obeject one aggregate", () => {
 describe("config value obeject one aggregate", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const valueObjectb = new ValueObject(new DataManagement([complete()]),"User");
+        const valueObjectb = new ValueObject(new DataManagement([dataUser()]),"User");
         templates = valueObjectb.template;
     });
 

@@ -1,14 +1,14 @@
 import "jest";
 import {EntityResponse} from "../../../src/sdk/codeMain/application/EntityResponse";
 import {Template} from "../../../src/sdk/AbstractGenerate";
-import {complete} from "../../config/data/data";
+import {dataUser} from "../../config/data/data";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 
 describe("config value obeject one entityResponse", () => {
     let entityResponse: EntityResponse;
     beforeEach(() => {
-        entityResponse = new EntityResponse(new DataManagement([complete()]),"User");
+        entityResponse = new EntityResponse(new DataManagement([dataUser()]),"User");
     });
 
     test("entityResponse folder", () => {
@@ -23,7 +23,7 @@ describe("config value obeject one entityResponse", () => {
 describe("config value obeject one entityResponse", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const entityResponseb = new EntityResponse(new DataManagement([complete()]),"User");
+        const entityResponseb = new EntityResponse(new DataManagement([dataUser()]),"User");
         templates = entityResponseb.template;
     });
     test("entityResponse template id", () => {
@@ -70,7 +70,7 @@ describe("config value obeject one entityResponse", () => {
 describe("config value obeject one entityResponse propertie id, name", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const entityResponseb = new EntityResponse(new DataManagement([complete()]),"User",['id','name']);
+        const entityResponseb = new EntityResponse(new DataManagement([dataUser()]),"User",['id','name']);
         templates = entityResponseb.template;
     });
     test("entityResponse template id", () => {

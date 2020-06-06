@@ -1,13 +1,13 @@
 import {Config} from "../../src/sdk/config/Config";
 import "jest";
-import {complete, entitiesWithEntityDependencies, twoEntitiesDependents, withoutEvent} from "./data/data"
+import {dataUser, entitiesWithEntityDependencies, twoEntitiesDependents, withoutEvent} from "./data/data"
 import {DataManagement} from "../../src/sdk/config/DataManagement";
 
 
 describe("config base one aggregate", () => {
     let config: Config;
     beforeEach(() => {
-        config = new Config(new DataManagement([complete()]),"User");
+        config = new Config(new DataManagement([dataUser()]),"User");
     });
 
     test("properties", () => {

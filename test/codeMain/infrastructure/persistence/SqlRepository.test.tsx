@@ -1,13 +1,13 @@
 import "jest";
 import {Template} from "../../../../src/sdk/AbstractGenerate";
-import {complete} from "../../../config/data/data";
+import {dataUser} from "../../../config/data/data";
 import {SqlRepository} from "../../../../src/sdk/codeMain/infrastructure/persistence/SqlRepository";
 import {DataManagement} from "../../../../src/sdk/config/DataManagement";
 
 let sqlRepository: SqlRepository;
 describe("config sqlRepository one sqlRepository", () => {
     beforeEach(() => {
-        sqlRepository = new SqlRepository(new DataManagement([complete()]), "User");
+        sqlRepository = new SqlRepository(new DataManagement([dataUser()]), "User");
     });
 
     test("sqlRepository folder", () => {
@@ -21,7 +21,7 @@ describe("config sqlRepository one sqlRepository", () => {
 let templates: Template[] = [];
 describe("config sqlRepository one sqlRepository", () => {
     beforeEach(() => {
-        const sqlRepositoryb = new SqlRepository(new DataManagement([complete()]), "User");
+        const sqlRepositoryb = new SqlRepository(new DataManagement([dataUser()]), "User");
         templates = sqlRepositoryb.template;
     });
     test("sqlRepository template id", () => {

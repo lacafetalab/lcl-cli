@@ -1,13 +1,13 @@
 import "jest";
 import {ValueObjectMother} from "../../../src/sdk/codeTest/domain/ValueObjectMother";
-import {complete} from "../../config/data/data";
+import {dataUser} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 let valueObjectMother: ValueObjectMother;
 describe("config value obeject one aggregate", () => {
     beforeEach(() => {
-        valueObjectMother = new ValueObjectMother(new DataManagement([complete()]),"User");
+        valueObjectMother = new ValueObjectMother(new DataManagement([dataUser()]),"User");
     });
 
     test("valueObjectMother folder", () => {
@@ -21,7 +21,7 @@ describe("config value obeject one aggregate", () => {
 let templates: Template[] = [];
 describe("config value obeject one aggregate", () => {
     beforeEach(() => {
-        const valueObjectMotherb = new ValueObjectMother(new DataManagement([complete()]),"User");
+        const valueObjectMotherb = new ValueObjectMother(new DataManagement([dataUser()]),"User");
         templates = valueObjectMotherb.template;
     });
 

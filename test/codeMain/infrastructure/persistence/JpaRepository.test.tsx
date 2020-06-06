@@ -1,13 +1,13 @@
 import "jest";
 import {JpaRepository} from "../../../../src/sdk/codeMain/infrastructure/persistence/JpaRepository";
 import {Template} from "../../../../src/sdk/AbstractGenerate";
-import {complete} from "../../../config/data/data";
+import {dataUser} from "../../../config/data/data";
 import {DataManagement} from "../../../../src/sdk/config/DataManagement";
 
 let jpaRepository: JpaRepository;
 describe("config jpaRepository one jpaRepository", () => {
     beforeEach(() => {
-        jpaRepository = new JpaRepository(new DataManagement([complete()]), "User");
+        jpaRepository = new JpaRepository(new DataManagement([dataUser()]), "User");
     });
 
     test("jpaRepository folder", () => {
@@ -21,7 +21,7 @@ describe("config jpaRepository one jpaRepository", () => {
 let templates: Template[] = [];
 describe("config jpaRepository one jpaRepository", () => {
     beforeEach(() => {
-        const jpaRepositoryb = new JpaRepository(new DataManagement([complete()]), "User");
+        const jpaRepositoryb = new JpaRepository(new DataManagement([dataUser()]), "User");
         templates = jpaRepositoryb.template;
     });
     test("jpaRepository template id", () => {

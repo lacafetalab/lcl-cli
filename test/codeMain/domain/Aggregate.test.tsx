@@ -1,14 +1,14 @@
 import "jest";
 import {Aggregate} from "../../../src/sdk/codeMain/domain/Aggregate";
 import {Template} from "../../../src/sdk/AbstractGenerate";
-import {complete} from "../../config/data/data";
+import {dataUser} from "../../config/data/data";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
 
 describe("config value obeject one aggregate", () => {
     let aggregate: Aggregate;
     beforeEach(() => {
-        aggregate = new Aggregate(new DataManagement([complete()]), "User");
+        aggregate = new Aggregate(new DataManagement([dataUser()]), "User");
     });
 
     test("aggregate folder", () => {
@@ -23,7 +23,7 @@ describe("config value obeject one aggregate", () => {
 describe("config value obeject one aggregate", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const aggregateb = new Aggregate(new DataManagement([complete()]), "User");
+        const aggregateb = new Aggregate(new DataManagement([dataUser()]), "User");
         templates = aggregateb.template;
     });
     test("aggregate template id", () => {
@@ -56,7 +56,7 @@ describe("config value obeject one aggregate", () => {
 describe("config value obeject one aggregate any properties", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const aggregateb = new Aggregate(new DataManagement([complete()]), "User", ['id', 'name']);
+        const aggregateb = new Aggregate(new DataManagement([dataUser()]), "User", ['id', 'name']);
         templates = aggregateb.template;
     });
     test("aggregate template id", () => {

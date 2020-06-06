@@ -11,7 +11,7 @@ function readAddress() {
     return YAML.parse(file);
 }
 
-export function complete() {
+export function dataUser() {
     const configPath = path.join(__dirname, 'user.yml');
     const file = fs.readFileSync(configPath, "utf8");
     return YAML.parse(file);
@@ -23,8 +23,8 @@ export function entitiesWithEntityDependencies() {
 
 
 export function twoCompletedComfig() {
-    const dataOne = complete();
-    const dataTwo = complete();
+    const dataOne = dataUser();
+    const dataTwo = dataUser();
     dataOne.name = "UserOne";
     dataTwo.name = "UserTwo";
     return [dataOne, dataTwo];
@@ -38,5 +38,5 @@ export function withoutEvent() {
 }
 
 export function twoEntitiesDependents() {
-    return [complete(), readAddress()];
+    return [dataUser(), readAddress()];
 }
