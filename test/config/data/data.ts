@@ -1,15 +1,9 @@
-import {DataManagement} from "../../../src/sdk/config/DataManagement";
-
 const fs = require("fs");
 const YAML = require("yaml");
 const path = require('path');
 
 
-function readUser() {
-    const configPath = path.join(__dirname, 'user.yml');
-    const file = fs.readFileSync(configPath, "utf8");
-    return YAML.parse(file);
-}
+
 
 function readAddress() {
     const configPath = path.join(__dirname, 'address.yml');
@@ -18,7 +12,9 @@ function readAddress() {
 }
 
 export function complete() {
-    return readUser();
+    const configPath = path.join(__dirname, 'user.yml');
+    const file = fs.readFileSync(configPath, "utf8");
+    return YAML.parse(file);
 }
 
 export function entitiesWithEntityDependencies() {
@@ -27,8 +23,8 @@ export function entitiesWithEntityDependencies() {
 
 
 export function twoCompletedComfig() {
-    const dataOne = readUser();
-    const dataTwo = readUser();
+    const dataOne = complete();
+    const dataTwo = complete();
     dataOne.name = "UserOne";
     dataTwo.name = "UserTwo";
     return [dataOne, dataTwo];
@@ -42,5 +38,5 @@ export function withoutEvent() {
 }
 
 export function twoEntitiesDependents() {
-    return [readUser(), readAddress()];
+    return [complete(), readAddress()];
 }
