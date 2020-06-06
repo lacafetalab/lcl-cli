@@ -12,7 +12,7 @@ export class ServiceQueryGenerator extends AbstractBackEndGenerator {
     async generate(): Promise<void> {
         const answers = await inquirer.prompt(questionCreateServiceQuery(this.config.properties));
         const query = new QueryService(this.data, answers.serviceName, answers.returnType, answers.properties, answers.templateService);
-        this.renderTemplate(query.template);
+        await this.renderTemplate(query.template);
     }
 }
 

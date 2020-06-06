@@ -225,3 +225,32 @@ export function questionRenderFile(fileName: string): QuestionCollection<{ menuS
 }
 
 
+export function questionRenderGenerateFilePart1(fileName: string): QuestionCollection<{ menuSelected: string }> {
+    return [
+        {
+            type: 'rawlist',
+            name: 'menuSelected',
+            message: `The file exists, but it is different from the original render, what do you want to do? ${fileName}`,
+            choices: [
+                "Why is different?",
+                "Original render to clipboard",
+                "Render again --force",
+                new inquirer.Separator(),
+                "Continue"
+            ],
+            default: "Why is different?"
+        }
+    ];
+}
+
+
+export function questionRenderGenerateFilePart2(fileName: string): QuestionCollection<{ deleteFile: boolean }> {
+    return [
+        {
+            type: 'confirm',
+            name: 'deleteFile',
+            message: `Are you sure? do you want to replace file : ${fileName}?`,
+            default: false
+        },
+    ];
+}

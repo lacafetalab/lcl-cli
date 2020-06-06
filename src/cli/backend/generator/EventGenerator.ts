@@ -14,7 +14,7 @@ export class EventGenerator extends AbstractBackEndGenerator {
         const answersAction = await inquirer.prompt(questionCreateEventPart1());
         const answers = await inquirer.prompt(questionCreateEventPart2(answersAction.eventAction, this.config.eventPrefixEntity, this.config.properties));
         const event = new EventDdd(this.data, answersAction.eventAction, answers.eventName, answers.properties);
-        this.renderTemplate(event.template);
+        await this.renderTemplate(event.template);
 
     }
 }

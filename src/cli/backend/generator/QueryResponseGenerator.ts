@@ -10,7 +10,7 @@ export class QueryResponseGenerator extends AbstractBackEndGenerator {
 
     async generate(): Promise<void> {
         const entityResponse = new EntityResponse(this.data);
-        this.renderTemplate(entityResponse.template);
+        await this.renderTemplate(entityResponse.template);
 
     }
 }

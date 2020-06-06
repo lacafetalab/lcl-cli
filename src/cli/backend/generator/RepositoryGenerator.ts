@@ -13,16 +13,16 @@ export class RepositoryGenerator extends AbstractBackEndGenerator {
 
     async generate(): Promise<void> {
         const repository = new Repository(this.data);
-        this.renderTemplate(repository.template);
+        await this.renderTemplate(repository.template);
 
         const dao = new Dao(this.data);
-        this.renderTemplate(dao.template);
+        await this.renderTemplate(dao.template);
 
         const jpaRepository = new JpaRepository(this.data);
-        this.renderTemplate(jpaRepository.template);
+        await this.renderTemplate(jpaRepository.template);
 
         const sqlRepository = new SqlRepository(this.data);
-        this.renderTemplate(sqlRepository.template);
+        await this.renderTemplate(sqlRepository.template);
 
     }
 }
