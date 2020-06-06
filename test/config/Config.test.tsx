@@ -7,7 +7,7 @@ import {DataManagement} from "../../src/sdk/config/DataManagement";
 describe("config base one aggregate", () => {
     let config: Config;
     beforeEach(() => {
-        config = new Config(new DataManagement([dataUser()]),"User");
+        config = new Config(new DataManagement([dataUser()]), "User");
     });
 
     test("properties", () => {
@@ -66,7 +66,7 @@ describe("config base one aggregate", () => {
 describe("config base one aggregate", () => {
     let config: Config;
     beforeEach(() => {
-        config = new Config(new DataManagement([withoutEvent()]),"User");
+        config = new Config(new DataManagement([withoutEvent()]), "User");
     });
 
     test("event prefix", () => {
@@ -79,7 +79,7 @@ describe("config base one aggregate", () => {
 // describe("config base one aggregate entidades dependientes", () => {
 //     let config: Config;
 //     beforeEach(() => {
-//         config = new Config(twoEntitiesDependents());
+//         config = new Config(new DataManagement(twoEntitiesDependents()), "Address");
 //     });
 //
 //     test("properties", () => {

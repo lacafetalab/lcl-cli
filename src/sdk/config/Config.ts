@@ -1,4 +1,4 @@
-import {ConfigUtil, ValueObjectPropertie} from "./ConfigUtil";
+import {ConfigUtil, IValueObjectPropertie} from "./ConfigUtil";
 import {DataManagement} from "./DataManagement";
 
 const s = require("underscore.string");
@@ -14,14 +14,6 @@ export class Config {
 
     constructor(protected _dataManagement: DataManagement, protected _currentEntity: string) {
         this._data = this._dataManagement.getData(this._currentEntity);
-    }
-
-    get properties(): string[] {
-        const data: string[] = [];
-        for (const propertie of Object.keys(this._data.properties.aggregate)) {
-            data.push(propertie);
-        }
-        return data
     }
 
     get repository(): RepositoryDao {
@@ -80,11 +72,19 @@ export class Config {
         return `${this._data.path}/test/${this._data.package}`.replace(/\./g, "/");
     }
 
+    get properties(): string[] {
+        const data: string[] = [];
+        for (const propertie of Object.keys(this._data.properties.aggregate)) {
+            data.push(propertie);
+        }
+        return data
+    }
+
     valueObject(propertie: string): string {
         return ConfigUtil.valueObject(propertie, this.entity);
     }
 
-    valueObjectProperties(properties: string[]): ValueObjectPropertie[] {
+    valueObjectProperties(properties: string[]): IValueObjectPropertie[] {
         return ConfigUtil.valueObjectProperties(properties, this.entity);
     }
 }

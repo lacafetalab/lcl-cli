@@ -1,7 +1,7 @@
 // tslint:disable-next-line:no-var-requires
 const s = require("underscore.string");
 
-export interface ValueObjectPropertie {
+export interface IValueObjectPropertie {
     className: string,
     propertie: string
 }
@@ -12,8 +12,8 @@ export class ConfigUtil {
         return `${entity}${propertieCapitalize}`;
     }
 
-    static valueObjectProperties(properties: string[], entity: string): ValueObjectPropertie[] {
-        const voProperties: ValueObjectPropertie[] = [];
+    static valueObjectProperties(properties: string[], entity: string): IValueObjectPropertie[] {
+        const voProperties: IValueObjectPropertie[] = [];
         properties.forEach(propertie => {
             voProperties.push({
                 className: ConfigUtil.valueObject(propertie,entity),

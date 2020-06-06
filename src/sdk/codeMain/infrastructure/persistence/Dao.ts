@@ -1,6 +1,6 @@
 import {AbstractGenerate, Template} from "../../../AbstractGenerate";
 import {ConfigValueObject} from "../../../config/ConfigValueObject";
-import {ValueObjectPropertie} from "../../../config/ConfigUtil";
+import {IValueObjectPropertie} from "../../../config/ConfigUtil";
 import {DataManagement} from "../../../config/DataManagement";
 
 const s = require("underscore.string");
@@ -54,7 +54,7 @@ export class Dao extends AbstractGenerate {
         return template;
     }
 
-    private strPropertiesToDomain(voProperties: ValueObjectPropertie[]): string {
+    private strPropertiesToDomain(voProperties: IValueObjectPropertie[]): string {
         let str = "";
         voProperties.forEach(voPropertie => {
             str = str + `, new ${voPropertie.className}(this.${voPropertie.propertie})`;
