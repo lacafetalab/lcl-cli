@@ -37,24 +37,28 @@ export function generateFile(list: Template[], relativePath: string, pathTemplat
             // se genera render y copare para hacer un git diff con docker
             generateRenderAndCompare(param, relativePath, pathTemplates);
         } else {
-            generateRenderSync(param, relativePath, pathTemplates, true);
+            generateRenderSync(param, relativePath, pathTemplates, "Generated");
         }
     });
 }
 
-export function generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, showLogGenerate: boolean = false) {
+export function generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, messageCreated: string = "") {
 
     fs.mkdirSync(path.join(renderFolder, param.folder), {recursive: true});
-    const str = ejs.render(fs.readFileSync(path.join(pathTemplates, param.template), 'utf-8'), param.dataTemplate);
+    const str = generateRender(param, pathTemplates);
     fs.writeFileSync(path.join(renderFolder, param.file), str, 'utf-8');
-    if (showLogGenerate) {
-        console.log(`generated : ${path.join(renderFolder, param.file)}`);
+    if (messageCreated !== "") {
+        console.log(`${messageCreated} : ${path.join(renderFolder, param.file)}`);
     }
+}
+
+export function generateRender(template: Template, pathTemplates: string): string {
+    return ejs.render(fs.readFileSync(path.join(pathTemplates, template.template), 'utf-8'), template.dataTemplate);
 }
 
 function generateRenderAndCompare(param: Template, relativePath: string, pathTemplates: string,) {
     const strClass = fs.readFileSync(path.join(relativePath, param.file), 'utf-8');
-    const strRender = ejs.render(fs.readFileSync(path.join(pathTemplates, param.template), 'utf-8'), param.dataTemplate);
+    const strRender = generateRender(param, pathTemplates)
     runDiff(strClass, strRender);
 }
 

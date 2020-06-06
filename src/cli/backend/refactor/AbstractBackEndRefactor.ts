@@ -1,9 +1,14 @@
 import {Template} from "../../../sdk/AbstractGenerate";
 import {Config} from "../../../sdk/config/Config";
 import {InterfaceBackEndConstructor} from "../InterfaceBackEndConstructor";
-import {generateFileAddRempveProperties} from "../../util/utilrefactor";
+import path from "path";
+import fs from "fs";
+import {isEqualsFiles, runDiff} from "../../util/utildiff";
+import {generateRender, generateRenderSync} from "../../util/utilgenerator";
+import * as inquirer from "inquirer";
+import {questionRenderFile} from "../questions";
 
-//const clipboardy = require('clipboardy');
+const clipboardy = require('clipboardy');
 
 export abstract class AbstractBackEndRefactor {
     protected _originalProperties: string[] = [];
@@ -33,8 +38,54 @@ export abstract class AbstractBackEndRefactor {
 
     protected async generateFileAddRemoveProperties(templateOriginal: Template, templateNew: Template, showQuestion: boolean = false) {
 
-        //clipboardy.writeSync("aws");
-        generateFileAddRempveProperties(templateOriginal, templateNew, this._params.relativePath, this._params.pathTemplates);
+        const fileGenerate = path.join(this._params.relativePath, templateOriginal.file);
+        if (!fs.existsSync(fileGenerate)) {
+            generateRenderSync(templateNew, this._params.relativePath, this._params.pathTemplates, "Generated");
+            return;
+        }
+        let renderAgain: boolean = true;
+        while (renderAgain) {
+            const strClass = fs.readFileSync(fileGenerate, 'utf-8');
+            const strRenderOriginal = generateRender(templateOriginal, this._params.pathTemplates);
+
+            // si el archivo existente es igual al render original, se puede actizar el archivo
+            if (isEqualsFiles(strClass, strRenderOriginal)) {
+                fs.unlinkSync(fileGenerate);
+                generateRenderSync(templateNew, this._params.relativePath, this._params.pathTemplates, "Updated");
+                renderAgain = false;
+                continue;
+            }
+
+            const strRenderNew = generateRender(templateNew, this._params.pathTemplates);
+
+            let showMenuRenderError: boolean = true;
+            while (showMenuRenderError) {
+                const answers = await inquirer.prompt(questionRenderFile(templateOriginal.file));
+                switch (answers.menuSelected) {
+                    case 'Why no render?':
+                        runDiff(strClass, strRenderOriginal);
+                        clipboardy.writeSync(strRenderOriginal);
+                        break;
+                    case 'Render to clipboard':
+                        clipboardy.writeSync(strRenderNew);
+                        break;
+                    case 'Show Diff':
+                        runDiff(strRenderOriginal, strRenderNew);
+                        break;
+                    case 'Original to clipboard':
+                        clipboardy.writeSync(strRenderOriginal);
+                        break;
+                    case 'Render again':
+                        renderAgain = true;
+                        showMenuRenderError = false;
+                        break;
+                    case 'Continue':
+                        showMenuRenderError = false;
+                        renderAgain = false;
+                        break;
+                }
+            }
+        }
     }
 
     public abstract async generate(): Promise<void>;

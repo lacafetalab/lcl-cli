@@ -1,4 +1,4 @@
-import {QuestionCollection} from "inquirer";
+import inquirer, {QuestionCollection} from "inquirer";
 
 const s = require("underscore.string");
 
@@ -199,6 +199,27 @@ export function questionAddOrRemovePropertie(properties: string[]): QuestionColl
                 }
                 return true;
             }
+        }
+    ];
+}
+
+
+export function questionRenderFile(fileName: string): QuestionCollection<{ menuSelected: string }> {
+    return [
+        {
+            type: 'rawlist',
+            name: 'menuSelected',
+            message: `No render, what do you want to do? ${fileName}`,
+            choices: [
+                "Why no render?",
+                "Render to clipboard",
+                "Show Diff",
+                "Render again",
+                "Original to clipboard",
+                new inquirer.Separator(),
+                "Continue"
+            ],
+            default: "Why no render?"
         }
     ];
 }
