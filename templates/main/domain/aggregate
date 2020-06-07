@@ -1,5 +1,10 @@
 package <%= package %>;
 
+<%_ voProperties.forEach(function(voPropertie){ _%>
+<%_ if (voPropertie.package) { _%>
+import <%= voPropertie.package %>.<%= voPropertie.className %>
+<%_ } _%>
+<%_ }); _%>
 import pe.lacafetalab.pao.shared.domain.AggregateRoot;
 
 import java.util.Objects;

@@ -48,7 +48,8 @@ export class Dao extends AbstractGenerate {
             entityClass: this.config.entity,
             packageDomain: this.packageDomain,
             strPropertiesToDomain: this.strPropertiesToDomain(voProperties),
-            tableProperties: this.tableProperties(this._properties)
+            tableProperties: this.tableProperties(this._properties),
+            voProperties
         };
         template.push(new Template(this.folder, file, fileTemplate, data));
         return template;

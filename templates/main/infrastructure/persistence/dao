@@ -2,6 +2,11 @@ package <%= package %>;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+<%_ voProperties.forEach(function(voPropertie){ _%>
+<%_ if (voPropertie.package) { _%>
+import <%= voPropertie.package %>.<%= voPropertie.className %>
+<%_ } _%>
+<%_ }); _%>
 import <%= packageDomain %>.*;
 import pe.lacafetalab.pao.shared.infrastructure.dao.GeneralEntity;
 

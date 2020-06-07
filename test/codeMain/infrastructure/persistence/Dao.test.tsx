@@ -41,6 +41,28 @@ describe("config value obeject one dao", () => {
             "packageDomain": "pe.lacafetalab.pao.communication.user.domain",
             "entityClass": "User",
             "strPropertiesToDomain": 'new UserId(this.id), new UserName(this.name), new UserLastname(this.lastname), new UserDescription(this.description), new UserBirthdate(this.birthdate)',
+            "voProperties": [
+                {
+                    "className": "UserId",
+                    "propertie": "id"
+                },
+                {
+                    "className": "UserName",
+                    "propertie": "name"
+                },
+                {
+                    "className": "UserLastname",
+                    "propertie": "lastname"
+                },
+                {
+                    "className": "UserDescription",
+                    "propertie": "description"
+                },
+                {
+                    "className": "UserBirthdate",
+                    "propertie": "birthdate"
+                }
+            ],
             "tableProperties": [
                 {
                     propertie: 'id',
@@ -104,6 +126,16 @@ describe("config value obeject one dao properties id, name", () => {
             "packageDomain": "pe.lacafetalab.pao.communication.user.domain",
             "entityClass": "User",
             "strPropertiesToDomain": 'new UserId(this.id), new UserName(this.name)',
+            "voProperties": [
+                {
+                    "className": "UserId",
+                    "propertie": "id"
+                },
+                {
+                    "className": "UserName",
+                    "propertie": "name"
+                }
+            ],
             "tableProperties": [
                 {
                     propertie: 'id',
@@ -146,6 +178,20 @@ describe("dto external data", () => {
             "packageDomain": "pe.lacafetalab.pao.communication.address.domain",
             "strPropertiesToDomain": "new AddressId(this.id), new UserId(this.userId), new AddressName(this.name)",
             "tableName": "address",
+            "voProperties": [
+                {
+                    "className": "AddressId",
+                    "propertie": "id"
+                },
+                {
+                    "className": "UserId",
+                    "package": "pe.lacafetalab.pao.communication.user.domain",
+                    "propertie": "userId"
+                },
+                {
+                    "className": "AddressName",
+                    "propertie": "name"
+                }],
             "tableProperties": [
                 {
                     "columnName": "id",
