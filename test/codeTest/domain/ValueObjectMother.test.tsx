@@ -4,10 +4,10 @@ import {dataUser} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
-let valueObjectMother: ValueObjectMother;
 describe("config value obeject one aggregate", () => {
+    let valueObjectMother: ValueObjectMother;
     beforeEach(() => {
-        valueObjectMother = new ValueObjectMother(new DataManagement([dataUser()]),"User");
+        valueObjectMother = new ValueObjectMother(new DataManagement([dataUser()]), "User");
     });
 
     test("valueObjectMother folder", () => {
@@ -18,10 +18,11 @@ describe("config value obeject one aggregate", () => {
     });
 
 });
-let templates: Template[] = [];
+
 describe("config value obeject one aggregate", () => {
+    let templates: Template[] = [];
     beforeEach(() => {
-        const valueObjectMotherb = new ValueObjectMother(new DataManagement([dataUser()]),"User");
+        const valueObjectMotherb = new ValueObjectMother(new DataManagement([dataUser()]), "User");
         templates = valueObjectMotherb.template;
     });
 

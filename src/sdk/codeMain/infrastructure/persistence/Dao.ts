@@ -1,7 +1,7 @@
 import {AbstractGenerate, Template} from "../../../AbstractGenerate";
-import {ConfigValueObject} from "../../../config/ConfigValueObject";
-import {IValueObjectPropertie} from "../../../config/ConfigUtil";
 import {DataManagement} from "../../../config/DataManagement";
+import {InterfaceValueObjectPropertie} from "../../../config/ValueObjectPropertie";
+import {Config} from "../../../config/Config";
 
 const s = require("underscore.string");
 
@@ -14,12 +14,12 @@ export interface TablePropertie {
 }
 
 export class Dao extends AbstractGenerate {
-    private config: ConfigValueObject;
+    private config: Config;
     private _properties: string[];
 
     constructor(_dataManagement: DataManagement, _currentEntity: string, properties: string[] | null = null) {
         super();
-        this.config = new ConfigValueObject(_dataManagement, _currentEntity);
+        this.config = new Config(_dataManagement, _currentEntity);
         this._properties = properties ?? this.config.properties
     }
 
@@ -54,7 +54,7 @@ export class Dao extends AbstractGenerate {
         return template;
     }
 
-    private strPropertiesToDomain(voProperties: IValueObjectPropertie[]): string {
+    private strPropertiesToDomain(voProperties: InterfaceValueObjectPropertie[]): string {
         let str = "";
         voProperties.forEach(voPropertie => {
             str = str + `, new ${voPropertie.className}(this.${voPropertie.propertie})`;
@@ -65,7 +65,7 @@ export class Dao extends AbstractGenerate {
     private tableProperties(properties: string[]): TablePropertie[] {
         const tablePropertie: TablePropertie[] = [];
         properties.forEach(propertie => {
-            const propertieType = this.config.propertieType(propertie);
+            const propertieType = this.config.valueObjectValue(propertie);
             const columnName = (this.config.repository.columnName[propertie]) ? this.config.repository.columnName[propertie] : s.underscored(propertie);
             tablePropertie.push({
                 propertie,

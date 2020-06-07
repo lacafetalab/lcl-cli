@@ -1,4 +1,4 @@
-import {IValueObjectPropertie} from "./config/ConfigUtil";
+import {InterfaceValueObjectPropertie} from "./config/ValueObjectPropertie";
 
 const s = require("underscore.string");
 
@@ -50,7 +50,7 @@ export abstract class AbstractGenerate {
         return s.trim(s.trim(str, ','));
     }
 
-    strVoProperties(voProperties: IValueObjectPropertie[]): string {
+    strVoProperties(voProperties: InterfaceValueObjectPropertie[]): string {
         let str = "";
         voProperties.forEach(voPropertie => {
             str = str + `, ${voPropertie.className} ${voPropertie.propertie}`;

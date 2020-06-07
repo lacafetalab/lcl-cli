@@ -9,7 +9,7 @@ import {ValueObjectPropertie} from "../../src/sdk/config/ValueObjectPropertie";
 describe("config value obeject one aggregate", () => {
     let valueObject: ValueObjectPropertie;
     beforeEach(() => {
-        valueObject = new ValueObjectPropertie(new DataManagement([dataUser()]),"User");
+        valueObject = new ValueObjectPropertie(new DataManagement([dataUser()]), "User");
     });
 
     test("type id inline", () => {
@@ -58,7 +58,7 @@ describe("config value obeject one aggregate", () => {
 describe("list properties one aggregate", () => {
     let valueObject: ValueObjectPropertie;
     beforeEach(() => {
-        valueObject = new ValueObjectPropertie(new DataManagement([dataUser()]),"User");
+        valueObject = new ValueObjectPropertie(new DataManagement([dataUser()]), "User");
     });
 
     test("type id inline", () => {
@@ -76,7 +76,7 @@ describe("list properties one aggregate", () => {
 describe("ValueObjectPropertie entidades dependientes", () => {
     let valueObject: ValueObjectPropertie;
     beforeEach(() => {
-        valueObject = new ValueObjectPropertie(new DataManagement(twoEntitiesDependents()),"Address");
+        valueObject = new ValueObjectPropertie(new DataManagement(twoEntitiesDependents()), "Address");
     });
 
     test("properties", () => {
@@ -95,6 +95,20 @@ describe("ValueObjectPropertie entidades dependientes", () => {
             {"className": 'UserId', "propertie": 'userId', 'package': 'pe.lacafetalab.pao.communication.user.domain'},
             {"className": 'AddressName', "propertie": 'name'}
         ]);
+    });
+
+});
+
+
+describe("ValueObjectPropertie entidades dependientes", () => {
+    let valueObject: ValueObjectPropertie;
+    beforeEach(() => {
+        valueObject = new ValueObjectPropertie(new DataManagement(twoEntitiesDependents()), "Address");
+    });
+
+    test("properties depends", () => {
+        expect(valueObject.isExternal("id")).toEqual(false);
+        expect(valueObject.isExternal("userId")).toEqual(true);
     });
 
 });

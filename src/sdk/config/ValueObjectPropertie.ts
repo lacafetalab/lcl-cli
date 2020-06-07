@@ -2,7 +2,7 @@ import {DataManagement} from "./DataManagement";
 
 const s = require("underscore.string");
 
-interface PropertieValue {
+export interface PropertieValue {
     type: string,
     primitive: string,
     required: boolean,
@@ -20,6 +20,7 @@ export interface InterfaceValueObjectPropertie {
 export class ValueObjectPropertie {
 
     private _data: any;
+    private _externalName: string = "valueObject";
 
     constructor(private _dataManagement: DataManagement, private _currentEntity: string) {
         this._data = this._dataManagement.getData(this._currentEntity);
@@ -27,7 +28,7 @@ export class ValueObjectPropertie {
 
     valueObject(propertie: string): string {
         const propertieValue: PropertieValue = this.propertieValue(propertie);
-        if (propertieValue.type === "valueObject") {
+        if (propertieValue.type === this._externalName) {
             return `${propertieValue.externalEntity}${s.capitalize(propertieValue.externalPropertie)}`;
         } else {
             return `${this._currentEntity}${s.capitalize(propertie)}`;
@@ -43,7 +44,7 @@ export class ValueObjectPropertie {
                 propertie
             };
             const propertieValue: PropertieValue = this.propertieValue(propertie);
-            if (propertieValue.type === "valueObject" && propertieValue.externalEntity != null) {
+            if (propertieValue.type === this._externalName && propertieValue.externalEntity != null) {
                 const dataExternal = this._dataManagement.getData(propertieValue.externalEntity);
                 // todo: crear una clase difernte a config que retorne toda esta data y dejar de usar el objeto enplano
                 voPropertie.package = `${dataExternal.package}.domain`;
@@ -81,7 +82,7 @@ export class ValueObjectPropertie {
 
         if (propType.type.includes(":") && propType.type.split(":").length === 2) {
             const externalValue = propType.type.split(":");
-            propType.type = "valueObject";
+            propType.type = this._externalName;
             propType.externalEntity = externalValue[0];
             propType.externalPropertie = externalValue[1];
         }
@@ -127,4 +128,8 @@ export class ValueObjectPropertie {
     //     }
     // }
 
+    isExternal(propertie: string): boolean {
+        const propertieValue: PropertieValue = this.propertieValue(propertie);
+        return propertieValue.type === this._externalName;
+    }
 }

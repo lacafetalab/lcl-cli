@@ -1,13 +1,13 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
-import {ConfigValueObject} from "../../config/ConfigValueObject";
 import {DataManagement} from "../../config/DataManagement";
+import {Config} from "../../config/Config";
 
 export class ValueObjectMother extends AbstractGenerate {
-    private config: ConfigValueObject;
+    private config: Config;
 
     constructor(_dataManagement: DataManagement, _currentEntity: string) {
         super();
-        this.config = new ConfigValueObject(_dataManagement, _currentEntity);
+        this.config = new Config(_dataManagement, _currentEntity);
     }
 
     get folder(): string {
@@ -21,7 +21,7 @@ export class ValueObjectMother extends AbstractGenerate {
     get template(): Template[] {
         const template: Template[] = [];
         this.config.properties.forEach(propertie => {
-            const type = this.config.propertieType(propertie);
+            const type = this.config.valueObjectValue(propertie);
 
             const classEntity = this.config.valueObject(propertie);
             const className = `${classEntity}Mother`;
@@ -32,7 +32,10 @@ export class ValueObjectMother extends AbstractGenerate {
                 package: this.package,
                 classEntity
             };
-            template.push(new Template(this.folder, file, fileTemplate, data));
+            if (!this.config.isvalueObjectExternal(propertie)) {
+                template.push(new Template(this.folder, file, fileTemplate, data));
+            }
+
         });
         return template;
     }

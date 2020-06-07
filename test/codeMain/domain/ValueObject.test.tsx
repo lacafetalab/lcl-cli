@@ -68,6 +68,27 @@ describe("config value obeject one aggregate", () => {
     });
 });
 
+describe("config message one aggregate", () => {
+    let valueObject: ValueObject;
+    beforeEach(() => {
+        valueObject = new ValueObject(new DataManagement([dataUser()]),"User");
+    });
+
+    test("type id no message", () => {
+        expect(valueObject.propertieMessage('id')).toEqual({
+            "required": null,
+            "valid": null
+        });
+    });
+
+    test("type valid and required message", () => {
+        expect(valueObject.propertieMessage('name')).toEqual({
+            "required": "El nombre es requerido",
+            "valid": "El nombre no es un valor válido"
+        });
+    });
+});
+
 /*
 {
   folder: 'src/communication/main/pe/lacafetalab/pao/communication/user/domain',

@@ -1,8 +1,6 @@
 import "jest";
-
-
-import {ConfigUtil} from "../src/sdk/config/ConfigUtil";
 import {AbstractGenerate, Template} from "../src/sdk/AbstractGenerate";
+import {InterfaceValueObjectPropertie} from "../src/sdk/config/ValueObjectPropertie";
 
 class GenerateImplement extends AbstractGenerate {
     get template(): Template[] {
@@ -65,22 +63,31 @@ describe("AbstractGenerate str to string", () => {
 });
 
 describe("AbstractGenerate str vo properties", () => {
+
+
     beforeEach(() => {
         generateImplement = new GenerateImplement();
     });
     test("AbstractGenerate str properties", () => {
-        const voProperties = ConfigUtil.valueObjectProperties(['id', 'name', 'lastname'], "User");
+        const voProperties: InterfaceValueObjectPropertie[] = [
+            {className: 'UserId', propertie: 'id'},
+            {className: 'UserName', propertie: 'name'},
+            {className: 'UserLastname', propertie: 'lastname'},
+        ];
         expect(generateImplement.strVoProperties(voProperties)).toEqual("UserId id, UserName name, UserLastname lastname");
     });
     test("AbstractGenerate str one propertie", () => {
-        const voProperties = ConfigUtil.valueObjectProperties(['id'], "User");
+        const voProperties: InterfaceValueObjectPropertie[] = [
+            {className: 'UserId', propertie: 'id'}
+        ];
         expect(generateImplement.strVoProperties(voProperties)).toEqual("UserId id");
     });
     test("AbstractGenerate str one empty", () => {
-        const voProperties = ConfigUtil.valueObjectProperties([], "User");
+        const voProperties: InterfaceValueObjectPropertie[] = [];
         expect(generateImplement.strVoProperties(voProperties)).toEqual("");
     });
 
-});
+})
+;
 
 

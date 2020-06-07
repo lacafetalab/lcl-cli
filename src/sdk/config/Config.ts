@@ -1,5 +1,5 @@
-import {ConfigUtil, IValueObjectPropertie} from "./ConfigUtil";
 import {DataManagement} from "./DataManagement";
+import {InterfaceValueObjectPropertie, PropertieValue, ValueObjectPropertie} from "./ValueObjectPropertie";
 
 const s = require("underscore.string");
 
@@ -11,9 +11,11 @@ interface RepositoryDao {
 
 export class Config {
     protected _data: any;
+    protected _voProperties: ValueObjectPropertie;
 
     constructor(protected _dataManagement: DataManagement, protected _currentEntity: string) {
         this._data = this._dataManagement.getData(this._currentEntity);
+        this._voProperties = new ValueObjectPropertie(_dataManagement, _currentEntity);
     }
 
     get repository(): RepositoryDao {
@@ -73,18 +75,22 @@ export class Config {
     }
 
     get properties(): string[] {
-        const data: string[] = [];
-        for (const propertie of Object.keys(this._data.properties.aggregate)) {
-            data.push(propertie);
-        }
-        return data
+        return this._voProperties.properties;
     }
 
     valueObject(propertie: string): string {
-        return ConfigUtil.valueObject(propertie, this.entity);
+        return this._voProperties.valueObject(propertie);
     }
 
-    valueObjectProperties(properties: string[]): IValueObjectPropertie[] {
-        return ConfigUtil.valueObjectProperties(properties, this.entity);
+    valueObjectProperties(properties: string[]): InterfaceValueObjectPropertie[] {
+        return this._voProperties.valueObjectProperties(properties);
+    }
+
+    valueObjectValue(propertie: string): PropertieValue {
+        return this._voProperties.propertieValue(propertie);
+    }
+
+    isvalueObjectExternal(propertie: string): boolean {
+        return this._voProperties.isExternal(propertie);
     }
 }

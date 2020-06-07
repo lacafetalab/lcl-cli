@@ -1,7 +1,3 @@
-import {Config} from "./Config";
-
-const s = require("underscore.string");
-
 export class DataManagement {
     private _allData = {};
     private _entities: string[] = [];

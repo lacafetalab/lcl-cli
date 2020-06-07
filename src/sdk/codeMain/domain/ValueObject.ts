@@ -1,13 +1,20 @@
 import {AbstractGenerate, Template} from "../../AbstractGenerate";
-import {ConfigValueObject} from "../../config/ConfigValueObject";
 import {DataManagement} from "../../config/DataManagement";
+import {Config} from "../../config/Config";
+
+interface PropertieMessage {
+    required?: string | null,
+    valid?: string | null
+}
 
 export class ValueObject extends AbstractGenerate {
-    private config: ConfigValueObject;
+    private config: Config;
+    private _data: any;
 
     constructor(_dataManagement: DataManagement, _currentEntity: string) {
         super();
-        this.config = new ConfigValueObject(_dataManagement, _currentEntity);
+        this.config = new Config(_dataManagement, _currentEntity);
+        this._data = _dataManagement.getData(_currentEntity);
     }
 
     get folder(): string {
@@ -18,11 +25,32 @@ export class ValueObject extends AbstractGenerate {
         return `${this.config.package}.domain`;
     }
 
+    propertieMessage(propertie: string): PropertieMessage | null {
+        let message: PropertieMessage;
+        message = {
+            required: null,
+            valid: null
+        };
+        const messageValue = this._data.message.validate.valueObject[propertie];
+        if (typeof messageValue === "undefined") {
+            return message;
+        }
+
+        if (typeof messageValue.required !== "undefined") {
+            message.required = messageValue.required;
+        }
+        if (typeof messageValue.valid !== "undefined") {
+            message.valid = messageValue.valid;
+        }
+
+        return message;
+    }
+
     get template(): Template[] {
         const template: Template[] = [];
         this.config.properties.forEach(propertie => {
-            const type = this.config.propertieType(propertie);
-            const message = this.config.propertieMessage(propertie);
+            const type = this.config.valueObjectValue(propertie);
+            const message = this.propertieMessage(propertie);
 
             const className = this.config.valueObject(propertie);
             const file = `${this.folder}/${className}.java`;
@@ -33,7 +61,9 @@ export class ValueObject extends AbstractGenerate {
                 type,
                 message
             };
-            template.push(new Template(this.folder, file, fileTemplate, data));
+            if (!this.config.isvalueObjectExternal(propertie)) {
+                template.push(new Template(this.folder, file, fileTemplate, data));
+            }
         });
         return template;
     }
