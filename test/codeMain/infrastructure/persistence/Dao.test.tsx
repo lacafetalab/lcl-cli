@@ -1,14 +1,14 @@
 import "jest";
 import {Template} from "../../../../src/sdk/AbstractGenerate";
 import {Dao} from "../../../../src/sdk/codeMain/infrastructure/persistence/Dao";
-import {dataUser} from "../../../config/data/data";
+import {dataUser, twoEntitiesDependents} from "../../../config/data/data";
 import {DataManagement} from "../../../../src/sdk/config/DataManagement";
 
 
 describe("config value obeject one dao", () => {
     let dao: Dao;
     beforeEach(() => {
-        dao = new Dao(new DataManagement([dataUser()]),"User");
+        dao = new Dao(new DataManagement([dataUser()]), "User");
     });
 
     test("dao folder", () => {
@@ -23,7 +23,7 @@ describe("config value obeject one dao", () => {
 describe("config value obeject one dao", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const daob = new Dao(new DataManagement([dataUser()]),"User");
+        const daob = new Dao(new DataManagement([dataUser()]), "User");
         templates = daob.template;
     });
     test("dao template id", () => {
@@ -86,7 +86,7 @@ describe("config value obeject one dao", () => {
 describe("config value obeject one dao properties id, name", () => {
     let templates: Template[] = [];
     beforeEach(() => {
-        const daob = new Dao(new DataManagement([dataUser()]),"User", ['id', 'name']);
+        const daob = new Dao(new DataManagement([dataUser()]), "User", ['id', 'name']);
         templates = daob.template;
     });
     test("dao template id", () => {
@@ -118,6 +118,55 @@ describe("config value obeject one dao properties id, name", () => {
                     type: 'string',
                     primitive: 'String',
                     columnName: 'name'
+                }
+            ]
+        });
+    });
+});
+
+
+describe("dto external data", () => {
+    let templates: Template[] = [];
+    beforeEach(() => {
+        const daob = new Dao(new DataManagement(twoEntitiesDependents()), "Address");
+        templates = daob.template;
+    });
+    test("dao template id", () => {
+        expect(templates.length).toEqual(1);
+
+    });
+    test("dao template id", () => {
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/address/infrastructure/persistence");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/address/infrastructure/persistence/AddressDao.java");
+        expect(templates[0].template).toEqual("main/infrastructure/persistence/dao");
+        expect(templates[0].dataTemplate).toEqual({
+            "className": "AddressDao",
+            "entityClass": "Address",
+            "package": "pe.lacafetalab.pao.communication.address.infrastructure.persistence",
+            "packageDomain": "pe.lacafetalab.pao.communication.address.domain",
+            "strPropertiesToDomain": "new AddressId(this.id), new UserId(this.userId), new AddressName(this.name)",
+            "tableName": "address",
+            "tableProperties": [
+                {
+                    "columnName": "id",
+                    "isPk": true,
+                    "primitive": "String",
+                    "propertie": "id",
+                    "type": "id"
+                },
+                {
+                    "columnName": "user_id",
+                    "isPk": false,
+                    "primitive": "String",
+                    "propertie": "userId",
+                    "type": "id"
+                },
+                {
+                    "columnName": "name",
+                    "isPk": false,
+                    "primitive": "String",
+                    "propertie": "name",
+                    "type": "string"
                 }
             ]
         });

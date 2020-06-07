@@ -32,7 +32,7 @@ export class ValueObjectMother extends AbstractGenerate {
                 package: this.package,
                 classEntity
             };
-            if (!this.config.isvalueObjectExternal(propertie)) {
+            if (!type.isExternal) {
                 template.push(new Template(this.folder, file, fileTemplate, data));
             }
 

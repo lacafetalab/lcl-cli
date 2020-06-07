@@ -1,6 +1,6 @@
 import "jest";
 import {ValueObjectMother} from "../../../src/sdk/codeTest/domain/ValueObjectMother";
-import {dataUser} from "../../config/data/data";
+import {dataUser, twoEntitiesDependents} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
@@ -26,6 +26,10 @@ describe("config value obeject one aggregate", () => {
         templates = valueObjectMotherb.template;
     });
 
+    test("aggregate template id", () => {
+        expect(templates.length).toEqual(5);
+    });
+
     test("valueObjectMother template id", () => {
         expect(templates[0].folder).toEqual("src/communication/test/pe/lacafetalab/pao/communication/user/domain");
         expect(templates[0].file).toEqual("src/communication/test/pe/lacafetalab/pao/communication/user/domain/UserIdMother.java");
@@ -45,6 +49,41 @@ describe("config value obeject one aggregate", () => {
             "className": "UserNameMother",
             "classEntity": "UserName",
             "package": "pe.lacafetalab.pao.communication.user.domain"
+        });
+    });
+});
+
+
+describe("external value objec tmother", () => {
+    let templates: Template[] = [];
+    beforeEach(() => {
+        const valueObjectMotherb = new ValueObjectMother(new DataManagement(twoEntitiesDependents()), "Address");
+        templates = valueObjectMotherb.template;
+    });
+
+    test("aggregate template id", () => {
+        expect(templates.length).toEqual(2);
+    });
+
+    test("valueObjectMother template id", () => {
+        expect(templates[0].folder).toEqual("src/communication/test/pe/lacafetalab/pao/communication/address/domain");
+        expect(templates[0].file).toEqual("src/communication/test/pe/lacafetalab/pao/communication/address/domain/AddressIdMother.java");
+        expect(templates[0].template).toEqual("test/domain/vo_mother/id");
+        expect(templates[0].dataTemplate).toEqual({
+            "className": "AddressIdMother",
+            "classEntity": "AddressId",
+            "package": "pe.lacafetalab.pao.communication.address.domain"
+        });
+    });
+
+    test("valueObjectMother template name", () => {
+        expect(templates[1].folder).toEqual("src/communication/test/pe/lacafetalab/pao/communication/address/domain");
+        expect(templates[1].file).toEqual("src/communication/test/pe/lacafetalab/pao/communication/address/domain/AddressNameMother.java");
+        expect(templates[1].template).toEqual("test/domain/vo_mother/string");
+        expect(templates[1].dataTemplate).toEqual({
+            "className": "AddressNameMother",
+            "classEntity": "AddressName",
+            "package": "pe.lacafetalab.pao.communication.address.domain"
         });
     });
 });

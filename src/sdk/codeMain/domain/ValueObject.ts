@@ -31,8 +31,10 @@ export class ValueObject extends AbstractGenerate {
             required: null,
             valid: null
         };
-        const messageValue = this._data.message.validate.valueObject[propertie];
-        if (typeof messageValue === "undefined") {
+        let messageValue: PropertieMessage;
+        if (this._data.message && this._data.message.validate && this._data.message.validate.valueObject && this._data.message.validate.valueObject[propertie]) {
+            messageValue = this._data.message.validate.valueObject[propertie];
+        } else {
             return message;
         }
 
@@ -61,7 +63,7 @@ export class ValueObject extends AbstractGenerate {
                 type,
                 message
             };
-            if (!this.config.isvalueObjectExternal(propertie)) {
+            if (!type.isExternal) {
                 template.push(new Template(this.folder, file, fileTemplate, data));
             }
         });

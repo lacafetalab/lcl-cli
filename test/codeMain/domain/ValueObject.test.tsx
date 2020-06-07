@@ -1,6 +1,6 @@
 import "jest";
 import {ValueObject} from "../../../src/sdk/codeMain/domain/ValueObject";
-import {dataUser} from "../../config/data/data";
+import {dataUser, twoEntitiesDependents} from "../../config/data/data";
 import {Template} from "../../../src/sdk/AbstractGenerate";
 import {DataManagement} from "../../../src/sdk/config/DataManagement";
 
@@ -18,6 +18,7 @@ describe("config value obeject one aggregate", () => {
         expect(valueObject.package).toEqual("pe.lacafetalab.pao.communication.user.domain");
     });
 
+
 });
 
 describe("config value obeject one aggregate", () => {
@@ -25,6 +26,9 @@ describe("config value obeject one aggregate", () => {
     beforeEach(() => {
         const valueObjectb = new ValueObject(new DataManagement([dataUser()]),"User");
         templates = valueObjectb.template;
+    });
+    test("aggregate template id", () => {
+        expect(templates.length).toEqual(5);
     });
 
     test("valueObject template id", () => {
@@ -42,7 +46,8 @@ describe("config value obeject one aggregate", () => {
                 "default": null,
                 "required": true,
                 "type": "id",
-                "primitive": "String"
+                "primitive": "String",
+                "isExternal": false
             }
         });
     });
@@ -62,7 +67,8 @@ describe("config value obeject one aggregate", () => {
                 "default": null,
                 "required": true,
                 "type": "string",
-                "primitive": "String"
+                "primitive": "String",
+                "isExternal": false
             }
         });
     });
@@ -85,6 +91,61 @@ describe("config message one aggregate", () => {
         expect(valueObject.propertieMessage('name')).toEqual({
             "required": "El nombre es requerido",
             "valid": "El nombre no es un valor válido"
+        });
+    });
+});
+
+
+
+describe("config value twoEntitiesDependents obeject one aggregate", () => {
+    let templates: Template[] = [];
+    beforeEach(() => {
+        const valueObjectb = new ValueObject(new DataManagement(twoEntitiesDependents()),"Address");
+        templates = valueObjectb.template;
+    });
+    test("aggregate template id", () => {
+        expect(templates.length).toEqual(2);
+    });
+
+    test("valueObject template id", () => {
+        expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/address/domain");
+        expect(templates[0].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/address/domain/AddressId.java");
+        expect(templates[0].template).toEqual("main/domain/vo/id");
+        expect(templates[0].dataTemplate).toEqual({
+            "className": "AddressId",
+            "message": {
+                "required": null,
+                "valid": null
+            },
+            "package": "pe.lacafetalab.pao.communication.address.domain",
+            "type": {
+                "default": null,
+                "required": true,
+                "type": "id",
+                "primitive": "String",
+                "isExternal": false
+            }
+        });
+    });
+
+    test("valueObject template name", () => {
+        expect(templates[1].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/address/domain");
+        expect(templates[1].file).toEqual("src/communication/main/pe/lacafetalab/pao/communication/address/domain/AddressName.java");
+        expect(templates[1].template).toEqual("main/domain/vo/string");
+        expect(templates[1].dataTemplate).toEqual({
+            "className": "AddressName",
+            "message": {
+                "required": null,
+                "valid": null
+            },
+            "package": "pe.lacafetalab.pao.communication.address.domain",
+            "type": {
+                "default": null,
+                "required": true,
+                "type": "string",
+                "primitive": "String",
+                "isExternal": false
+            }
         });
     });
 });

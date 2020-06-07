@@ -17,7 +17,8 @@ describe("config value obeject one aggregate", () => {
             type: "id",
             primitive: "String",
             required: true,
-            default: null
+            default: null,
+            isExternal: false
         });
     });
     test("type string inline", () => {
@@ -25,7 +26,8 @@ describe("config value obeject one aggregate", () => {
             type: "string",
             primitive: "String",
             required: true,
-            default: null
+            default: null,
+            isExternal: false
         });
     });
     test("type text inline", () => {
@@ -33,7 +35,8 @@ describe("config value obeject one aggregate", () => {
             type: "text",
             primitive: "String",
             required: true,
-            default: null
+            default: null,
+            isExternal: false
         });
     });
     test("types text object", () => {
@@ -41,7 +44,8 @@ describe("config value obeject one aggregate", () => {
             type: "text",
             primitive: "String",
             required: false,
-            default: null
+            default: null,
+            isExternal: false
         });
     });
     test("type datetime inline", () => {
@@ -49,7 +53,8 @@ describe("config value obeject one aggregate", () => {
             type: "datetime",
             primitive: "Date",
             required: true,
-            default: null
+            default: null,
+            isExternal: false
         });
     });
 });
@@ -81,6 +86,36 @@ describe("ValueObjectPropertie entidades dependientes", () => {
 
     test("properties", () => {
         expect(valueObject.properties).toEqual(["id", "userId", "name"]);
+    });
+
+    test("type id inline", () => {
+        expect(valueObject.propertieValue('id')).toEqual({
+            type: "id",
+            primitive: "String",
+            required: true,
+            default: null,
+            isExternal: false
+        });
+    });
+    test("type string inline", () => {
+        expect(valueObject.propertieValue('userId')).toEqual({
+            type: "id",
+            primitive: "String",
+            required: true,
+            default: null,
+            externalEntity: "User",
+            externalPropertie: "id",
+            isExternal: true
+        });
+    });
+    test("type string inline", () => {
+        expect(valueObject.propertieValue('name')).toEqual({
+            type: "string",
+            primitive: "String",
+            required: true,
+            default: null,
+            isExternal: false
+        });
     });
 
     test("value object", () => {

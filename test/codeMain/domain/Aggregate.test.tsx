@@ -28,7 +28,6 @@ describe("config value obeject one aggregate", () => {
     });
     test("aggregate template id", () => {
         expect(templates.length).toEqual(1);
-
     });
     test("aggregate template id", () => {
         expect(templates[0].folder).toEqual("src/communication/main/pe/lacafetalab/pao/communication/user/domain");

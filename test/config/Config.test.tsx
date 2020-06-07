@@ -1,6 +1,6 @@
 import {Config} from "../../src/sdk/config/Config";
 import "jest";
-import {dataUser, entitiesWithEntityDependencies, twoEntitiesDependents, withoutEvent} from "./data/data"
+import {dataUser, withoutEvent} from "./data/data"
 import {DataManagement} from "../../src/sdk/config/DataManagement";
 
 
