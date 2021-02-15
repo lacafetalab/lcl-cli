@@ -1,0 +1,12 @@
+package <%= package %>;
+
+import pe.lacafetalab.pao.shared.domain.types.TypeString;
+import pe.lacafetalab.pao.shared.exceptions.BadRequestException;
+
+public final class <%= className %> extends TypeString {
+    public <%= className %>(String value) {
+        super(value);
+        this.sanitize();
+        this.verifyNotBlank(new BadRequestException("null TypeString", "<%= message.required %>"));
+    }
+}

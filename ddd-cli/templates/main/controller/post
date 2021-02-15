@@ -1,0 +1,39 @@
+package <%= package %>;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import pe.lacafetalab.pao.shared.domain.bus.command.CommandBus;
+import pe.lacafetalab.pao.shared.domain.bus.command.CommandHandlerExecutionError;
+import pe.lacafetalab.pao.shared.domain.bus.command.CommandNotRegisteredError;
+import pe.lacafetalab.pao.shared.domain.bus.query.QueryBus;
+import pe.lacafetalab.pao.shared.domain.types.implement.TypeUUIDImp;
+import pe.lacafetalab.pao.shared.response.RestResponse;
+import pe.lacafetalab.pao.shared.framework.ApiController;
+import <%= package_cqrs %>.<%= command_class %>;
+
+@RestController
+public final class <%= class_name %> extends ApiController {
+    public <%= class_name %>(QueryBus queryBus, CommandBus commandBus) {
+        super(queryBus, commandBus);
+    }
+
+    @PostMapping(value = "<%= url%>")
+    public ResponseEntity<RestResponse> index(@RequestBody Request request) throws CommandHandlerExecutionError, CommandNotRegisteredError {
+        request.setId(TypeUUIDImp.randon().toString());
+        dispatch(new <%= command_class %>(<%= str_request_property %>));
+        return RestResponse.created(request.getId());
+    }
+
+}
+
+@Setter
+@Getter
+final class Request {
+    <%_ params.forEach(function(param){ _%>
+    private String <%= param.propertie %>;
+    <%_ }); _%>
+}
