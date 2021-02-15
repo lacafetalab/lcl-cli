@@ -1,11 +1,12 @@
 export class PropertieParamRequired{
 
     constructor(
-        private _required:string
+        private _required:boolean
     ) {
     }
 
-    get value(): string {
+
+    get required(): boolean {
         return this._required;
     }
 }

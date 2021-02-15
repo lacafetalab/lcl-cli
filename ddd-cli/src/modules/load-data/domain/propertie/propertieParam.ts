@@ -14,6 +14,21 @@ export class PropertieParam {
     ) {
     }
 
+    static create(params): PropertieParam[] {
+        return Object.entries(params).map(([key, value]) => {
+            /*let type = values;
+            if (typeof values !== 'string') {
+                type = values["type"];
+            }*/
+            return new PropertieParam(
+                new PropertieParamName(key),
+                new PropertieParamType(value + ''),
+                new PropertieParamRequired(false),
+                new PropertieParamDefault(null),
+            );
+        });
+    }
+
     get name(): PropertieParamName {
         return this._name;
     }
@@ -29,5 +44,6 @@ export class PropertieParam {
     get defaultValue(): PropertieParamDefault {
         return this._defaultValue;
     }
+
 
 }

@@ -9,6 +9,11 @@ export class Repository {
     ) {
     }
 
+    static create(pk:string){
+        const columns=[];
+        return new Repository(new RepositoryPk(pk), columns);
+    }
+
 
     get pk(): RepositoryPk {
         return this._pk;

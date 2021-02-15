@@ -12,7 +12,7 @@ function readAddress() {
 }
 
 export function dataUser() {
-    const configPath = path.join(__dirname, 'user.yml');
+    const configPath = path.join(__dirname, 'user-a.yml');
     const file = fs.readFileSync(configPath, "utf8");
     return YAML.parse(file);
 }

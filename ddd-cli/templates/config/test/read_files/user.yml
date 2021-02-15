@@ -1,7 +1,0 @@
-path: src/user
-package: pe.lacafetalab.pao.auth.user
-name: User
-properties:
-  aggregate:
-    id: id
-    name: string

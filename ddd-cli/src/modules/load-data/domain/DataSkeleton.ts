@@ -19,6 +19,20 @@ export class DataSkeleton {
     ) {
     }
 
+    static create(data){
+        const properties=[];
+        const messages=[];
+        return new DataSkeleton(
+            new Path(data.path),
+            new NameSpace(data.nameSpace),
+            new Name(data.name),
+            Propertie.create(data.properties),
+            messages,
+            new Event(data.event),
+            Repository.create(data.event)
+        );
+    }
+
     get path(): Path {
         return this._path;
     }

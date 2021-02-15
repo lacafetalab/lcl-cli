@@ -1,0 +1,7 @@
+path: src/user-a
+nameSpace: app.userA
+name: UserA
+properties:
+  aggregate:
+    id: id
+    name: string

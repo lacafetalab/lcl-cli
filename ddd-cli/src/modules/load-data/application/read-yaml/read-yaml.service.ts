@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 
 import * as path from "path";
+import {DataSkeleton} from "../../domain/DataSkeleton";
 
 const fs = require("fs");
 const YAML = require("yaml");
@@ -25,10 +26,11 @@ export class ReadYamlService {
         return listFile;
     }
 
-    readFiles(files: string[], pathConfig: string) {
+    readFiles(files: string[], pathConfig: string):DataSkeleton[] {
         return files.map((fileName) => {
             const file = fs.readFileSync(path.join(pathConfig, fileName), "utf8");
-            return YAML.parse(file);
+            const data = YAML.parse(file);
+            return DataSkeleton.create(data);
         });
     }
 }

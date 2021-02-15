@@ -9,6 +9,15 @@ export class Propertie {
     ) {
     }
 
+    static create(properties): Propertie[] {
+        return Object.entries(properties).map(([key, value]) => {
+            return new Propertie(
+                new PropertieName(key),
+                PropertieParam.create(value)
+            );
+        });
+    }
+
     get name(): PropertieName {
         return this._name;
     }
@@ -16,4 +25,6 @@ export class Propertie {
     get params(): PropertieParam[] {
         return this._params;
     }
+
+
 }
