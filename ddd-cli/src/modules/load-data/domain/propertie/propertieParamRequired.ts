@@ -6,7 +6,7 @@ export class PropertieParamRequired{
     }
 
 
-    get required(): boolean {
+    get value(): boolean {
         return this._required;
     }
 }

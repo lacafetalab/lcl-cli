@@ -9,4 +9,10 @@ export class RepositoryPk{
     get value(): string {
         return this._pk;
     }
+
+    setDefaultValue() {
+        if(typeof this._pk === "undefined"){
+            this._pk = 'id';
+        }
+    }
 }

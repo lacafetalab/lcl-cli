@@ -1,5 +1,6 @@
 import {RepositoryPk} from "./repositoryPk";
 import {RepositoryColumn} from "./repositoryColumn";
+import {Propertie} from "../propertie/propertie";
 
 export class Repository {
 
@@ -9,9 +10,13 @@ export class Repository {
     ) {
     }
 
-    static create(pk:string){
-        const columns=[];
-        return new Repository(new RepositoryPk(pk), columns);
+    static create(repository: any) {
+        if (typeof repository === "undefined") {
+            repository = {};
+        }
+        return new Repository(
+            new RepositoryPk(repository.pk),
+            RepositoryColumn.createBlock(repository.columns));
     }
 
 
@@ -21,5 +26,13 @@ export class Repository {
 
     get columns(): RepositoryColumn[] {
         return this._columns;
+    }
+
+    setColumnDefaultValue(properties: Propertie[]) {
+        properties.forEach((propertie) => {
+           propertie.params.forEach((param)=>{
+
+           });
+        });
     }
 }

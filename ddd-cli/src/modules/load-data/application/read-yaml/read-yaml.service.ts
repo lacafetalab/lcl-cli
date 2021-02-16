@@ -26,11 +26,20 @@ export class ReadYamlService {
         return listFile;
     }
 
-    readFiles(files: string[], pathConfig: string):DataSkeleton[] {
+    readFiles(files: string[], pathConfig: string): DataSkeleton[] {
         return files.map((fileName) => {
             const file = fs.readFileSync(path.join(pathConfig, fileName), "utf8");
             const data = YAML.parse(file);
             return DataSkeleton.create(data);
+        });
+    }
+
+    process(items: DataSkeleton[]): DataSkeleton[] {
+        return items.map((item)=>{
+            item.event.setDefaultValue(item.name.value);
+            item.repository.pk.setDefaultValue();
+            item.repository.setColumnDefaultValue(item.properties);
+            return item;
         });
     }
 }
