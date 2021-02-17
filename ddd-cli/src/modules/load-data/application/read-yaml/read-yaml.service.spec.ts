@@ -71,6 +71,22 @@ describe('ReadYamlService', () => {
       expect(processData[0].properties[0].params[1].type.value).toEqual('string');
     });
 
+    it('process properties', () => {
+      expect(processData[0].properties[0].name.value).toEqual('aggregate');
+      expect(processData[0].properties[0].params[0].json).toEqual({
+        name: 'id',
+        required: true,
+        type: 'id',
+        defaultValue: null,
+      });
+      expect(processData[0].properties[0].params[1].json).toEqual({
+        name: 'lastName',
+        required: true,
+        type: 'string',
+        defaultValue: '',
+      });
+    });
+
     it('process event', () => {
       expect(processData[0].event.value).toEqual('user');
     });
