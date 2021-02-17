@@ -1,11 +1,7 @@
-export class NameSpace{
+export class NameSpace {
+  constructor(private _nameSpace: string) {}
 
-    constructor(
-        private _nameSpace:string
-    ) {
-    }
-
-    get value(): string {
-        return this._nameSpace;
-    }
+  get value(): string {
+    return this._nameSpace;
+  }
 }

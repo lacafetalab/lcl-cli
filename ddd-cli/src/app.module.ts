@@ -1,9 +1,8 @@
-import {Module} from '@nestjs/common';
-import {ConsoleModule} from 'nestjs-console';
-import {LoadDataModule} from './modules/load-data/load-data.module';
+import { Module } from '@nestjs/common';
+import { ConsoleModule } from 'nestjs-console';
+import { LoadDataModule } from './modules/load-data/load-data.module';
 
 @Module({
-    imports: [ConsoleModule, LoadDataModule],
+  imports: [ConsoleModule, LoadDataModule],
 })
-export class AppModule {
-}
+export class AppModule {}

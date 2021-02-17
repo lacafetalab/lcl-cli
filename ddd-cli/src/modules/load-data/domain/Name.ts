@@ -1,10 +1,7 @@
-export class Name{
+export class Name {
+  constructor(private _name: string) {}
 
-    constructor(
-        private _name:string
-    ) {}
-
-    get value(): string {
-        return this._name;
-    }
+  get value(): string {
+    return this._name;
+  }
 }

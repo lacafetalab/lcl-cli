@@ -1,11 +1,7 @@
-export class PropertieParamDefault{
+export class PropertieParamDefault {
+  constructor(private _default) {}
 
-    constructor(
-        private _default:string
-    ) {
-    }
-
-    get value(): string {
-        return this._default;
-    }
+  get value() {
+    return this._default;
+  }
 }

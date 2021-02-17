@@ -1,9 +1,7 @@
-export class MessageText{
+export class MessageText {
+  constructor(private _test: string) {}
 
-    constructor(private _test:string) {
-    }
-
-    get value(): string {
-        return this._test;
-    }
+  get value(): string {
+    return this._test;
+  }
 }

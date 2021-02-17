@@ -3,6 +3,12 @@ import { PropertieParamType } from './propertieParamType';
 import { PropertieParamRequired } from './propertieParamRequired';
 import { PropertieParamDefault } from './propertieParamDefault';
 
+interface PropertieValue {
+  required: boolean;
+  defaultValue: string | boolean | number;
+  type: string;
+}
+
 export class PropertieParam {
   constructor(
     private _name: PropertieParamName,
@@ -13,27 +19,38 @@ export class PropertieParam {
 
   static create(params): PropertieParam[] {
     return Object.entries(params).map(([key, value]) => {
-      let type = value;
-      let required = null;
-      let defaultValue = null;
-      if (typeof value !== 'string') {
-        type = value['type'] + '';
-        required = value['required'];
-        defaultValue = value['default'];
-      }
-      type = type + '';
-      defaultValue = defaultValue === null ? this.getDefaultByType(type + '') : defaultValue;
-      required = required === null ? true : required;
+      const { type, required, defaultValue } = this.processValue(value);
       return new PropertieParam(
         new PropertieParamName(key),
-        new PropertieParamType(type + ''),
+        new PropertieParamType(type),
         new PropertieParamRequired(required),
         new PropertieParamDefault(defaultValue),
       );
     });
   }
 
-  static getDefaultByType(type: string) {
+  static processValue(value): PropertieValue {
+    let type: string;
+    let required: boolean;
+    let defaultValue: any;
+    if (typeof value === 'string') {
+      type = value;
+      defaultValue = this.getDefaultByType(type);
+      required = true;
+    } else {
+      type = value['type'];
+      required = value['required'];
+      defaultValue = value['default'];
+    }
+
+    return {
+      type,
+      required,
+      defaultValue,
+    };
+  }
+
+  static getDefaultByType(type: string): any {
     switch (type) {
       case 'id':
         return null;

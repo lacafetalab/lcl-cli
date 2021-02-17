@@ -1,12 +1,7 @@
-export class PropertieParamRequired{
+export class PropertieParamRequired {
+  constructor(private _required: boolean) {}
 
-    constructor(
-        private _required:boolean
-    ) {
-    }
-
-
-    get value(): boolean {
-        return this._required;
-    }
+  get value(): boolean {
+    return this._required;
+  }
 }

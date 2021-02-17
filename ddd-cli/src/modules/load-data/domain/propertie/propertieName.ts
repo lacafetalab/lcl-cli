@@ -1,11 +1,7 @@
-export class PropertieName{
+export class PropertieName {
+  constructor(private _name) {}
 
-    constructor(
-        private _name
-    ) {
-    }
-
-    get value() {
-        return this._name;
-    }
+  get value() {
+    return this._name;
+  }
 }

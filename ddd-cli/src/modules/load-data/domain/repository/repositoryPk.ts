@@ -1,18 +1,13 @@
-export class RepositoryPk{
+export class RepositoryPk {
+  constructor(private _pk: string) {}
 
-    constructor(
-        private _pk:string
-    ) {
+  get value(): string {
+    return this._pk;
+  }
+
+  setDefaultValue() {
+    if (typeof this._pk === 'undefined') {
+      this._pk = 'id';
     }
-
-
-    get value(): string {
-        return this._pk;
-    }
-
-    setDefaultValue() {
-        if(typeof this._pk === "undefined"){
-            this._pk = 'id';
-        }
-    }
+  }
 }
