@@ -10,6 +10,7 @@ interface PropertieValue {
 }
 
 export class PropertieParam {
+
   constructor(
     private _name: PropertieParamName,
     private _type: PropertieParamType,
@@ -62,10 +63,11 @@ export class PropertieParam {
         return false;
         break;
       default:
-        return '';
+        return null;
         break;
     }
   }
+
 
   get name(): PropertieParamName {
     return this._name;

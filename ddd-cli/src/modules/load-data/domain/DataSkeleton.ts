@@ -47,7 +47,11 @@ export class DataSkeleton {
   }
 
   get aggregate(): Propertie {
-    const aggregate = this._properties.find((e) => e.name.value === 'aggregate');
+    return this.getPropertie('aggregate');
+  }
+
+  getPropertie(propertieName: string): Propertie {
+    const aggregate = this._properties.find((e) => e.name.value === propertieName);
     if (!aggregate) {
       throw new Error(`aggregate no defined ${this.name.value}`);
     }
