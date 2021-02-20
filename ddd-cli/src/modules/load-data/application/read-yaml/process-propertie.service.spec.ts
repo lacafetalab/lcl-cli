@@ -1,16 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ReadYamlService } from './read-yaml.service';
 import { DataSkeleton } from '../../domain/DataSkeleton';
+import { CollectionData } from '../../domain/CollectionData';
 
 describe('Process Propertie', () => {
   let service: ReadYamlService;
-  let processData: DataSkeleton[];
+  let collectionData: CollectionData;
 
-  function processPathData(pathFolder): DataSkeleton[] {
+  function processPathData(pathFolder): CollectionData {
     const relativePath = `${service.relativePath()}/templates/config/test/properties/${pathFolder}`;
     const files = service.getFiles(relativePath);
     const data = service.readFiles(files, relativePath);
-    return service.process(data);
+    const process = service.process(data);
+    return service.processCollection(process);
   }
 
   beforeEach(async () => {
@@ -21,17 +23,17 @@ describe('Process Propertie', () => {
     service = module.get<ReadYamlService>(ReadYamlService);
   });
 
-  describe('processData one entity', () => {
+  describe('collectionData one entity', () => {
     it('process default value properties', () => {
-      processData = processPathData('/one_entity');
-      expect(processData[0].properties[0].name.value).toEqual('aggregate');
-      expect(processData[0].properties[0].params[0].json).toEqual({
+      collectionData = processPathData('/one_entity');
+      expect(collectionData.getEntity('User').aggregate.name.value).toEqual('aggregate');
+      expect(collectionData.getEntity('User').aggregate.getParam('id').json).toEqual({
         name: 'id',
         required: false,
         type: 'id',
         defaultValue: null,
       });
-      expect(processData[0].properties[0].params[1].json).toEqual({
+      expect(collectionData.getEntity('User').aggregate.getParam('name').json).toEqual({
         name: 'name',
         required: false,
         type: 'string',
@@ -40,30 +42,29 @@ describe('Process Propertie', () => {
     });
   });
 
-  describe('processData two entitys', () => {
+  describe('collectionData two entitys', () => {
     it('process value properties', () => {
-      processData = processPathData('/two_entity');
-      expect(processData[0].properties[0].name.value).toEqual('aggregate');
-      expect(processData[0].properties[0].params[0].json).toEqual({
+      collectionData = processPathData('/two_entity');
+      expect(collectionData.getEntity('User').aggregate.getParam('id').json).toEqual({
         name: 'id',
         required: false,
         type: 'id',
         defaultValue: null,
       });
-      expect(processData[0].properties[0].params[1].json).toEqual({
+      expect(collectionData.getEntity('User').aggregate.getParam('name').json).toEqual({
         name: 'name',
         required: false,
         type: 'string',
         defaultValue: 'JJ',
       });
-      expect(processData[1].properties[0].name.value).toEqual('aggregate');
-      expect(processData[1].properties[0].params[0].json).toEqual({
+      expect(collectionData.getEntity('UserB').aggregate.name.value).toEqual('aggregate');
+      expect(collectionData.getEntity('UserB').aggregate.getParam('id').json).toEqual({
         name: 'id',
         required: false,
         type: 'id',
         defaultValue: null,
       });
-      expect(processData[1].properties[0].params[1].json).toEqual({
+      expect(collectionData.getEntity('UserB').aggregate.getParam('name').json).toEqual({
         name: 'name',
         required: false,
         type: 'string',

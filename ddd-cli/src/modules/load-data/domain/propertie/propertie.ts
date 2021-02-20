@@ -17,4 +17,12 @@ export class Propertie {
   get params(): PropertieParam[] {
     return this._params;
   }
+
+  getParam(paramName) {
+    const param = this._params.find((e) => e.name.value === paramName);
+    if (!param) {
+      throw new Error(`param ${paramName} is not defined in ${this.name.value}`);
+    }
+    return param;
+  }
 }

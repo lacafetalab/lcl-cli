@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import * as path from 'path';
 import { DataSkeleton } from '../../domain/DataSkeleton';
+import { CollectionData } from '../../domain/CollectionData';
 
 const fs = require('fs');
 const YAML = require('yaml');
@@ -41,5 +42,9 @@ export class ReadYamlService {
       item.repository.setColumnDefaultValue(item.properties);
       return item;
     });
+  }
+
+  processCollection(process: DataSkeleton[]): CollectionData {
+    return new CollectionData(process);
   }
 }
