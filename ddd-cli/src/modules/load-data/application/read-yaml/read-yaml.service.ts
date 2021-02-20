@@ -39,12 +39,16 @@ export class ReadYamlService {
     return items.map((item) => {
       item.event.setDefaultValue(item.name.value);
       item.repository.pk.setDefaultValue();
-      item.repository.setColumnDefaultValue(item.properties);
+      // item.repository.setColumnDefaultValue(item.properties);
       return item;
     });
   }
 
   processCollection(process: DataSkeleton[]): CollectionData {
-    return new CollectionData(process);
+    const collection = new CollectionData(process);
+    collection.collections.forEach((e) => {
+      e.repository.setColumnDefaultValue(e.name.value,collection);
+    });
+    return collection;
   }
 }

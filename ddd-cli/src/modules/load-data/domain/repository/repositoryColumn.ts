@@ -24,6 +24,12 @@ export class RepositoryColumn {
     return this.create(propertie, tableName);
   }
 
+  static createSlugValueObject(propertieNameParent: string, propertieName) {
+    const tableNameParent = s.underscored(propertieNameParent);
+    const tableName = s.underscored(propertieName);
+    return this.create(`${propertieNameParent}.${propertieName}`, `${tableNameParent}_${tableName}`);
+  }
+
   get propertie(): RepositoryColumnPropertie {
     return this._propertie;
   }

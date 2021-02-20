@@ -89,14 +89,5 @@ describe('ReadYamlService', () => {
     it('process event', () => {
       expect(processData[0].event.value).toEqual('user');
     });
-
-    it('process repository', () => {
-      expect(processData[0].repository.pk.value).toEqual('id');
-      expect(processData[0].repository.columns[0].propertie.value).toEqual('id');
-      expect(processData[0].repository.columns[0].tableName.value).toEqual('id');
-
-      expect(processData[0].repository.columns[1].propertie.value).toEqual('lastName');
-      expect(processData[0].repository.columns[1].tableName.value).toEqual('last_name');
-    });
   });
 });

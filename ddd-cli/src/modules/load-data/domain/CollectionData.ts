@@ -1,10 +1,15 @@
 import { DataSkeleton } from './DataSkeleton';
 
 export class CollectionData {
-  constructor(private data: DataSkeleton[]) {}
+  constructor(private _collections: DataSkeleton[]) {}
+
+
+  get collections(): DataSkeleton[] {
+    return this._collections;
+  }
 
   getEntity(entityName: string): DataSkeleton {
-    const entity = this.data.find((e) => e.name.value === entityName);
+    const entity = this._collections.find((e) => e.name.value === entityName);
     if (!entity) {
       throw new Error(`entity ${entityName} not exist`);
     }

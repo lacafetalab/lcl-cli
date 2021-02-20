@@ -1,6 +1,7 @@
 import { RepositoryPk } from './repositoryPk';
 import { RepositoryColumn } from './repositoryColumn';
 import { Propertie } from '../propertie/propertie';
+import { CollectionData } from '../CollectionData';
 
 export class Repository {
   constructor(private _pk: RepositoryPk, private _columns: RepositoryColumn[]) {}
@@ -20,11 +21,26 @@ export class Repository {
     return this._columns;
   }
 
-  setColumnDefaultValue(properties: Propertie[]) {
-    properties.forEach((propertie) => {
-      propertie.params.forEach((param) => {
-        this._columns.push(RepositoryColumn.createSlug(param.name.value));
-      });
+  getColumn(columnName: string): RepositoryColumn {
+    const column = this._columns.find((e) => e.propertie.value === columnName);
+    if (!column) {
+      throw new Error(`column ${columnName} is not defined`);
+    }
+    return column;
+  }
+
+  setColumnDefaultValue(entityName: string, collection: CollectionData) {
+    collection.getEntity(entityName).aggregate.params.forEach((e) => {
+      if (e.type.isValueObject) {
+        collection
+          .getEntity(entityName)
+          .getPropertie(e.name.value)
+          .params.forEach((eh) => {
+            this._columns.push(RepositoryColumn.createSlugValueObject(e.name.value, eh.name.value));
+          });
+      } else {
+        this._columns.push(RepositoryColumn.createSlug(e.name.value));
+      }
     });
   }
 }
