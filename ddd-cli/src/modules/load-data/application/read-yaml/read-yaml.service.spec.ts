@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ReadYamlService } from './read-yaml.service';
-import { count } from 'rxjs/operators';
 import { DataSkeleton } from '../../domain/DataSkeleton';
 
 describe('ReadYamlService', () => {
