@@ -18,6 +18,12 @@ export class Propertie {
     return this._params;
   }
 
+  listParamsName(): string[] {
+    return this._params.map((e) => {
+      return e.name.value;
+    });
+  }
+
   getParam(paramName) {
     const param = this._params.find((e) => e.name.value === paramName);
     if (!param) {
