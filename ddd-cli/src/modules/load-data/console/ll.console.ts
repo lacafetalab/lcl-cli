@@ -6,10 +6,12 @@ export class LlConsole {
   constructor(private readonly readYamlService: ReadYamlService) {}
 
   @Command({
-    command: 'll',
+    command: 'ls',
     description: 'List all entities',
   })
   async getHello(): Promise<void> {
-    console.log('ll list :' + this.readYamlService.relativePath());
+
+    const collection = this.readYamlService.getCollection();
+    console.log(collection.collectionNames);
   }
 }

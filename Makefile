@@ -5,7 +5,7 @@ install:
 	npm --prefix "ddd-cli" install
 
 run:
-	npm --prefix "ddd-cli" run start:dev
+	npm --prefix "ddd-cli" run console:dev
 
 build:
 	npm --prefix "ddd-cli" run build --if-present
