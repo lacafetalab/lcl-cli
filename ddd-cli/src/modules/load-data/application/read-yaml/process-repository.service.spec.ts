@@ -34,7 +34,6 @@ describe('Process Repository', () => {
     });
   });
 
-
   describe('generate complement collectionData one entity valueObject', () => {
     it('process id', () => {
       collectionData = processPathData('/value_object');
@@ -43,16 +42,25 @@ describe('Process Repository', () => {
     it('process name fisrt name', () => {
       collectionData = processPathData('/value_object');
       expect(collectionData.getEntity('User').repository.getColumn('name.firstName').tableName.value).toEqual(
-          'name_first_name'
+        'name_first_name',
       );
     });
     it('process name last name', () => {
       collectionData = processPathData('/value_object');
       expect(collectionData.getEntity('User').repository.getColumn('name.lastName').tableName.value).toEqual(
-          'name_last_name'
+        'name_last_name',
       );
     });
   });
 
-
+  describe('two VO get one param', () => {
+    it('process id', () => {
+      collectionData = processPathData('/two_entities_vo_one_param');
+      expect(collectionData.getEntity('User').repository.getColumn('id').tableName.value).toEqual('id');
+    });
+    it('process name fisrt name', () => {
+      collectionData = processPathData('/two_entities_vo_one_param');
+      expect(collectionData.getEntity('User').repository.getColumn('name').tableName.value).toEqual('name');
+    });
+  });
 });

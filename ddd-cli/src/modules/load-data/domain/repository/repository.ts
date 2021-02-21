@@ -1,6 +1,5 @@
 import { RepositoryPk } from './repositoryPk';
 import { RepositoryColumn } from './repositoryColumn';
-import { Propertie } from '../propertie/propertie';
 import { CollectionData } from '../CollectionData';
 
 export class Repository {
@@ -32,12 +31,17 @@ export class Repository {
   setColumnDefaultValue(entityName: string, collection: CollectionData) {
     collection.getEntity(entityName).aggregate.params.forEach((e) => {
       if (e.type.isValueObject) {
-        collection
-          .getEntity(e.type.voParent)
-          .getPropertie(e.type.voPropertie)
-          .params.forEach((eh) => {
-            this._columns.push(RepositoryColumn.createSlugValueObject(e.name.value, eh.name.value));
-          });
+        if (e.type.voValue) {
+          // es un valor que se trae de otra entidad, solo genra un campo en la tabla
+          this._columns.push(RepositoryColumn.createSlug(e.name.value));
+        } else {
+          collection
+            .getEntity(e.type.voParent)
+            .getPropertie(e.type.voPropertie)
+            .params.forEach((eh) => {
+              this._columns.push(RepositoryColumn.createSlugValueObject(e.name.value, eh.name.value));
+            });
+        }
       } else {
         this._columns.push(RepositoryColumn.createSlug(e.name.value));
       }
