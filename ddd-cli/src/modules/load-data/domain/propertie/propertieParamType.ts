@@ -18,4 +18,19 @@ export class PropertieParamType {
         break;
     }
   }
+
+  get voParent() {
+    const sections = this._type.split(':');
+    return sections[0] || null;
+  }
+
+  get voPropertie() {
+    const sections = this._type.split(':');
+    return sections[1] || null;
+  }
+
+  get voValue() {
+    const sections = this._type.split(':');
+    return sections[2] || null;
+  }
 }

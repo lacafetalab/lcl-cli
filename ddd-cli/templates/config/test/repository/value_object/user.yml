@@ -4,7 +4,7 @@ name: User
 properties:
   aggregate:
     id: id
-    name: User:name
-  name:
+    name: User:namea
+  namea:
     firstName: string
     lastName: string

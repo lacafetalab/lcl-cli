@@ -33,8 +33,8 @@ export class Repository {
     collection.getEntity(entityName).aggregate.params.forEach((e) => {
       if (e.type.isValueObject) {
         collection
-          .getEntity(entityName)
-          .getPropertie(e.name.value)
+          .getEntity(e.type.voParent)
+          .getPropertie(e.type.voPropertie)
           .params.forEach((eh) => {
             this._columns.push(RepositoryColumn.createSlugValueObject(e.name.value, eh.name.value));
           });

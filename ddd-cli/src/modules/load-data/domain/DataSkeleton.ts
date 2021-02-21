@@ -51,11 +51,11 @@ export class DataSkeleton {
   }
 
   getPropertie(propertieName: string): Propertie {
-    const aggregate = this._properties.find((e) => e.name.value === propertieName);
-    if (!aggregate) {
-      throw new Error(`aggregate no defined ${this.name.value}`);
+    const propertie = this._properties.find((e) => e.name.value === propertieName);
+    if (!propertie) {
+      throw new Error(`Propertie ${this.name.value} not defined `);
     }
-    return aggregate;
+    return propertie;
   }
 
   get message(): Message[] {

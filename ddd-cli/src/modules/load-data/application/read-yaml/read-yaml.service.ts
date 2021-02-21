@@ -39,7 +39,6 @@ export class ReadYamlService {
     return items.map((item) => {
       item.event.setDefaultValue(item.name.value);
       item.repository.pk.setDefaultValue();
-      // item.repository.setColumnDefaultValue(item.properties);
       return item;
     });
   }
