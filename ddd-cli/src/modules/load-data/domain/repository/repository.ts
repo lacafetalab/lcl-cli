@@ -28,22 +28,35 @@ export class Repository {
     return column;
   }
 
+  isColumn(columnName: string): boolean {
+    const column = this._columns.find((e) => e.propertie.value === columnName);
+    return !!column;
+  }
+
   setColumnDefaultValue(entityName: string, collection: CollectionData) {
     collection.getEntity(entityName).aggregate.params.forEach((e) => {
       if (e.type.isValueObject) {
         if (e.type.voValue) {
           // es un valor que se trae de otra entidad, solo genra un campo en la tabla
-          this._columns.push(RepositoryColumn.createSlug(e.name.value));
+
+          if (!this.isColumn(e.name.value)) {
+            this._columns.push(RepositoryColumn.createSlug(e.name.value));
+          }
         } else {
           collection
             .getEntity(e.type.voParent)
             .getPropertie(e.type.voPropertie)
             .params.forEach((eh) => {
-              this._columns.push(RepositoryColumn.createSlugValueObject(e.name.value, eh.name.value));
+              const rc = RepositoryColumn.createSlugValueObject(e.name.value, eh.name.value);
+              if (!this.isColumn(rc.propertie.value)) {
+                this._columns.push(rc);
+              }
             });
         }
       } else {
-        this._columns.push(RepositoryColumn.createSlug(e.name.value));
+        if (!this.isColumn(e.name.value)) {
+          this._columns.push(RepositoryColumn.createSlug(e.name.value));
+        }
       }
     });
   }
