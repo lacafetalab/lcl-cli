@@ -2,19 +2,12 @@ import { Console, Command, createSpinner } from 'nestjs-console';
 import { ReadYamlService } from '../../load-data/application/read-yaml/read-yaml.service';
 import * as inquirer from 'inquirer';
 import { QuestionCollection } from 'inquirer';
-import { CreateCommandService } from '../application/create-command/create-command.service';
-import { InterfaceBackEndConstructor } from '../../../../../src/cli/backend/InterfaceBackEndConstructor';
-import { AbstractBackEndGenerator } from '../../../../../src/cli/backend/generator/AbstractBackEndGenerator';
-import { ServiceCommandGenerator } from '../../../../../src/cli/backend/generator/ServiceCommandGenerator';
-import { ServiceQueryGenerator } from '../../../../../src/cli/backend/generator/ServiceQueryGenerator';
-import { EventGenerator } from '../../../../../src/cli/backend/generator/EventGenerator';
-import { CoreMenuGenerator } from '../../../../../src/cli/backend/menu/CoreMenuGenerator';
-import { AddOrRemoveMenuRefactor } from '../../../../../src/cli/backend/menu/AddOrRemoveMenuRefactor';
 import { CollectionData } from '../../load-data/domain/CollectionData';
+import { CreateCommandConsole } from './create-command.console';
 
 @Console()
 export class CreateMenuConsole {
-  constructor(private readonly readYamlService: ReadYamlService, private createCommandService: CreateCommandService) {}
+  constructor(private readonly readYamlService: ReadYamlService, private createCommandConsole: CreateCommandConsole) {}
 
   @Command({
     command: 'create',
@@ -30,7 +23,7 @@ export class CreateMenuConsole {
   private async factoryService(service: string, entityName: string, collection: CollectionData) {
     switch (service) {
       case 'Create Service Command':
-        await this.createCommandService.execute(entityName, collection);
+        await this.createCommandConsole.console(entityName, collection);
         break;
       case 'Create Service Query':
         break;
