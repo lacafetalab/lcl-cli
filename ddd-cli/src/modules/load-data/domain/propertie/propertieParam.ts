@@ -2,6 +2,8 @@ import { PropertieParamName } from './propertieParamName';
 import { PropertieParamType } from './propertieParamType';
 import { PropertieParamRequired } from './propertieParamRequired';
 import { PropertieParamDefault } from './propertieParamDefault';
+import { Name } from '../Name';
+const s = require('underscore.string');
 
 interface PropertieValue {
   required: boolean;
@@ -10,15 +12,15 @@ interface PropertieValue {
 }
 
 export class PropertieParam {
-
   constructor(
     private _name: PropertieParamName,
     private _type: PropertieParamType,
     private _required: PropertieParamRequired,
     private _defaultValue: PropertieParamDefault,
+    private entityName: string,
   ) {}
 
-  static create(params): PropertieParam[] {
+  static create(params, name: Name): PropertieParam[] {
     return Object.entries(params).map(([key, value]) => {
       const { type, required, defaultValue } = this.processValue(value);
       return new PropertieParam(
@@ -26,6 +28,7 @@ export class PropertieParam {
         new PropertieParamType(type),
         new PropertieParamRequired(required),
         new PropertieParamDefault(defaultValue),
+        name.value,
       );
     });
   }
@@ -68,9 +71,12 @@ export class PropertieParam {
     }
   }
 
-
   get name(): PropertieParamName {
     return this._name;
+  }
+
+  get className(): string {
+    return `${this.entityName}${s.capitalize(this._name.value)}`;
   }
 
   get type(): PropertieParamType {

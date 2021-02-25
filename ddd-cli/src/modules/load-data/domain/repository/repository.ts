@@ -1,15 +1,24 @@
 import { RepositoryPk } from './repositoryPk';
 import { RepositoryColumn } from './repositoryColumn';
 import { CollectionData } from '../CollectionData';
+import { Name } from '../Name';
 
 export class Repository {
-  constructor(private _pk: RepositoryPk, private _columns: RepositoryColumn[]) {}
+  constructor(private _name: string, private _pk: RepositoryPk, private _columns: RepositoryColumn[]) {}
 
-  static create(repository: any) {
+  static create(repository: any, name: Name) {
     if (typeof repository === 'undefined') {
       repository = {};
     }
-    return new Repository(new RepositoryPk(repository.pk), RepositoryColumn.createBlock(repository.columns));
+    return new Repository(
+      `${name.value}Repository`,
+      new RepositoryPk(repository.pk),
+      RepositoryColumn.createBlock(repository.columns),
+    );
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get pk(): RepositoryPk {

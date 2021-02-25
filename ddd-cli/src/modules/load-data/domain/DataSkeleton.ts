@@ -19,14 +19,15 @@ export class DataSkeleton {
 
   static create(data) {
     const messages = [];
+    const name = new Name(data.name);
     return new DataSkeleton(
       new Path(data.path),
       new NameSpace(data.nameSpace),
-      new Name(data.name),
-      Propertie.create(data.properties),
+      name,
+      Propertie.create(data.properties, name),
       messages,
       new Event(data.event),
-      Repository.create(data.repository),
+      Repository.create(data.repository, name),
     );
   }
 

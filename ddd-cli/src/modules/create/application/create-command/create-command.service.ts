@@ -28,10 +28,11 @@ export class CreateCommandService {
     this.renderService(
       entity,
       language,
-      service.className([commandName, entityName, 'service']),
-      service.classFile([commandName, entityName, 'service']),
+      service.className([commandName, entity.name.value, 'service']),
+      service.classFile([commandName, entity.name.value, 'service']),
       folderPath,
       servicePropertie,
+      templateService,
     );
   }
 
@@ -42,28 +43,17 @@ export class CreateCommandService {
     classFile: string,
     folderPath: string,
     properties: PropertieParam[],
+    templateService: string,
   ) {
     const file = `${folderPath}/${classFile}`;
     const fileTemplate = `main/${language}/application/command/service`;
 
-    console.log(className);
-    console.log(classFile);
-    console.log(folderPath);
-    console.log(properties);
-
-    console.log(file);
-    console.log(fileTemplate);
     const render = this.generateRender(fileTemplate, {
+      templateService,
       className,
-      entityRepositoryClass: `${entity.name.value}Repository`,
-      entityClass: entity.name.value,
-      entityClassPropertie: this.config.entityClassPropertie,
-      packageDomain: this.config.packageDomain,
-      serviceTemplate: this.templateService,
-      package: this.package,
-      strProperties: this.strProperties(this._properties),
-      strVoProperties: this.strVoProperties(voProperties),
-      voProperties,
+      entity,
+      strProperties: properties.map((e) => e.name).join(', '),
+      strVoProperties: properties.map((e) => `${e.className} ${e.name.value}`).join(', '),
     });
   }
 
@@ -72,37 +62,37 @@ export class CreateCommandService {
   }
 
   /*
-        private renderService(className:string): Template {
-          const className = this.service.className();
-          const file = `${this.folder}/${className}.java`;
-          const fileTemplate = `main/application/command/service`;
-          const voProperties = this.config.valueObjectProperties(this._properties);
-          const data = {
-            className,
-            entityRepositoryClass: `${this.config.entity}Repository`,
-            entityClass: this.config.entityClass,
-            entityClassPropertie: this.config.entityClassPropertie,
-            packageDomain: this.config.packageDomain,
-            serviceTemplate: this.templateService,
-            package: this.package,
-            strProperties: this.strProperties(this._properties),
-            strVoProperties: this.strVoProperties(voProperties),
-            voProperties,
-          };
-          return new Template(this.folder, file, fileTemplate, data);
-        }
-      
-        generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, messageCreated: string = '') {
-          fs.mkdirSync(path.join(renderFolder, param.folder), { recursive: true });
-          const str = this.generateRender(param, pathTemplates);
-          fs.writeFileSync(path.join(renderFolder, param.file), str, 'utf-8');
-          if (messageCreated !== '') {
-            console.log(`${messageCreated} : ${path.join(renderFolder, param.file)}`);
-          }
-        }
-      
-        generateRender(template: Template, pathTemplates: string): string {
-          return ejs.render(fs.readFileSync(path.join(pathTemplates, template.template), 'utf-8'), template.dataTemplate);
-        }
-      */
+            private renderService(className:string): Template {
+              const className = this.service.className();
+              const file = `${this.folder}/${className}.java`;
+              const fileTemplate = `main/application/command/service`;
+              const voProperties = this.config.valueObjectProperties(this._properties);
+              const data = {
+                className,
+                entityRepositoryClass: `${this.config.entity}Repository`,
+                entityClass: this.config.entityClass,
+                entityClassPropertie: this.config.entityClassPropertie,
+                packageDomain: this.config.packageDomain,
+                serviceTemplate: this.templateService,
+                package: this.package,
+                strProperties: this.strProperties(this._properties),
+                strVoProperties: this.strVoProperties(voProperties),
+                voProperties,
+              };
+              return new Template(this.folder, file, fileTemplate, data);
+            }
+          
+            generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, messageCreated: string = '') {
+              fs.mkdirSync(path.join(renderFolder, param.folder), { recursive: true });
+              const str = this.generateRender(param, pathTemplates);
+              fs.writeFileSync(path.join(renderFolder, param.file), str, 'utf-8');
+              if (messageCreated !== '') {
+                console.log(`${messageCreated} : ${path.join(renderFolder, param.file)}`);
+              }
+            }
+          
+            generateRender(template: Template, pathTemplates: string): string {
+              return ejs.render(fs.readFileSync(path.join(pathTemplates, template.template), 'utf-8'), template.dataTemplate);
+            }
+          */
 }
