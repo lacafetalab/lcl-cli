@@ -167,3 +167,8 @@ repository:
     lastName: last_name
     birthdate: birthdate
 ```
+
+
+```bash
+nest g s modules/load-data/application/ymlToJson
+```
