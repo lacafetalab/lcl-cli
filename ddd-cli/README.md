@@ -1,4 +1,4 @@
-# GENRATE CODE
+# GENERATE CODE
 ### Development tool
 
 ----
@@ -12,7 +12,7 @@ aggregate:
   properties:
     id: id
     name: string
-    lastname:
+    lastName:
       type: string
       required: false
     birthdate: date
@@ -40,14 +40,20 @@ message:
   User:Address:street:
     required: "El nombre de avenida es requerida"
   User:phones:
-    min: ""
-event:
-  namePrefix: user
+    min: " al menos un telefono"
+event: user
 repository:
   pk: id
-  table: users
+  table: user
   columnName:
-    birthdate: birth_date
+    id: id
+    name: name
+    lastName: last_name
+    birthdate: birthdate
+    emails: emails
+    address_street: address_street
+    address_number: address_number
+    phones: phones
 ```
 
 ## Parámetros
@@ -70,22 +76,28 @@ Se define el nombre y la lista de propiedades
 
 ## Parámetro **properties**
 
-| type          | required default   | default | default values     | more config | primitive value         | length    | db       |
-| ------------- | ------------------ | ------- | ------------------ | ----------- | ----------------------- | --------- | -------- |
-| id            | true (no editable) | --      | --                 | --          | string                  | 36        | string   |
-| string        | true               | null    | empty  o text      | min, max    | string                  | 255 o máx | string   |
-| text          | true               | null    | empty  o text      | min, max    | string                  | max       | text     |
-| uuid          | true               | null    | random o uuid      | --          | string                  | 36        | string   |
-| date          | true               | null    | now    o date      | min, max    | Date                    | ---       | dateTime |
-| integer       | true               | null    | zero   o int       | min, max    | Integer                 | ---       | integer  |
-| double        | true               | null    | zero   o Double    | min, max    | Double                  | ---       | double   |
-| enum          | true               | null    | firstValue o value | values      | string                  | ---       | string   |
-| entity        | true               | --      | --                 | --          | depende de la entity    | ---       | ---      |
-| valueObject   | true               | --      | --                 | --          | depende del valueObject | ---       | ---      |
-| entity[]      | true               | --      | --                 | --          | array<entity>           | ---       | json     |
-| valueObject[] | true               | --      | --                 | --          | array<valueObject>      | ---       | json     |
+| type        | required default   | default | default values     | more config                | primitive value         | length    | db         |
+| ----------- | ------------------ | ------- | ------------------ | -------------------------- | ----------------------- | --------- | ---------- |
+| id          | true (no editable) | --      | --                 | --                         | string                  | 36        | string     |
+| string      | true               | null    | empty  o text      | min, max                   | string                  | 255 o máx | string     |
+| text        | true               | null    | empty  o text      | min, max                   | string                  | max       | text       |
+| uuid        | true               | null    | random o uuid      | --                         | string                  | 36        | string     |
+| date        | true               | null    | now    o date      | min, max                   | Date                    | ---       | dateTime   |
+| integer     | true               | null    | zero   o int       | min, max                   | Integer                 | ---       | integer    |
+| double      | true               | null    | zero   o Double    | min, max                   | Double                  | ---       | double     |
+| enum        | true               | null    | firstValue o value | values                     | string                  | ---       | string     |
+| entity      | true               | --      | --                 | --                         | depende de la entity    | ---       | relation   |
+| valueObject | true               | --      | --                 | --                         | depende del valueObject | ---       | add column |
+| any[]       | true               | []      | []                 | min, max, eachMin, eachMax | array                   | ---       | json       |
 
+> [!NOTE]
+> any[] : cuando se pasa un array, la data se guarda en formato json
 
+> [!NOTE]
+> entity : en al db se crea una relacion con otra entidad
+
+> [!NOTE]
+> valueObject : en al db se crea columnas para guardar la data
 
 ### id
 este parametro es muy poco configurable, es obligatorio y es de tipo uuid
@@ -104,12 +116,14 @@ required: true
 default: empty
 ```
 
+### valueObject
 ```yaml
 type: valueObject
 reference: User:Address:Name
 reference: User:Address:Name[]
 ```
 
+### entity
 ```yaml
 type: entity
 reference: User:Comment
