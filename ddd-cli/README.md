@@ -3,6 +3,53 @@
 
 ----
 
+## Example
+```yaml
+path: src/user
+nameSpace: app.user
+aggregate:
+  name: User
+  properties:
+    id: id
+    name: string
+    lastname:
+      type: string
+      required: false
+    birthdate: date
+    emails : string[]
+    address: User:Address
+    phones: 
+      type: User:Phone[]
+      min: 1
+entity:
+  - name: Phone
+    properties:
+      id: id
+      number: integer
+valueObject:
+  - name: Address
+    properties:
+      street: string
+      number: integer
+message:
+  User:name:
+    required: "El nombre es requerido"
+    valid: "El nombre no es un valor válido"
+  User:Phone:number:
+    required: "El numero del celular es requerido"
+  User:Address:street:
+    required: "El nombre de avenida es requerida"
+  User:phones:
+    min: ""
+event:
+  namePrefix: user
+repository:
+  pk: id
+  table: users
+  columnName:
+    birthdate: birth_date
+```
+
 ## Parámetros
 | Param       | Description                                                   | required | Default                           |
 | ----------- | ------------------------------------------------------------- | -------- | --------------------------------- |
@@ -23,20 +70,20 @@ Se define el nombre y la lista de propiedades
 
 ## Parámetro **properties**
 
-| type          | required default   | default | default values | more config | primitive value         | length    | db       |
-| ------------- | ------------------ | ------- | -------------- | ----------- | ----------------------- | --------- | -------- |
-| id            | true (no editable) | --      | --             | --          | string                  | 36        | string   |
-| string        | false              | null    | empty          | min, max    | string                  | 255 o máx | string   |
-| text          | false              | null    | empty          | min, max    | string                  | max       | text     |
-| uuid          | false              | null    | random         | --          | string                  | 36        | string   |
-| date          | false              | null    | now            | min, max    | Date                    | ---       | dateTime |
-| integer       | false              | null    | zero           | min, max    | Integer                 | ---       | integer  |
-| double        | false              | null    | zero           | min, max    | Double                  | ---       | double   |
-| enum          | false              | null    | firstValue     | values      | string                  | ---       | string   |
-| entity        | false              | null    | --             | --          | depende de la entity    | ---       | ---      |
-| valueObject   | false              | null    | --             | --          | depende del valueObject | ---       | ---      |
-| entity[]      | false              | null    | --             | --          | array                   | ---       | json     |
-| valueObject[] | false              | null    | --             | --          | array                   | ---       | json     |
+| type          | required default   | default | default values     | more config | primitive value         | length    | db       |
+| ------------- | ------------------ | ------- | ------------------ | ----------- | ----------------------- | --------- | -------- |
+| id            | true (no editable) | --      | --                 | --          | string                  | 36        | string   |
+| string        | true               | null    | empty  o text      | min, max    | string                  | 255 o máx | string   |
+| text          | true               | null    | empty  o text      | min, max    | string                  | max       | text     |
+| uuid          | true               | null    | random o uuid      | --          | string                  | 36        | string   |
+| date          | true               | null    | now    o date      | min, max    | Date                    | ---       | dateTime |
+| integer       | true               | null    | zero   o int       | min, max    | Integer                 | ---       | integer  |
+| double        | true               | null    | zero   o Double    | min, max    | Double                  | ---       | double   |
+| enum          | true               | null    | firstValue o value | values      | string                  | ---       | string   |
+| entity        | true               | --      | --                 | --          | depende de la entity    | ---       | ---      |
+| valueObject   | true               | --      | --                 | --          | depende del valueObject | ---       | ---      |
+| entity[]      | true               | --      | --                 | --          | array<entity>           | ---       | json     |
+| valueObject[] | true               | --      | --                 | --          | array<valueObject>      | ---       | json     |
 
 
 
@@ -77,45 +124,3 @@ values: [item1,item2,item3]
 ```
 
 
-## Example
-```yaml
-path: src/user
-nameSpace: app.user
-aggregate:
-  name: User
-  properties:
-    id: id
-    name: string
-    lastname: string
-    description:
-      type: text
-      required: false
-    birthdate: date
-    addres: User:Address
-    phones: User:Phone[]
-entity:
-  - name: Phone
-    properties:
-      id: id
-      number: integer
-valueObject:
-  - name: Address
-    properties:
-      street: string
-      number: integer
-message:
-  validate:
-    valueObject:
-      name:
-        required: "El nombre es requerido"
-        valid: "El nombre no es un valor válido"
-      lastname:
-        valid: "El apellido no es un valor válido"
-event:
-  namePrefix: user
-repository:
-  pk: id
-  table: users
-  columnName:
-    birthdate: birth_date
-```
