@@ -138,3 +138,32 @@ values: [item1,item2,item3]
 ```
 
 
+## Fase 1, se inicia considerando un solo agregate y campos individuales
+
+## Example
+```yaml
+path: src/user
+nameSpace: app.user
+aggregate:
+  name: User
+  properties:
+    id: id
+    name: string
+    lastName:
+      type: string
+      required: false
+    birthdate: date
+message:
+  User:name:
+    required: "El nombre es requerido"
+    valid: "El nombre no es un valor válido"
+event: user
+repository:
+  pk: id
+  table: user
+  columnName:
+    id: id
+    name: name
+    lastName: last_name
+    birthdate: birthdate
+```
