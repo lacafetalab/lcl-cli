@@ -35,7 +35,7 @@ describe('YmlToJsonService', () => {
       expect(data[0].nameSpace).toEqual('app.userA');
       expect(data[0].name).toEqual('UserA');
 
-      expect(data[0].properties['id']).toEqual('id');
+      expect(data[0].properties.id).toEqual('id');
       expect(data[0].properties['name']).toEqual('string');
     });
   });
