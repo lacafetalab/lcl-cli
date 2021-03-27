@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as path from 'path';
-import { Structure } from '../../domain/structure';
+import { AggregateData } from '../../domain/structure';
 
 const fs = require('fs');
 const YAML = require('yaml');
@@ -30,7 +30,7 @@ export class YmlToJsonService {
     });
   }
 
-  getData(pathFiles: string): Structure[] {
+  getData(pathFiles: string): AggregateData[] {
     const files = this.getFiles(pathFiles);
     return this.readFiles(files, pathFiles);
   }

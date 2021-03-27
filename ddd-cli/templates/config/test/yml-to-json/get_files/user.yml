@@ -2,6 +2,5 @@ path: src/user
 package: app.user
 name: User
 properties:
-  aggregate:
-    id: id
-    name: string
+  id: id
+  name: string

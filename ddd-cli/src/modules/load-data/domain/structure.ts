@@ -1,7 +1,8 @@
-export interface Structure {
+export interface AggregateData {
   path: string;
   nameSpace?: string;
-  aggregate: Entity;
+  name: string;
+  properties: any;
   entity?: Entity[];
   valueObject?: ValueObject[];
   message?: any;

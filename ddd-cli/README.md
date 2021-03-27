@@ -7,20 +7,19 @@
 ```yaml
 path: src/user
 nameSpace: app.user
-aggregate:
-  name: User
-  properties:
-    id: id
-    name: string
-    lastName:
-      type: string
-      required: false
-    birthdate: date
-    emails : string[]
-    address: User:Address
-    phones: 
-      type: User:Phone[]
-      min: 1
+name: User
+properties:
+  id: id
+  name: string
+  lastName:
+    type: string
+    required: false
+  birthdate: date
+  emails : string[]
+  address: User:Address
+  phones: 
+    type: User:Phone[]
+    min: 1
 entity:
   - name: Phone
     properties:
@@ -35,9 +34,9 @@ message:
   User:name:
     required: "El nombre es requerido"
     valid: "El nombre no es un valor válido"
-  User:Phone:number:
+  User:phones:number:
     required: "El numero del celular es requerido"
-  User:Address:street:
+  User:address:street:
     required: "El nombre de avenida es requerida"
   User:phones:
     min: " al menos un telefono"
@@ -46,22 +45,23 @@ repository:
   pk: id
   table: user
   columnName:
-    id: id
-    name: name
-    lastName: last_name
-    birthdate: birthdate
-    emails: emails
-    address_street: address_street
-    address_number: address_number
-    phones: phones
+    User:id: id
+    User:name: name
+    User:lastName: last_name
+    User:birthdate: birthdate
+    User:emails: emails
+    User:address:street: address_street
+    User:address:number: address_number
+    User:phones: phones
 ```
 
 ## Parámetros
 | Param       | Description                                                   | required | Default                           |
 | ----------- | ------------------------------------------------------------- | -------- | --------------------------------- |
 | path        | Ruta donde se va a generar el código                          | true     | --                                |
+| name        | Nombre del aggregate                                          | true     | --                                |
 | nameSpace   | En caso necesario (php, java)                                 | false    | ""                                |
-| aggregate   | Descripción de la entidad principal, nombre y las propiedades | true     | --                                |
+| properties  | Descripción de propiedades deñ aggregate                      | true     | --                                |
 | entity      | Descripción de las entidades del agregate                     | false    | []                                |
 | valueObject | Descripción de los value objects del agregate                 | false    | []                                |
 | messages    | mensajes para la validacion de campos                         | false    | generado por el cli               |
@@ -144,15 +144,14 @@ values: [item1,item2,item3]
 ```yaml
 path: src/user
 nameSpace: app.user
-aggregate:
-  name: User
-  properties:
-    id: id
-    name: string
-    lastName:
-      type: string
-      required: false
-    birthdate: date
+name: User
+properties:
+  id: id
+  name: string
+  lastName:
+    type: string
+    required: false
+  birthdate: date
 message:
   User:name:
     required: "El nombre es requerido"
@@ -162,10 +161,10 @@ repository:
   pk: id
   table: user
   columnName:
-    id: id
-    name: name
-    lastName: last_name
-    birthdate: birthdate
+    User:id: id
+    User:name: name
+    User:lastName: last_name
+    User:birthdate: birthdate
 ```
 
 
