@@ -11,7 +11,7 @@ export class Aggregate {
   constructor(
     private _path: Path,
     private _nameSpace: NameSpace,
-    //private _name: Name,
+    private _name: Name,
     private _properties: Propertie[],
     private _message: Message[],
     private _event: Event,

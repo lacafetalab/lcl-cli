@@ -118,16 +118,14 @@ default: empty
 
 ### valueObject
 ```yaml
-type: valueObject
-reference: User:Address:Name
-reference: User:Address:Name[]
+type: User:Address:Name
+type: User:Address:Name[]
 ```
 
 ### entity
 ```yaml
-type: entity
-reference: User:Comment
-reference: User:Comment[]
+type: User:Comment
+type: User:Comment[]
 ```
 
 ### enum
