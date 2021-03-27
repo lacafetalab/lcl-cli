@@ -1,0 +1,50 @@
+{
+  "path": "src/user",
+  "nameSpace": "app.user",
+  "aggregate": {
+    "name": "User",
+    "properties": {
+      "id": "id",
+      "name": "string",
+      "lastname": "string",
+      "description": {
+        "type": "text",
+        "required": false
+      },
+      "birthdate": "date",
+      "address": "User:Address"
+    }
+  },
+  "voEntity": [
+    {
+      "name": "Address",
+      "properties": {
+        "street": "string",
+        "number": "integer"
+      }
+    }
+  ],
+  "message": {
+    "validate": {
+      "valueObject": {
+        "name": {
+          "required": "El nombre es requerido",
+          "valid": "El nombre no es un valor válido"
+        },
+        "lastname": {
+          "valid": "El apellido no es un valor válido"
+        }
+      }
+    }
+  },
+  "event": {
+    "namePrefix": "user"
+  },
+  "repository": {
+    "pk": "id",
+    "table": "users",
+    "columnName": {
+      "birthdate": "birth_date"
+    }
+  }
+}

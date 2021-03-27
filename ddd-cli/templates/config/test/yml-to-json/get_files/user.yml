@@ -1,5 +1,5 @@
 path: src/user
-package: pe.lacafetalab.pao.auth.user
+package: app.user
 name: User
 properties:
   aggregate:

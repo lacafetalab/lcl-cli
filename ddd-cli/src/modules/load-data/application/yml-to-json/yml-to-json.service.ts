@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { DataSkeleton } from '../../domain/DataSkeleton';
-import path from 'path';
+import * as path from 'path';
+import { Structure } from '../../domain/structure';
 
 const fs = require('fs');
 const YAML = require('yaml');
 
 @Injectable()
 export class YmlToJsonService {
-  private relativePath() {
+  relativePath() {
     return process.cwd();
   }
 
@@ -30,9 +30,8 @@ export class YmlToJsonService {
     });
   }
 
-  getData(pathConfig: string = null): any {
-    const pathFiles = pathConfig ? pathConfig : this.relativePath();
+  getData(pathFiles: string): Structure[] {
     const files = this.getFiles(pathFiles);
-    return this.readFiles(files, pathConfig);
+    return this.readFiles(files, pathFiles);
   }
 }
