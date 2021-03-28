@@ -3,7 +3,7 @@ import { ReadYamlService } from './read-yaml.service';
 import { DataSkeleton } from '../../domain/DataSkeleton';
 import { CollectionData } from '../../domain/CollectionData';
 
-describe('Process Propertie', () => {
+describe.skip('Process Propertie', () => {
   let service: ReadYamlService;
   let collectionData: CollectionData;
 

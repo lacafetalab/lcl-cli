@@ -24,7 +24,7 @@ export class DataSkeleton {
       new Path(data.path),
       new NameSpace(data.nameSpace),
       name,
-      Propertie.create(data.properties, name),
+      [],
       messages,
       new Event(data.event),
       Repository.create(data.repository, name),

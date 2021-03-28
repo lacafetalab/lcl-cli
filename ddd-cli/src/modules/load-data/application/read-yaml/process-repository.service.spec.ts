@@ -3,7 +3,7 @@ import { ReadYamlService } from './read-yaml.service';
 import { DataSkeleton } from '../../domain/DataSkeleton';
 import { CollectionData } from '../../domain/CollectionData';
 
-describe('Process Repository', () => {
+describe.skip('Process Repository', () => {
   let service: ReadYamlService;
   let collectionData: CollectionData;
 
@@ -49,20 +49,20 @@ describe('Process Repository', () => {
       collectionData = processPathData('/value_object');
       expect(collectionData.getEntity('User').repository.getColumn('id').tableName.value).toEqual('id');
       expect(collectionData.getEntity('User').repository.getColumn('name.firstName').tableName.value).toEqual(
-          'name_first_name',
+        'name_first_name',
       );
       expect(collectionData.getEntity('User').repository.getColumn('name.lastName').tableName.value).toEqual(
-          'name_last_name',
+        'name_last_name',
       );
     });
     it('table name exist', () => {
       collectionData = processPathData('/value_object_table_exist');
       expect(collectionData.getEntity('User').repository.getColumn('id').tableName.value).toEqual('id');
       expect(collectionData.getEntity('User').repository.getColumn('name.firstName').tableName.value).toEqual(
-          'n_first_name',
+        'n_first_name',
       );
       expect(collectionData.getEntity('User').repository.getColumn('name.lastName').tableName.value).toEqual(
-          'name_last_name',
+        'name_last_name',
       );
     });
   });

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ReadYamlService } from './read-yaml.service';
 import { DataSkeleton } from '../../domain/DataSkeleton';
 
-describe('ReadYamlService', () => {
+describe.skip('ReadYamlService', () => {
   let service: ReadYamlService;
   let relativePath: string;
 

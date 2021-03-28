@@ -34,3 +34,10 @@ export class PropertieParamType {
     return sections[2] || null;
   }
 }
+
+enum PropertieParamTypes {
+  ID = 'id',
+  STRING = 'string',
+  BOOLEAN = 'boolean',
+  DATE = 'date',
+}

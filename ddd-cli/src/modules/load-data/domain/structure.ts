@@ -2,7 +2,7 @@ export interface AggregateData {
   path: string;
   nameSpace?: string;
   name: string;
-  properties: EntityProperties;
+  properties: Properties;
   entity?: Entity[];
   valueObject?: ValueObject[];
   message?: any;
@@ -12,7 +12,7 @@ export interface AggregateData {
 
 export interface Entity {
   name: string;
-  properties: EntityProperties;
+  properties: Properties;
 }
 
 export interface ValueObject {
@@ -24,11 +24,6 @@ export interface Repository {
   pk: string;
   table: string;
   columnName: any;
-}
-
-export interface EntityProperties {
-  id: string | Propertie;
-  [index: string]: string | Propertie;
 }
 
 export interface Properties {

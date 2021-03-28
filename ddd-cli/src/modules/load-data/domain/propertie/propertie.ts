@@ -5,11 +5,11 @@ import { Name } from '../Name';
 export class Propertie {
   constructor(private _name: PropertieName, private _params: PropertieParam[]) {}
 
-  static create(properties, name: Name): Propertie[] {
+  /*static create(properties, name: Name): Propertie[] {
     return Object.entries(properties).map(([key, value]) => {
       return new Propertie(new PropertieName(key), PropertieParam.create(value, name));
     });
-  }
+  }*/
 
   get name(): PropertieName {
     return this._name;
