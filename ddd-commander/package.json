@@ -1,7 +1,7 @@
 {
   "name": "generate-code-ddd",
   "version": "1.0.0",
-  "description": "Gnerate DDD code",
+  "description": "Generate DDD code",
   "keywords": [
     "generate"
   ],
@@ -11,8 +11,8 @@
     "prebuild": "rimraf dist",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "console:dev": "ts-node -r tsconfig-paths/register src/index.ts",
-    "console": "node dist/index.js",
+    "console:dev": "ts-node -r tsconfig-paths/register src/app/index.ts",
+    "console": "node dist/app/index.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "commander": "^7.2.0",
+    "inquirer": "^8.0.0",
     "rimraf": "^3.0.2",
     "underscore.string": "^3.3.5",
     "yaml": "^1.10.2"
