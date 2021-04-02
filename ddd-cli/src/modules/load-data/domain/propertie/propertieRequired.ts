@@ -1,4 +1,4 @@
-export class PropertieParamRequired {
+export class PropertieRequired {
   constructor(private _required: boolean) {}
 
   get value(): boolean {

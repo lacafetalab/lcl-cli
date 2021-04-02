@@ -46,17 +46,18 @@ export class ReadYamlService {
   processCollection(process: DataSkeleton[]): CollectionData {
     const collection = new CollectionData(process);
     collection.collections.forEach((e) => {
-      e.repository.setColumnDefaultValue(e.name.value, collection);
+      //e.repository.setColumnDefaultValue(e.name.value, collection);
     });
     return collection;
   }
 
   getCollection(pathFolder: string = null): CollectionData {
-    const pathFolde = pathFolder || `/templates/config/lclcli/config`;
-    const relativePath = `${this.relativePath()}${pathFolde}`;
-    const files = this.getFiles(relativePath);
-    const data = this.readFiles(files, relativePath);
-    const process = this.process(data);
-    return this.processCollection(process);
+    //const pathFolde = pathFolder || `/templates/config/lclcli/config`;
+    //const relativePath = `${this.relativePath()}${pathFolde}`;
+    //const files = this.getFiles(relativePath);
+    //const data = this.readFiles(files, relativePath);
+    //const process = this.process(data);
+    //return this.processCollection(process);
+    return null;
   }
 }

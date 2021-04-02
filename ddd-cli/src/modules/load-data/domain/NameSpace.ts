@@ -1,6 +1,7 @@
-export class NameSpace {
-  constructor(private _nameSpace: string) {}
-  get value(): string {
-    return this._nameSpace;
+import { AbstractVoString } from './utils/abstract-vo-string';
+
+export class NameSpace extends AbstractVoString {
+  constructor(nameSpace: string) {
+    super(nameSpace);
   }
 }

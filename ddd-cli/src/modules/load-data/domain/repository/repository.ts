@@ -4,9 +4,12 @@ import { CollectionData } from '../CollectionData';
 import { Name } from '../Name';
 
 export class Repository {
-  constructor(private _name: string, private _pk: RepositoryPk, private _columns: RepositoryColumn[]) {}
+  constructor() {}
+
+  /*constructor(private _name: string, private _pk: RepositoryPk, private _columns: RepositoryColumn[]) {}
 
   static create(repository: any, name: Name) {
+
     if (typeof repository === 'undefined') {
       repository = {};
     }
@@ -17,7 +20,7 @@ export class Repository {
     );
   }
 
-  get name(): string {
+  /*get name(): string {
     return this._name;
   }
 
@@ -69,4 +72,5 @@ export class Repository {
       }
     });
   }
+  */
 }

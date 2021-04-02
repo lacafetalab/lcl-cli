@@ -1,35 +1,75 @@
 import { PropertieName } from './propertieName';
-import { PropertieParam } from './propertieParam';
+import { PropertieType } from './propertieType';
+import { PropertieRequired } from './propertieRequired';
+import { PropertieDefault } from './propertieDefault';
 import { Name } from '../Name';
 
-export class Propertie {
-  constructor(private _name: PropertieName, private _params: PropertieParam[]) {}
+interface PropertieValue {
+  required: boolean;
+  defaultValue: string | boolean | number;
+  type: string;
+}
 
-  /*static create(properties, name: Name): Propertie[] {
-    return Object.entries(properties).map(([key, value]) => {
-      return new Propertie(new PropertieName(key), PropertieParam.create(value, name));
-    });
-  }*/
+export class Propertie {
+  constructor(
+    private _name: PropertieName,
+    private _type: PropertieType,
+    private _required: PropertieRequired,
+    private _defaultValue: PropertieDefault,
+  ) {}
+
+  static create(propertieName: string, value: any, AggregateName: Name): Propertie {
+    const { type, required, defaultValue } = this.processValue(value);
+    return new Propertie(
+      new PropertieName(`${AggregateName.value}:${propertieName}`),
+      new PropertieType(type),
+      new PropertieRequired(required),
+      new PropertieDefault(defaultValue),
+    );
+  }
+
+  private static processValue(value): PropertieValue {
+    let type: string;
+    let required: boolean;
+    let defaultValue: any;
+    if (typeof value === 'string') {
+      type = value;
+      defaultValue = null;
+      required = true;
+    } else {
+      type = value['type'];
+      required = typeof value['required'] == 'undefined' ? true : value['required'];
+      defaultValue = typeof value['default'] == 'undefined' ? null : value['default'];
+    }
+    return {
+      type,
+      required,
+      defaultValue,
+    };
+  }
 
   get name(): PropertieName {
     return this._name;
   }
 
-  get params(): PropertieParam[] {
-    return this._params;
+  get type(): PropertieType {
+    return this._type;
   }
 
-  listParamsName(): string[] {
-    return this._params.map((e) => {
-      return e.name.value;
-    });
+  get required(): PropertieRequired {
+    return this._required;
   }
 
-  getParam(paramName): PropertieParam {
-    const param = this._params.find((e) => e.name.value === paramName);
-    if (!param) {
-      throw new Error(`param ${paramName} is not defined in ${this.name.value}`);
-    }
-    return param;
+  get defaultValue(): PropertieDefault {
+    return this._defaultValue;
+  }
+
+  get json() {
+    return {
+      name: this.name.value,
+      type: this.type.value,
+      required: this.required.value,
+      defaultValue: this.defaultValue.value,
+    };
   }
 }

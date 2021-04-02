@@ -10,8 +10,7 @@ export class LlConsole {
     description: 'List all entities',
   })
   async getHello(): Promise<void> {
-
-    const collection = this.readYamlService.getCollection();
-    console.log(collection.collectionNames);
+    /*const collection = this.readYamlService.getCollection();
+    console.log(collection.collectionNames);*/
   }
 }

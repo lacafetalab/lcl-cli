@@ -1,4 +1,5 @@
 import { Aggregate } from './Aggregate';
+import { DataSkeleton } from './DataSkeleton';
 
 export class CollectionAggregate {
   constructor(private _collections: Aggregate[]) {}

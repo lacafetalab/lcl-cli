@@ -1,13 +1,13 @@
-export class Event {
-  constructor(private _event: string) {}
+import { AbstractVoString } from './utils/abstract-vo-string';
 
-  get value(): string {
-    return this._event;
+export class Event extends AbstractVoString {
+  constructor(event: string) {
+    super(event);
   }
 
   setDefaultValue(aggregateName: string) {
-    if (typeof this._event === 'undefined') {
-      this._event = aggregateName.toLowerCase();
-    }
+    //if (typeof this.value === 'undefined') {
+    //this._event = aggregateName.toLowerCase();
+    //}
   }
 }

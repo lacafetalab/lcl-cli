@@ -20,15 +20,14 @@ export class Aggregate {
   ) {}
 
   static create(data: AggregateData): Aggregate {
-    const messages = [];
     return new Aggregate(
       new Path(data.path),
       new NameSpace(data.nameSpace),
       new Name(data.name),
       CollectionPropertie.create(data.properties, new Name(data.name)),
-      messages,
+      [],
       new Event(data.event),
-      Repository.create(data.repository, new Name(data.name)),
+      new Repository(),
     );
   }
 
@@ -58,5 +57,9 @@ export class Aggregate {
 
   get repository(): Repository {
     return this._repository;
+  }
+
+  getPropertie(propertieNane: string): Propertie {
+    return this._aggregateCollectionProperty.getPropertie(propertieNane);
   }
 }
