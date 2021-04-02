@@ -1,0 +1,13 @@
+package <%= package %>;
+
+import pe.lacafetalab.pao.sharedtest.domain.DateTimeMother;
+
+public final class <%= className %> {
+    public static <%= classEntity %> create(String value) {
+        return new <%= classEntity %>(value);
+    }
+
+    public static <%= classEntity %> random() {
+        return create(DateTimeMother.randomString());
+    }
+}

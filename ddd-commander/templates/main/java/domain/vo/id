@@ -1,0 +1,23 @@
+package <%= package %>;
+
+import pe.lacafetalab.pao.shared.domain.types.TypeId;
+
+public final class <%= className %> extends TypeId {
+    public <%= className %>(String value) {
+        super(value);
+    }
+    <%_ if (message.required != null) { _%>
+
+    @Override
+    protected String errorIdCannotBeNull() {
+        return "<%= message.required %>";
+    }
+    <%_ } _%>
+    <%_ if (message.valid != null) { _%>
+
+    @Override
+    protected String errorUuidValueNotValid() {
+        return "<%= message.valid %>";
+    }
+    <%_ } _%>
+}

@@ -1,0 +1,48 @@
+path: src/user
+nameSpace: app.user
+name: User
+properties:
+  id: id
+  name: string
+  lastName:
+    type: string
+    required: false
+  birthdate: date
+  emails : string[]
+  address: User:Address
+  phones:
+    type: User:Phone[]
+    min: 1
+entity:
+  - name: Phone
+    properties:
+      id: id
+      number: integer
+valueObject:
+  - name: Address
+    properties:
+      street: string
+      number: integer
+message:
+  User:name:
+    required: "El nombre es requerido"
+    valid: "El nombre no es un valor válido"
+  User:phones:number:
+    required: "El numero del celular es requerido"
+  User:address:street:
+    required: "El nombre de avenida es requerida"
+  User:phones:
+    min: " al menos un telefono"
+event: user
+repository:
+  pk: id
+  table: user
+  columnName:
+    User:id: id
+    User:name: name
+    User:lastName: last_name
+    User:birthdate: birthdate
+    User:emails: emails
+    User:address:street: address_street
+    User:address:number: address_number
+    User:phones: phones

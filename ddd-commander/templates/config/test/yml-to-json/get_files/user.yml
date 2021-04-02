@@ -1,0 +1,6 @@
+path: src/user
+package: app.user
+name: User
+properties:
+  id: id
+  name: string

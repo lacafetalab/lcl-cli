@@ -1,0 +1,18 @@
+package <%= package %>;
+
+import pe.lacafetalab.pao.shared.domain.types.TypeDateTime;
+
+import java.util.Date;
+
+public final class <%= name %> extends TypeDateTime {
+    public <%= name %>(String value) {
+        super(value);
+        if (this.isNull()) {
+            this.setNow();
+        }
+    }
+
+    public <%= name %>(Date value) {
+        super(value);
+    }
+}

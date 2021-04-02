@@ -1,0 +1,12 @@
+path: src/user
+package: pe.user
+name: User
+properties:
+  aggregate:
+    id: id
+    lastName: string
+repository:
+  pk: id
+  table: users
+  columns:
+    lastName: apellido
