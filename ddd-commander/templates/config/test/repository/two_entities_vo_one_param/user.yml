@@ -1,7 +1,0 @@
-path: src/user
-package: pe.user
-name: User
-properties:
-  aggregate:
-    id: id
-    name: UserB:aggregate:name

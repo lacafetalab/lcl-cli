@@ -6,9 +6,6 @@ describe('YmlToJsonService', () => {
 
   beforeEach(async () => {
     service = new YmlToJsonService();
-
-    console.log('------------------------------------------');
-    console.log(service.relativePath());
     relativePath = `${service.relativePath()}/templates/config/test/yml-to-json`;
   });
 

@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { AggregateData } from '../../domain/structure';
-
 const fs = require('fs');
 const YAML = require('yaml');
 

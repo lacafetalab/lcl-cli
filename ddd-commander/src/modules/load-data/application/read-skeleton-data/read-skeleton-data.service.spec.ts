@@ -1,4 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ReadSkeletonDataService } from './read-skeleton-data.service';
 import { CollectionAggregate } from '../../domain/CollectionAggregate';
 
@@ -6,11 +5,7 @@ describe('ReadSkeletonDataService', () => {
   let service: ReadSkeletonDataService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ReadSkeletonDataService],
-    }).compile();
-
-    service = module.get<ReadSkeletonDataService>(ReadSkeletonDataService);
+    service = new ReadSkeletonDataService();
   });
 
   it('should be defined', () => {

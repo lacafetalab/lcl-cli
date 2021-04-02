@@ -1,7 +1,0 @@
-path: src/user
-nameSpace: app.user
-name: User
-properties:
-  aggregate:
-    id: id
-    lastName: string
