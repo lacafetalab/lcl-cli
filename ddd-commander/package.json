@@ -9,7 +9,7 @@
   "license": "ISC",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "console:dev": "ts-node -r tsconfig-paths/register src/app/index.ts",
     "console": "node dist/app/index.js",
