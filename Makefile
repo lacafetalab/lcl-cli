@@ -27,11 +27,11 @@ test-e2e:
 
 .PHONY: test
 test:
-	@make format-check
-	@make lint
 	#npm --prefix "ddd-cli" run test:cov
-	@test-unit
+	@make format-check
+	@make test-unit
 	@make test-e2e
+	@make lint
 
 
 help:

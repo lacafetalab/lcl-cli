@@ -1,6 +1,4 @@
 export class Repository {
-  constructor() {}
-
   /*constructor(private _name: string, private _pk: RepositoryPk, private _columns: RepositoryColumn[]) {}
 
   static create(repository: any, name: Name) {

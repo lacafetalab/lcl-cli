@@ -1,6 +1,7 @@
 import { RepositoryColumnPropertie } from './repositoryColumnPropertie';
 import { RepositoryColumnTableName } from './repositoryColumnTableName';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const s = require('underscore.string');
 
 export class RepositoryColumn {

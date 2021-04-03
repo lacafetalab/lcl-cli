@@ -1,6 +1,8 @@
 import * as path from 'path';
 import { AggregateData } from '../../domain/structure';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const YAML = require('yaml');
 
 export class YmlToJsonService {

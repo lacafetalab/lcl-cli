@@ -9,10 +9,11 @@ export class PropertieType {
     return false;
   }
 }
-
+/*
 enum PropertieParamTypes {
   ID = 'id',
   STRING = 'string',
   BOOLEAN = 'boolean',
   DATE = 'date',
 }
+*/

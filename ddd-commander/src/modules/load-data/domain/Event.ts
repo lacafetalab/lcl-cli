@@ -5,9 +5,9 @@ export class Event extends AbstractVoString {
     super(event);
   }
 
-  setDefaultValue(aggregateName: string) {
-    //if (typeof this.value === 'undefined') {
-    //this._event = aggregateName.toLowerCase();
-    //}
-  }
+  //setDefaultValue(aggregateName: string) {
+  //if (typeof this.value === 'undefined') {
+  //this._event = aggregateName.toLowerCase();
+  //}
+  //}
 }

@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const spawn = require('child_process').spawn;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const concat = require('concat-stream');
 
 const cliPath = __dirname + '/../dist/app/index.js';
@@ -6,7 +8,7 @@ const cliPath = __dirname + '/../dist/app/index.js';
 export function run(combo, timeout = 200) {
   const proc = spawn('node', [cliPath], { stdio: [null, null, null] });
   proc.stdin.setEncoding('utf-8');
-  var loop = function (combo) {
+  const loop = function (combo) {
     if (combo.length > 0) {
       setTimeout(function () {
         proc.stdin.write(combo[0]);
