@@ -26,7 +26,7 @@ export class CreateCommandService {
       language,
       service.className([commandName, aggregate.name.value, 'service']),
       service.classFile([commandName, aggregate.name.value, 'service']),
-      service.folderPath([aggregate.path.value, 'application'], commandName),
+      service.folderPath([aggregate.path.value, 'application', commandName]),
       properties.map((p) => aggregate.getPropertie(p)),
       templateService,
       pathTemplate,
@@ -43,10 +43,10 @@ export class CreateCommandService {
     templateService: string,
     pathTemplate: string,
   ) {
-    // const file = `${folderPath}/${classFile}`;
+    const file = `${folderPath}/${classFile}`;
     const fileTemplate = `${pathTemplate}/main/${language}/application/command/service`;
 
-    this.generateRender(fileTemplate, {
+    const render = this.generateRender(fileTemplate, {
       templateService,
       className,
       aggregate,
@@ -54,7 +54,8 @@ export class CreateCommandService {
       strVoProperties: properties.map((e) => `${e.className} ${e.name.value}`).join(', '),
     });
 
-    //console.log(render);
+    console.log(file);
+    console.log(render);
   }
 
   generateRender(fileTemplate: string, data: any): string {

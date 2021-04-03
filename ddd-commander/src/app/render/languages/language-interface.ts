@@ -3,5 +3,5 @@ export interface LanguageInterface {
 
   classFile(names: string[]): string;
 
-  folderPath(paths: string[], serviceName: string): string;
+  folderPath(paths: string[]): string;
 }

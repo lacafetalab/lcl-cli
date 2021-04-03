@@ -4,10 +4,10 @@
 install:
 	npm --prefix "ddd-commander" install
 
-run-dev:
+run:
 	npm --prefix "ddd-commander" run console:dev
 
-run:
+run-prod:
 	npm --prefix "ddd-commander" run console
 
 build:
