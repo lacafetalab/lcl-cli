@@ -25,7 +25,7 @@ export class Propertie {
   static create(propertieName: string, value: any, aggregateName: Name): Propertie {
     const { type, required, defaultValue } = this.processValue(value);
     return new Propertie(
-      new PropertieName(`${aggregateName.value}:${propertieName}`),
+      new PropertieName(propertieName, aggregateName.value),
       new PropertieType(type),
       new PropertieRequired(required),
       new PropertieDefault(defaultValue),
@@ -75,6 +75,7 @@ export class Propertie {
 
   get json() {
     return {
+      fullName: this.name.fullName,
       name: this.name.value,
       type: this.type.value,
       required: this.required.value,

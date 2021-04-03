@@ -44,7 +44,8 @@ describe('ReadSkeletonDataService', () => {
 
     it('Propertie Id', () => {
       expect(collectionAgregate.getAggregate('User').getPropertie('id').json).toEqual({
-        name: 'User:id',
+        fullName: 'User:id',
+        name: 'id',
         required: true,
         type: 'id',
         defaultValue: null,
@@ -53,7 +54,8 @@ describe('ReadSkeletonDataService', () => {
 
     it('Propertie name', () => {
       expect(collectionAgregate.getAggregate('User').getPropertie('name').json).toEqual({
-        name: 'User:name',
+        fullName: 'User:name',
+        name: 'name',
         required: true,
         type: 'string',
         defaultValue: null,
@@ -62,7 +64,8 @@ describe('ReadSkeletonDataService', () => {
 
     it('Propertie lastname', () => {
       expect(collectionAgregate.getAggregate('User').getPropertie('lastName').json).toEqual({
-        name: 'User:lastName',
+        fullName: 'User:lastName',
+        name: 'lastName',
         required: false,
         type: 'string',
         defaultValue: '',

@@ -27,7 +27,7 @@ export class CreateCommandService {
       service.className([commandName, aggregate.name.value, 'service']),
       service.classFile([commandName, aggregate.name.value, 'service']),
       service.folderPath([aggregate.path.value, 'application'], commandName),
-      properties.map((p) => aggregate.getPropertieFullName(p)),
+      properties.map((p) => aggregate.getPropertie(p)),
       templateService,
       pathTemplate,
     );
@@ -58,7 +58,7 @@ export class CreateCommandService {
   }
 
   generateRender(fileTemplate: string, data: any): string {
-    //console.log(data);
+    console.log(data);
     return ejs.render(fs.readFileSync(fileTemplate, 'utf-8'), data);
   }
 
