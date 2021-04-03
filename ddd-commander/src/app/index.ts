@@ -1,15 +1,9 @@
-import { YmlToJsonService } from '../modules/load-data/application/yml-to-json/yml-to-json.service';
-import { ReadSkeletonDataService } from '../modules/load-data/application/read-skeleton-data/read-skeleton-data.service';
-import { SelectAggregate } from './select-aggregate/select-aggregate';
+import { factory } from './service-factory';
 
 async function main() {
-  const ymlToJsonService = new YmlToJsonService();
-  const readSkeletonDataService = new ReadSkeletonDataService();
-  const selectAggregate = new SelectAggregate();
-
-  const jsonData = ymlToJsonService.getData(ymlToJsonService.relativePath() + '/config-cli');
-  const collectionAggregate = readSkeletonDataService.readData(jsonData);
-  await selectAggregate.execute(collectionAggregate);
+  const jsonData = factory.ymlToJsonService.getData(factory.ymlToJsonService.relativePath() + '/config-cli');
+  const collectionAggregate = factory.readSkeletonDataService.readData(jsonData);
+  await factory.selectAggregate.execute(collectionAggregate);
 }
 
 main().finally(() => {
