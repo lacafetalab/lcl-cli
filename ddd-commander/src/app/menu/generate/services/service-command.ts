@@ -1,5 +1,5 @@
-import { CollectionAggregate } from '../../../modules/load-data/domain/CollectionAggregate';
-import { GenerateInterface } from './generate-Interface';
+import { CollectionAggregate } from '../../../../modules/load-data/domain/CollectionAggregate';
+import { GenerateInterface } from '../generate-Interface';
 import { QuestionCollection } from 'inquirer';
 import * as inquirer from 'inquirer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires

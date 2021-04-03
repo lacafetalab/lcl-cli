@@ -40,3 +40,19 @@ describe('generate command User', () => {
     expect(result).toMatch(/use template none/);
   });
 });
+
+describe('generate command User Error', () => {
+  test('input name error 1 cracrter', async () => {
+    const result = await run([DOWN, ENTER, ENTER, 'c', ENTER]);
+    expect(result).toMatch(/Select aggregate User/);
+    expect(result).toMatch(/What do you want to generate in User\? Create Service Command/);
+    expect(result).toMatch(/COMMAND name must be at least 3 letters/);
+  });
+
+  test('input name error caracteres no permitidos', async () => {
+    const result = await run([DOWN, ENTER, ENTER, 'Create-User', ENTER]);
+    expect(result).toMatch(/Select aggregate User/);
+    expect(result).toMatch(/What do you want to generate in User\? Create Service Command/);
+    expect(result).toMatch(/only caracters de a la a-z A-Z/);
+  });
+});

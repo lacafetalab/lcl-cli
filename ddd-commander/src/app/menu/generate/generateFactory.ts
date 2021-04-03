@@ -1,6 +1,6 @@
 import { GenerateInterface } from './generate-Interface';
 import { GenerateType } from './generateType';
-import { ServiceCommand } from './service-command';
+import { ServiceCommand } from './services/service-command';
 
 export class GenerateFactory {
   execute(type: string): GenerateInterface {
