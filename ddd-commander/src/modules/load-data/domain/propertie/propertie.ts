@@ -4,6 +4,9 @@ import { PropertieRequired } from './propertieRequired';
 import { PropertieDefault } from './propertieDefault';
 import { Name } from '../Name';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const s = require('underscore.string');
+
 interface PropertieValue {
   required: boolean;
   defaultValue: string | boolean | number;
@@ -16,15 +19,17 @@ export class Propertie {
     private _type: PropertieType,
     private _required: PropertieRequired,
     private _defaultValue: PropertieDefault,
+    private _aggregateName: Name,
   ) {}
 
-  static create(propertieName: string, value: any, AggregateName: Name): Propertie {
+  static create(propertieName: string, value: any, aggregateName: Name): Propertie {
     const { type, required, defaultValue } = this.processValue(value);
     return new Propertie(
-      new PropertieName(`${AggregateName.value}:${propertieName}`),
+      new PropertieName(`${aggregateName.value}:${propertieName}`),
       new PropertieType(type),
       new PropertieRequired(required),
       new PropertieDefault(defaultValue),
+      aggregateName,
     );
   }
 
@@ -50,6 +55,10 @@ export class Propertie {
 
   get name(): PropertieName {
     return this._name;
+  }
+
+  get className(): string {
+    return `${this._aggregateName.value}${s.capitalize(this._name.value)}`;
   }
 
   get type(): PropertieType {

@@ -2,12 +2,24 @@ import { CollectionAggregate } from '../../../../modules/load-data/domain/Collec
 import { GenerateInterface } from '../generate-Interface';
 import { QuestionCollection } from 'inquirer';
 import * as inquirer from 'inquirer';
+import { CreateCommandService } from '../../../render/services/create-command-service';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const s = require('underscore.string');
 
 export class ServiceCommand implements GenerateInterface {
-  async execute(aggregate: string, collectionAggregate: CollectionAggregate): Promise<void> {
-    await inquirer.prompt(this.questions(aggregate, collectionAggregate.getAggregate(aggregate).propertiesNames));
+  async execute(aggregate: string, collectionAggregate: CollectionAggregate, pathTemplate: string): Promise<void> {
+    const answers = await inquirer.prompt(
+      this.questions(aggregate, collectionAggregate.getAggregate(aggregate).propertiesNames),
+    );
+    const createCommandService = new CreateCommandService();
+    await createCommandService.execute(
+      answers.commandName,
+      answers.properties,
+      answers.templateService,
+      aggregate,
+      collectionAggregate,
+      pathTemplate,
+    );
   }
 
   private questions(
