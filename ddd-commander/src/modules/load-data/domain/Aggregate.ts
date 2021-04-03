@@ -47,6 +47,12 @@ export class Aggregate {
     return this._aggregateCollectionProperty.properties;
   }
 
+  get propertiesNames(): string[] {
+    return this._aggregateCollectionProperty.properties.map((p) => {
+      return p.name.value;
+    });
+  }
+
   get message(): Message[] {
     return this._message;
   }
