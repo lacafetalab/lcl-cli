@@ -4,7 +4,8 @@ async function main() {
   const pathConfigYaml = factory.ymlToJsonService.relativePath() + '/config-cli';
   const jsonData = factory.ymlToJsonService.getData(pathConfigYaml);
   const collectionAggregate = factory.readSkeletonDataService.readData(jsonData);
-  await factory.selectAggregate.execute(collectionAggregate);
+  const aggregate = await factory.selectAggregate.execute(collectionAggregate);
+  await factory.menuAggregate.execute(aggregate);
 }
 
 main().finally(() => {

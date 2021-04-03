@@ -14,11 +14,11 @@ describe('select first aggregate', () => {
     const result = await run([ENTER]);
     expect(result).toMatch(/Select aggregate Product/);
   });
-  it('ENTER', async () => {
+  it('DOWN, UP, ENTER', async () => {
     const result = await run([DOWN, UP, ENTER]);
     expect(result).toMatch(/Select aggregate Product/);
   });
-  it('ENTER', async () => {
+  it('DOWN, DOWN, ENTER', async () => {
     const result = await run([DOWN, DOWN, ENTER]);
     expect(result).toMatch(/Select aggregate Product/);
   });
@@ -29,7 +29,7 @@ describe('select second aggregate', () => {
     const result = await run([DOWN, ENTER]);
     expect(result).toMatch(/Select aggregate User/);
   });
-  test('DOWN, ENTER', async () => {
+  test('UP, ENTER', async () => {
     const result = await run([UP, ENTER]);
     expect(result).toMatch(/Select aggregate User/);
   });
