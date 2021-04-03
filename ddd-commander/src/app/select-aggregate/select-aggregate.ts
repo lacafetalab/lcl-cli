@@ -1,21 +1,21 @@
-import {CollectionAggregate} from "../../modules/load-data/domain/CollectionAggregate";
-import {QuestionCollection} from "inquirer";
-import * as inquirer from "inquirer";
+import { CollectionAggregate } from '../../modules/load-data/domain/CollectionAggregate';
+import { QuestionCollection } from 'inquirer';
+import * as inquirer from 'inquirer';
 
 export class SelectAggregate {
-    constructor( ) {
-    }
-    async execute(aggregates: CollectionAggregate) {
-        const aggregate = await inquirer.prompt(SelectAggregate.questionSelectAgregate(aggregates));
-    }
-    private static questionSelectAgregate(aggregates: CollectionAggregate): QuestionCollection<{ entity: string }> {
-        return [
-            {
-                type: 'list',
-                name: 'entity',
-                message: `Select aggregate`,
-                choices: aggregates.aggregatesName,
-            },
-        ];
-    }
+  async execute(aggregates: CollectionAggregate): Promise<string> {
+    const aggregateAnswer = await inquirer.prompt(SelectAggregate.questionSelectAgregate(aggregates));
+    return aggregateAnswer.aggregate;
+  }
+
+  private static questionSelectAgregate(aggregates: CollectionAggregate): QuestionCollection<{ aggregate: string }> {
+    return [
+      {
+        type: 'list',
+        name: 'aggregate',
+        message: `Select aggregate`,
+        choices: aggregates.aggregatesName,
+      },
+    ];
+  }
 }

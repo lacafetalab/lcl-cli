@@ -2,28 +2,29 @@
 ## GENERAL ##
 
 install:
-	npm --prefix "ddd-cli" install
+	npm --prefix "ddd-commander" install
 
 run:
-	npm --prefix "ddd-cli" run console:dev create
+	npm --prefix "ddd-commander" run console:dev
 
 build:
-	npm --prefix "ddd-cli" run build --if-present
+	npm --prefix "ddd-commander" run build --if-present
 
 lint:
-	npm --prefix "ddd-cli" run lint
+	npm --prefix "ddd-commander" run lint
 
 format:
-	npm --prefix "ddd-cli" run format
+	npm --prefix "ddd-commander" run format
 
 format-check:
-	npm --prefix "ddd-cli" run format-check
+	npm --prefix "ddd-commander" run format-check
 
 .PHONY: test
 test:
+	@make format-check
 	#npm --prefix "ddd-cli" run test:cov
-	npm --prefix "ddd-cli" run test
-	#npm --prefix "ddd-cli" run test:e2e
+	@npm --prefix "ddd-commander" run test
+	@npm --prefix "ddd-commander" run test:e2e
 
 
 help:

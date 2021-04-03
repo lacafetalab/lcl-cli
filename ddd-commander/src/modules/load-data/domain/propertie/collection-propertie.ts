@@ -6,7 +6,7 @@ export class CollectionPropertie {
   constructor(private _properties: Propertie[], private _aggegateName: Name) {}
 
   static create(dataProperties: Properties, aggregateName: Name): CollectionPropertie {
-    let properties = Object.entries(dataProperties).map(([key, value]) => {
+    const properties = Object.entries(dataProperties).map(([key, value]) => {
       return Propertie.create(key, value, aggregateName);
     });
 

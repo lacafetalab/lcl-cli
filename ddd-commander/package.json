@@ -11,6 +11,7 @@
     "prebuild": "rimraf dist",
     "build": "tsc --project tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format-check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "console:dev": "ts-node -r tsconfig-paths/register src/app/index.ts",
     "console": "node dist/app/index.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

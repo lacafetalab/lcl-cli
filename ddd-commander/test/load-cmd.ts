@@ -1,27 +1,29 @@
-var spawn = require('child_process').spawn;
-var concat = require('concat-stream');
+const spawn = require('child_process').spawn;
+const concat = require('concat-stream');
 
 const cliPath = __dirname + '/../dist/app/index.js';
 
-export function run(combo, timeout: number = 200) {
-    var proc = spawn('node', [cliPath], {stdio: [null, null, null]});
-    proc.stdin.setEncoding('utf-8');
-    var loop = function (combo) {
-        if (combo.length > 0) {
-            setTimeout(function () {
-                proc.stdin.write(combo[0]);
-                loop(combo.slice(1));
-            }, timeout);
-        } else {
-            proc.stdin.end();
-        }
-    };
-    loop(combo);
-    return new Promise(function (resolve) {
-        proc.stdout.pipe(concat(function (result) {
-            resolve(result.toString());
-        }));
-    });
+export function run(combo, timeout = 200) {
+  const proc = spawn('node', [cliPath], { stdio: [null, null, null] });
+  proc.stdin.setEncoding('utf-8');
+  var loop = function (combo) {
+    if (combo.length > 0) {
+      setTimeout(function () {
+        proc.stdin.write(combo[0]);
+        loop(combo.slice(1));
+      }, timeout);
+    } else {
+      proc.stdin.end();
+    }
+  };
+  loop(combo);
+  return new Promise(function (resolve) {
+    proc.stdout.pipe(
+      concat(function (result) {
+        resolve(result.toString());
+      }),
+    );
+  });
 }
 
 export const DOWN = '\x1B\x5B\x42';
