@@ -1,0 +1,6 @@
+path: src/product
+nameSpace: app.product
+name: Product
+properties:
+  id: id
+  name: string

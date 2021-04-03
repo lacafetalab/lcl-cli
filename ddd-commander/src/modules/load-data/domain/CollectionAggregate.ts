@@ -7,7 +7,7 @@ export class CollectionAggregate {
     return this._collections;
   }
 
-  get collectionNames(): string[] {
+  get aggregatesName(): string[] {
     return this._collections.map((item) => {
       return item.name.value;
     });
