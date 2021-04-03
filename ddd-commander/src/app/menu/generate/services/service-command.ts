@@ -7,12 +7,10 @@ const s = require('underscore.string');
 
 export class ServiceCommand implements GenerateInterface {
   async execute(aggregate: string, collectionAggregate: CollectionAggregate): Promise<void> {
-    await inquirer.prompt(
-      this.questionCreateServiceCommand(aggregate, collectionAggregate.getAggregate(aggregate).propertiesNames),
-    );
+    await inquirer.prompt(this.questions(aggregate, collectionAggregate.getAggregate(aggregate).propertiesNames));
   }
 
-  private questionCreateServiceCommand(
+  private questions(
     aggregate: string,
     properties: string[],
   ): QuestionCollection<{ commandName: string; properties: string[]; templateService: string }> {

@@ -17,8 +17,9 @@ export class CollectionPropertie {
     return this._properties;
   }
 
-  getPropertie(propertieName: string): Propertie {
-    const propertie = this._properties.find((e) => e.name.value === `${this._aggegateName.value}:${propertieName}`);
+  getPropertie(propertieName: string, fullName = false): Propertie {
+    const name = fullName ? propertieName : `${this._aggegateName.value}:${propertieName}`;
+    const propertie = this._properties.find((e) => e.name.value === name);
     if (!propertie) {
       throw new Error(`Propertie ${propertieName} in ${this._aggegateName.value} is not defined `);
     }

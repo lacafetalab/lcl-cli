@@ -68,4 +68,7 @@ export class Aggregate {
   getPropertie(propertieNane: string): Propertie {
     return this._aggregateCollectionProperty.getPropertie(propertieNane);
   }
+  getPropertieFullName(propertieNane: string): Propertie {
+    return this._aggregateCollectionProperty.getPropertie(propertieNane, true);
+  }
 }
