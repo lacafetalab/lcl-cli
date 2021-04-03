@@ -19,12 +19,19 @@ format:
 format-check:
 	npm --prefix "ddd-commander" run format-check
 
+test-unit:
+	npm --prefix "ddd-commander" run test
+
+test-e2e:
+	npm --prefix "ddd-commander" run test:e2e
+
 .PHONY: test
 test:
 	@make format-check
+	@make lint
 	#npm --prefix "ddd-cli" run test:cov
-	@npm --prefix "ddd-commander" run test
-	@npm --prefix "ddd-commander" run test:e2e
+	@test-unit
+	@make test-e2e
 
 
 help:
