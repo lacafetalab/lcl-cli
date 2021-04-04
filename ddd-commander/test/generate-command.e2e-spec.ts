@@ -56,3 +56,14 @@ describe('generate command User Error', () => {
     expect(result).toMatch(/only caracters de a la a-z A-Z/);
   });
 });
+
+describe.only('render command User', () => {
+  test('input command name correct -> select template none', async () => {
+    const result = await run([DOWN, ENTER, ENTER, 'create', ENTER, ENTER, ENTER]);
+    expect(result).toMatch(/Select aggregate User/);
+    expect(result).toMatch(/What do you want to generate in User\? Create Service Command/);
+    expect(result).toMatch(/COMMAND name create/);
+    expect(result).toMatch(/User properties id, name/);
+    expect(result).toMatch(/use template sdfsdfsdf/);
+  });
+});

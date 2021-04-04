@@ -21,8 +21,7 @@ export class JavaLanguage implements LanguageInterface {
     return `${name}.java`;
   }
 
-  folderPath(paths: string[], serviceName: string): string {
-    const path = paths.join('/');
-    return `${path}/${s.decapitalize(serviceName)}`;
+  folderPath(paths: string[]): string {
+    return paths.join('/');
   }
 }

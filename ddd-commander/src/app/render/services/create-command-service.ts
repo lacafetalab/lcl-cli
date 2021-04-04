@@ -24,8 +24,8 @@ export class CreateCommandService {
     this.renderService(
       aggregate,
       language,
-      service.className([commandName, aggregate.name.value, 'service']),
-      service.classFile([commandName, aggregate.name.value, 'service']),
+      service.className([aggregate.name.value, commandName, 'service']),
+      service.classFile([aggregate.name.value, commandName, 'service']),
       service.folderPath([aggregate.path.value, 'application', commandName]),
       properties.map((p) => aggregate.getPropertie(p)),
       templateService,
@@ -44,14 +44,14 @@ export class CreateCommandService {
     pathTemplate: string,
   ) {
     const file = `${folderPath}/${classFile}`;
-    const fileTemplate = `${pathTemplate}/main/${language}/application/command/service`;
+    const fileTemplate = `${pathTemplate}/main/${language}/application/command/service.ejs`;
 
     const render = this.generateRender(fileTemplate, {
       templateService,
       className,
       aggregate,
       strProperties: properties.map((e) => e.name.value).join(', '),
-      strVoProperties: properties.map((e) => `${e.className} ${e.name.value}`).join(', '),
+      strVoProperties: properties.map((e) => `${e.name.value}:${e.className}`).join(', '),
     });
 
     console.log(file);
@@ -64,37 +64,37 @@ export class CreateCommandService {
   }
 
   /*
-    private renderService(className:string): Template {
-      const className = this.service.className();
-      const file = `${this.folder}/${className}.java`;
-      const fileTemplate = `main/application/command/service`;
-      const voProperties = this.config.valueObjectProperties(this._properties);
-      const data = {
-        className,
-        entityRepositoryClass: `${this.config.entity}Repository`,
-        entityClass: this.config.entityClass,
-        entityClassPropertie: this.config.entityClassPropertie,
-        packageDomain: this.config.packageDomain,
-        serviceTemplate: this.templateService,
-        package: this.package,
-        strProperties: this.strProperties(this._properties),
-        strVoProperties: this.strVoProperties(voProperties),
-        voProperties,
-      };
-      return new Template(this.folder, file, fileTemplate, data);
-    }
-  
-    generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, messageCreated: string = '') {
-      fs.mkdirSync(path.join(renderFolder, param.folder), { recursive: true });
-      const str = this.generateRender(param, pathTemplates);
-      fs.writeFileSync(path.join(renderFolder, param.file), str, 'utf-8');
-      if (messageCreated !== '') {
-        console.log(`${messageCreated} : ${path.join(renderFolder, param.file)}`);
+      private renderService(className:string): Template {
+        const className = this.service.className();
+        const file = `${this.folder}/${className}.java`;
+        const fileTemplate = `main/application/command/service`;
+        const voProperties = this.config.valueObjectProperties(this._properties);
+        const data = {
+          className,
+          entityRepositoryClass: `${this.config.entity}Repository`,
+          entityClass: this.config.entityClass,
+          entityClassPropertie: this.config.entityClassPropertie,
+          packageDomain: this.config.packageDomain,
+          serviceTemplate: this.templateService,
+          package: this.package,
+          strProperties: this.strProperties(this._properties),
+          strVoProperties: this.strVoProperties(voProperties),
+          voProperties,
+        };
+        return new Template(this.folder, file, fileTemplate, data);
       }
-    }
-  
-    generateRender(template: Template, pathTemplates: string): string {
-      return ejs.render(fs.readFileSync(path.join(pathTemplates, template.template), 'utf-8'), template.dataTemplate);
-    }
-  */
+    
+      generateRenderSync(param: Template, renderFolder: string, pathTemplates: string, messageCreated: string = '') {
+        fs.mkdirSync(path.join(renderFolder, param.folder), { recursive: true });
+        const str = this.generateRender(param, pathTemplates);
+        fs.writeFileSync(path.join(renderFolder, param.file), str, 'utf-8');
+        if (messageCreated !== '') {
+          console.log(`${messageCreated} : ${path.join(renderFolder, param.file)}`);
+        }
+      }
+    
+      generateRender(template: Template, pathTemplates: string): string {
+        return ejs.render(fs.readFileSync(path.join(pathTemplates, template.template), 'utf-8'), template.dataTemplate);
+      }
+    */
 }
