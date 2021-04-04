@@ -1,4 +1,5 @@
 import { LanguageInterface } from './language-interface';
+import { LanguageList } from './language-list';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const s = require('underscore.string');
@@ -7,6 +8,10 @@ const s = require('underscore.string');
 const slugify = require('underscore.string/slugify');
 
 export class NodeLanguage implements LanguageInterface {
+  language(): string {
+    return LanguageList.NODE;
+  }
+
   className(names: string[]): string {
     return names
       .map((n) => {

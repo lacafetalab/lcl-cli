@@ -47,30 +47,3 @@ export function run(combo, timeout = 200) {
 export const DOWN = '\x1B\x5B\x42';
 export const UP = '\x1B\x5B\x41';
 export const ENTER = '\x0D';
-
-/*
-test('press enter', async t => {
-  const result = await run([cliPath], [ENTER]);
-  t.regex(result, new RegExp('TEST-1', 'g'));
-});
-
-test('press down, press enter', async t => {
-  const result = await run([cliPath], [DOWN, ENTER]);
-  t.regex(result, new RegExp('TEST-2', 'g'));
-});
-
-test('press up, press enter', async t => {
-  const result = await run([cliPath], [UP, ENTER]);
-  t.regex(result, new RegExp('TEST-3', 'g'));
-});
-
-test('press press up, press down, press enter', async t => {
-  const result = await run([cliPath], [UP, DOWN, ENTER]);
-  t.regex(result, new RegExp('TEST-1', 'g'));
-});
-
-test('run with data input', async t => {
-  const result = await run([cliPath], ['input-1', ENTER, 'input-2', ENTER]);
-  t.regex(result, new RegExp("username: 'input-1', password: 'input-2'", 'g'));
-});
-* */
