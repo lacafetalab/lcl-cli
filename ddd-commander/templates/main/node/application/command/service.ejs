@@ -13,6 +13,7 @@ export class <%= className %> {
     if (!<%= aggregate.name.propertie %>) {
     throw new NotFoundException(`<%= aggregate.name.value %> with id ${id} not found`);
     }
+    <%= aggregate.name.propertie %>.change(<%= strProperties %>);
     await this.repository.persist(<%= aggregate.name.propertie %>);
     <%_ } _%>
     <%_ if (templateService == "delete") { _%>
@@ -22,6 +23,6 @@ export class <%= className %> {
     }
     repository.delete(<%= aggregate.name.propertie %>);
     <%_ } _%>
-    //eventBus.publish(<%= <%= aggregate.name.value %> %>.pullDomainEvents());
+    //eventBus.publish(<%= aggregate.name.propertie %>.pullDomainEvents());
   }
 }

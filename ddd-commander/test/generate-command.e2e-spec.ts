@@ -57,9 +57,9 @@ describe('generate command User Error', () => {
   });
 });
 
-describe.only('render command User', () => {
+describe.skip('render command User', () => {
   test('input command name correct -> select template none', async () => {
-    const result = await run([DOWN, ENTER, ENTER, 'create', ENTER, ENTER, ENTER]);
+    const result = await run([DOWN, ENTER, ENTER, 'create', ENTER, ENTER, DOWN, ENTER]);
     expect(result).toMatch(/Select aggregate User/);
     expect(result).toMatch(/What do you want to generate in User\? Create Service Command/);
     expect(result).toMatch(/COMMAND name create/);
