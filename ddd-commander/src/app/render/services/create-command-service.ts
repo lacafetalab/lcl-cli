@@ -9,7 +9,7 @@ export class CreateCommandService {
   async execute(
     commandName: string,
     properties: string[],
-    templateService: string,
+    templateRender: string,
     aggregateName: string,
     collectionAggregate: CollectionAggregate,
   ) {
@@ -20,7 +20,7 @@ export class CreateCommandService {
       aggregate,
       service,
       properties.map((p) => aggregate.getPropertie(p)),
-      templateService,
+      templateRender,
       commandName,
     );
   }
@@ -29,7 +29,7 @@ export class CreateCommandService {
     aggregate: Aggregate,
     service: LanguageInterface,
     properties: Propertie[],
-    templateService: string,
+    templateRender: string,
     commandName: string,
   ) {
     const className = service.className([aggregate.name.value, commandName, 'service']);
@@ -39,7 +39,7 @@ export class CreateCommandService {
     Render.generate({
       templateFile: `${service.language()}/application/command/service.ejs`,
       templateData: {
-        templateService,
+        templateRender,
         className,
         aggregate,
         strProperties: properties.map((e) => e.name.value).join(', '),

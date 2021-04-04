@@ -7,15 +7,17 @@ import { CreateCommandService } from '../../../render/services/create-command-se
 const s = require('underscore.string');
 
 export class ServiceCommand implements GenerateInterface {
+  constructor(private createCommandService: CreateCommandService) {}
+
   async execute(aggregate: string, collectionAggregate: CollectionAggregate): Promise<void> {
     const answers = await inquirer.prompt(
       this.questions(aggregate, collectionAggregate.getAggregate(aggregate).propertiesNames),
     );
-    const createCommandService = new CreateCommandService();
-    await createCommandService.execute(
+
+    await this.createCommandService.execute(
       answers.commandName,
       answers.properties,
-      answers.templateService,
+      answers.templateRender,
       aggregate,
       collectionAggregate,
     );
@@ -24,7 +26,7 @@ export class ServiceCommand implements GenerateInterface {
   private questions(
     aggregate: string,
     properties: string[],
-  ): QuestionCollection<{ commandName: string; properties: string[]; templateService: string }> {
+  ): QuestionCollection<{ commandName: string; properties: string[]; templateRender: string }> {
     return [
       {
         type: 'input',
@@ -50,7 +52,7 @@ export class ServiceCommand implements GenerateInterface {
       },
       {
         type: 'list',
-        name: 'templateService',
+        name: 'templateRender',
         message: `use template`,
         choices: ['create', 'update', 'delete', 'none'],
         default: 'none',

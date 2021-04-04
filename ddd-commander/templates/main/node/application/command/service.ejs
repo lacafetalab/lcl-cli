@@ -5,11 +5,11 @@ export class <%= className %> {
   constructor(private repository: <%= aggregate.name.value %>Repository) {}
 
   public async execute(<%= strVoProperties %>): Promise<void> {
-    <%_ if (templateService == "create") { _%>
+    <%_ if (templateRender == "create") { _%>
     const <%= aggregate.name.propertie %> = <%= aggregate.name.value %>.create(<%= strProperties %>);
     await this.repository.persist(<%= aggregate.name.propertie %>);
     <%_ } _%>
-    <%_ if (templateService == "update") { _%>
+    <%_ if (templateRender == "update") { _%>
     const <%= aggregate.name.propertie %> = await this.repository.findById(id);
     if (!<%= aggregate.name.propertie %>) {
     throw new NotFoundException(`<%= aggregate.name.value %> with id ${id} not found`);
@@ -17,7 +17,7 @@ export class <%= className %> {
     <%= aggregate.name.propertie %>.change(<%= strProperties %>);
     await this.repository.persist(<%= aggregate.name.propertie %>);
     <%_ } _%>
-    <%_ if (templateService == "delete") { _%>
+    <%_ if (templateRender == "delete") { _%>
     const <%= aggregate.name.propertie %> = await this.repository.findById(id);
     if (!<%= aggregate.name.propertie %>) {
     throw new NotFoundException(`<%= aggregate.name.value %> with id ${id} not found`);
