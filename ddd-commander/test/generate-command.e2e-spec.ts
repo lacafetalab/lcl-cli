@@ -63,13 +63,19 @@ describe('command service User', () => {
     });
   });
 
-  describe.only('render command User', () => {
-    test('input command name correct -> select template create', async () => {
+  describe('render command create User', () => {
+    test('service -> select template create', async () => {
       await run([DOWN, ENTER, ENTER, 'create', ENTER, ENTER, DOWN, ENTER]);
       const render = readRender(PATH_USER_APPLICATION + '/create/user-create.service.ts');
       expect(render).toMatch(/export class UserCreateService/);
       expect(render).toMatch(/private repository: UserRepository/);
       expect(render).toMatch(/const user = User.create\(id, name\)/);
+    });
+
+    test.only('command -> select template create', async () => {
+      await run([DOWN, ENTER, ENTER, 'create', ENTER, ENTER, DOWN, ENTER]);
+      const render = readRender(PATH_USER_APPLICATION + '/create/user-create.command.ts');
+      expect(render).toMatch(/export class UserCreateHandler/);
     });
   });
 });

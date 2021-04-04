@@ -1,0 +1,33 @@
+import {
+IsDefined,
+IsNotEmpty,
+IsNumber,
+IsOptional,
+IsString,
+} from 'class-validator';
+import { Field, Float, InputType } from '@nestjs/graphql';
+
+
+@InputType('<%= classInput %>')
+export class <%= className %> extends CqBaseDto {
+  constructor() {
+    super();
+  }
+
+  <%_ properties.forEach(function(propertie){ _%>
+
+  <%_ if (propertie.required.value) { _%>
+  @IsDefined()
+  <%_ } _%>
+  <%_ if (!propertie.required.value) { _%>
+  @IsOptional()
+  <%_ } _%>
+  <%_ if (propertie.type.isString()) { _%>
+  @IsString()
+  <%_ } _%>
+  <%_ if (propertie.required.value) { _%>
+  @IsNotEmpty()
+  <%_ } _%>
+  <%= propertie.name.value %>: <%= propertie.type.primitive %>;
+  <%_ }); _%>
+}

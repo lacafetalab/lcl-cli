@@ -23,6 +23,36 @@ export class CreateCommandService {
       templateRender,
       commandName,
     );
+
+    CreateCommandService.renderCommand(
+      aggregate,
+      service,
+      properties.map((p) => aggregate.getPropertie(p)),
+      commandName,
+    );
+  }
+
+  private static renderCommand(
+    aggregate: Aggregate,
+    service: LanguageInterface,
+    properties: Propertie[],
+    commandName: string,
+  ) {
+    const classInput = service.className([aggregate.name.value, commandName, 'Input']);
+    const className = service.className([aggregate.name.value, commandName, 'Command']);
+    const generateFile = service.classFile([aggregate.name.value, commandName, 'Command']);
+    const generatefolder = service.folderPath([aggregate.path.value, 'application', commandName]);
+
+    Render.generate({
+      templateFile: `${service.language()}/application/command/command.ejs`,
+      templateData: {
+        classInput,
+        className,
+        properties,
+      },
+      generatefolder,
+      generateFile,
+    });
   }
 
   private static renderService(
