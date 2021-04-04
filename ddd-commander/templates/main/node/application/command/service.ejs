@@ -1,4 +1,5 @@
-import { BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
 @Injectable()
 export class <%= className %> {
   constructor(private repository: <%= aggregate.name.value %>Repository) {}

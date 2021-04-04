@@ -3,7 +3,7 @@ import { Aggregate } from './Aggregate';
 export class CollectionAggregate {
   constructor(private _collections: Aggregate[]) {}
 
-  get collections(): Aggregate[] {
+  get aggregates(): Aggregate[] {
     return this._collections;
   }
 

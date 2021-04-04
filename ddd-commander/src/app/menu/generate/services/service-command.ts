@@ -7,7 +7,7 @@ import { CreateCommandService } from '../../../render/services/create-command-se
 const s = require('underscore.string');
 
 export class ServiceCommand implements GenerateInterface {
-  async execute(aggregate: string, collectionAggregate: CollectionAggregate, pathTemplate: string): Promise<void> {
+  async execute(aggregate: string, collectionAggregate: CollectionAggregate): Promise<void> {
     const answers = await inquirer.prompt(
       this.questions(aggregate, collectionAggregate.getAggregate(aggregate).propertiesNames),
     );
@@ -18,7 +18,6 @@ export class ServiceCommand implements GenerateInterface {
       answers.templateService,
       aggregate,
       collectionAggregate,
-      pathTemplate,
     );
   }
 

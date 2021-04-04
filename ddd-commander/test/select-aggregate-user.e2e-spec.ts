@@ -1,6 +1,9 @@
-import { DOWN, ENTER, run } from './load-cmd';
+import { cleanRender, DOWN, ENTER, run } from './load-cmd';
 
 describe('select aggregate User', () => {
+  beforeEach(() => {
+    cleanRender();
+  });
   test('>user', async () => {
     const result = await run([DOWN, ENTER]);
     expect(result).toMatch(/Select aggregate User/);

@@ -1,6 +1,9 @@
-import { DOWN, ENTER, run, UP } from './load-cmd';
+import { cleanRender, DOWN, ENTER, run, UP } from './load-cmd';
 
 describe('list two aggregates', () => {
+  beforeEach(() => {
+    cleanRender();
+  });
   it('no press', async () => {
     const result = await run([]);
     expect(result).toMatch(/Select aggregate/);
