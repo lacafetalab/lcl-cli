@@ -1,21 +1,14 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 @CommandHandler(<%= classCommand %>)
-export class <%= className %>
-implements ICommandHandler<<%= classCommand %>> {
+export class <%= className %> implements ICommandHandler<<%= classCommand %>> {
   constructor(private service: <%= classService %>) {}
 
   async execute(command: <%= classCommand %>): Promise<void> {
-    const reference = command.reference ? command.reference : '';
-    await this.service.createClient(
-    command.id,
-    command.name,
-    command.address,
-    reference,
-    command.lat,
-    command.long,
-    command.cellphone,
-    command.storeId,
-    );
+  <%_ properties.forEach(function(propertie){ _%>
+    const <%= propertie.name.value %> = new <%= propertie.className %>(command.<%= propertie.name.value %>);
+  <%_ }); _%>
+
+    await this.service.execute(<%= strProperties %>);
   }
 }

@@ -1,19 +1,11 @@
-import {
-IsDefined,
-IsNotEmpty,
-IsNumber,
-IsOptional,
-IsString,
-} from 'class-validator';
+import { IsDefined, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Field, Float, InputType } from '@nestjs/graphql';
-
 
 @InputType('<%= classInput %>')
 export class <%= className %> extends CqBaseDto {
   constructor() {
     super();
   }
-
   <%_ properties.forEach(function(propertie){ _%>
 
   <%_ if (propertie.required.value) { _%>

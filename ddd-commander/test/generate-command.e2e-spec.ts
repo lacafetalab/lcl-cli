@@ -86,6 +86,8 @@ describe('command service User', () => {
       expect(render).toMatch(/implements ICommandHandler<UserCreateCommand>/);
       expect(render).toMatch(/private service: UserCreateService/);
       expect(render).toMatch(/async execute\(command: UserCreateCommand\)/);
+      expect(render).toMatch(/const id = new UserId\(command\.id\)/);
+      expect(render).toMatch(/const name = new UserName\(command\.name\)/);
     });
   });
 });

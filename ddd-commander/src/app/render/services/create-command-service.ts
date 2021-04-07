@@ -30,6 +30,13 @@ export class CreateCommandService {
       properties.map((p) => aggregate.getPropertie(p)),
       commandName,
     );
+
+    CreateCommandService.renderHandler(
+      aggregate,
+      service,
+      properties.map((p) => aggregate.getPropertie(p)),
+      commandName,
+    );
   }
 
   private static renderCommand(
@@ -74,6 +81,32 @@ export class CreateCommandService {
         aggregate,
         strProperties: properties.map((e) => e.name.value).join(', '),
         strVoProperties: properties.map((e) => `${e.name.value}: ${e.className}`).join(', '),
+      },
+      generatefolder,
+      generateFile,
+    });
+  }
+
+  private static renderHandler(
+    aggregate: Aggregate,
+    service: LanguageInterface,
+    properties: Propertie[],
+    commandName: string,
+  ) {
+    const classCommand = service.className([aggregate.name.value, commandName, 'command']);
+    const classService = service.className([aggregate.name.value, commandName, 'service']);
+    const className = service.className([aggregate.name.value, commandName, 'handler']);
+    const generateFile = service.classFile([aggregate.name.value, commandName, 'handler']);
+    const generatefolder = service.folderPath([aggregate.path.value, 'application', commandName]);
+
+    Render.generate({
+      templateFile: `${service.language()}/application/command/handler.ejs`,
+      templateData: {
+        classCommand,
+        classService,
+        className,
+        properties,
+        strProperties: properties.map((e) => e.name.value).join(', '),
       },
       generatefolder,
       generateFile,
