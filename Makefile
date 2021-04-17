@@ -27,6 +27,7 @@ test-unit:
 
 test-e2e:
 	npm --prefix "ddd-commander" run test:e2e
+	@#docker run -it -w /app -v $(PWD)/ddd-commander:/app node:14.16.1-stretch npm run test:e2e
 
 .PHONY: test
 test:

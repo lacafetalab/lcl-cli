@@ -78,7 +78,7 @@ describe('command service User', () => {
       expect(render).toMatch(/export class UserCreateCommand/);
     });
 
-    test.only('handler -> select template create', async () => {
+    test('handler -> select template create', async () => {
       await run([DOWN, ENTER, ENTER, 'create', ENTER, ENTER, DOWN, ENTER]);
       const render = readRender(PATH_USER_APPLICATION + '/create/user-create.handler.ts');
       expect(render).toMatch(/CommandHandler\(UserCreateCommand\)/);
